@@ -49,6 +49,7 @@ public class TotalFreedomMod extends JavaPlugin
     public static final String PASSWORD_VERIFY = "freedomopfopm334";
     public static final String YOU_ARE_NOT_IMPOSTER = "You are not an imposter or you are not an admin.";
     public static final String INCORRECT_PSW = "That password is incorrect.";
+    public static final String FREEDOMOP_MOD = ChatColor.GRAY + "[" + ChatColor.RED + "FreedomOpMod" + ChatColor.GRAY + "]";
     //
     public static String buildNumber = "0";
     public static String buildDate = TotalFreedomMod.buildDate = TFM_Util.dateToString(new Date());
