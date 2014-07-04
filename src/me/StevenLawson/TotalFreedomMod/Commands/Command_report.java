@@ -41,7 +41,7 @@ public class Command_report extends TFM_Command
 	        	if 
 	        	(TFM_AdminList.isSuperAdmin(admins))
 	        			{
-		admins.sendMessage(ChatColor.RED + "WARNING: " + player.getName() + " Has been reported for " + reason + "!");
+		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + "WARNING: " + player.getName() + " Has been reported for " + reason + "!");
 		return true;
 	}
 

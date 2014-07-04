@@ -80,7 +80,7 @@ public class Command_destroy extends TFM_Command{
                //insult them
 	        player.sendMessage(ChatColor.RED + "You faggot ass bitch go die in a hole");
 	       //send the admin the message
-	       sender.sendMessage(ChatColor.GRAY + "[" + ChatColor.RED + "FreedomOPMod" + ChatColor.GRAY + "]" + ChatColor.WHITE + "The deed has been done.")
+	       sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "The deed has been done.")
                sender.sendMessage(ChatColor.RED + "Banning is no longer done on here but it undos there edits and rolls them back :P");
 		return true;
 	}

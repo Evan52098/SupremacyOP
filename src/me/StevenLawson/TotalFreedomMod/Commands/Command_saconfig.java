@@ -43,7 +43,7 @@ public class Command_saconfig extends TFM_Command
                     return true;
                 }
 
-                TFM_Util.adminAction(sender.getName(), "Cleaning superadmin list", true);
+                TFM_Util.adminAction(TotalFreedomMod.FREEDOMOP_MOD + sender.getName(), "Cleaning superadmin list", true);
                 TFM_AdminList.cleanSuperadminList(true);
                 playerMsg("Superadmins: " + StringUtils.join(TFM_AdminList.getSuperNames(), ", "), ChatColor.YELLOW);
                 return true;
