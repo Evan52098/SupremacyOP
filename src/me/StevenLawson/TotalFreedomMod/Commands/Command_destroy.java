@@ -17,7 +17,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
-@CommandParameters(description = "Destroy", usage = "/<command> <playername>")
+@CommandParameters(description = "Destroy a faggot", usage = "/<command> <playername>")
 public class Command_destroy extends TFM_Command{
 
 	@Override
@@ -40,8 +40,6 @@ public class Command_destroy extends TFM_Command{
 	            reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
 	        }
 	        sender.sendMessage(ChatColor.RED + "Sending that Mother fucker to hell.");
-	        player.sendMessage(ChatColor.RED + "Welcome to hell mother fucker");
-	        player.sendMessage(ChatColor.RED + "Die in a hole");
 	        TFM_Util.bcastMsg(player.getName() + " has been sent to Hell.", ChatColor.RED);
 
 	        // Undo WorldEdits:
@@ -75,20 +73,15 @@ public class Command_destroy extends TFM_Command{
 	                targetPos.getWorld().strikeLightning(strike_pos);
 	            }
 	        }
-
-	        // ban IP address:
-	        String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-	        TFM_Util.bcastMsg(String.format("Banning: %s, IP: %s.", player.getName(), ip), ChatColor.RED);
-
-	        TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
-
-	        // ban username:
-	        TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName(), sender.getName(), null, reason));
-
-	        // kick Player:
-	        player.kickPlayer(ChatColor.RED + "You have been destroyed by " + sender.getName() + (reason != null ? ("\nReason: " + ChatColor.YELLOW + reason) : ""));
-
-
+	        //kill them.
+	        player.setHealth(0);
+               //welcome xD
+               	player.sendMessage(ChatColor.RED + "Welcome to hell mother fucker");
+               //insult them
+	        player.sendMessage(ChatColor.RED + "You faggot ass bitch go die in a hole");
+	       //send the admin the message
+	       sender.sendMessage(ChatColor.GRAY + "[" + ChatColor.RED + "FreedomOPMod" + ChatColor.GRAY + "]" + ChatColor.WHITE + "The deed has been done.")
+               sender.sendMessage(ChatColor.RED + "Banning is no longer done on here but it undos there edits and rolls them back :P");
 		return true;
 	}
 
