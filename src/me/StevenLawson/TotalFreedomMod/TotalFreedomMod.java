@@ -38,11 +38,11 @@ public class TotalFreedomMod extends JavaPlugin
     public static final String PROTECTED_AREA_FILE = "protectedareas.dat";
     public static final String SAVED_FLAGS_FILE = "savedflags.dat";
     //
-    public static final String MSG_NO_PERMS = ChatColor.YELLOW + "You do not have permission to use this command.";
-    public static final String YOU_ARE_OP = ChatColor.YELLOW + "You are now op!";
+    public static final String MSG_NO_PERMS = ChatColor.BLUE + "You do not have permission to use this command.";
+    public static final String YOU_ARE_OP = ChatColor.GREEN + "You are now op!";
     public static final String YOU_ARE_NOT_OP = ChatColor.YELLOW + "You are no longer op!";
     public static final String PIE_LYRICS = "PIE FOR EVERYONE! :D";
-    public static final String POTATO_LYRICS = "They're red, they're white, they're brown. They get that way underground. There can't be much to doSo now they have blue ones too. We don't care what they look like we'll eat them. Any way they can fit on our plate. Every way we can conjure to heat them. We're delighted and think they're just great.
+    public static final String POTATO_LYRICS = "They're red, they're white, they're brown. They get that way underground. There can't be much to doSo now they have blue ones too. We don't care what they look like we'll eat them. Any way they can fit on our plate. Every way we can conjure to heat them. We're delighted and think they're just great.";
     public static final String NUBCAKE = ChatColor.RED + "You are a nubcake.";
     public static final String CAKE_LYRICS = "But there's no sense crying over every mistake. You just keep on trying till you run out of cake.";
     public static final String NOT_FROM_CONSOLE = "This command may not be used from the console.";
