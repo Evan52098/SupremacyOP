@@ -2,6 +2,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_Ban;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
+import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
@@ -33,11 +34,17 @@ public class Command_gban extends TFM_Command
         TFM_Util.bcastMsg(ChatColor.RED + sender.getName() + " - Banning " + player.getName() + " For Griefing!");
 
 
-        server.dispatchCommand(sender, "co rb u:" + player.getName()) + " t:24h r:global";
+        server.dispatchCommand(sender, "co rb u:" + player.getName() + " t:24h r:global");
         player.kickPlayer(ChatColor.RED + "Griefing, Coreprotect confirm!  Banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net");
-        player.setBanned(true);
+        for (String playerIp : TFM_PlayerList.getInstance().getEntry(player).getIps())
+        {
+            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(playerIp, player.getName()));
+        }
+
+        // ban name
+        TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
         //IPBAN
-        sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + "Warning: " + player.getName() + " is not IP banned!");
+        player.kickPlayer("Don't grief you stupid derp :S");
         return true;
 	}
 
