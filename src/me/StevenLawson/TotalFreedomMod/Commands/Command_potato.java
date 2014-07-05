@@ -30,7 +30,7 @@ public class Command_potato extends TFM_Command
             output.append(ChatColor.COLOR_CHAR).append(color_code).append(word).append(" ");
         }
 
-        ItemStack heldItem = new ItemStack(Material.CPOTATO);
+        ItemStack heldItem = new ItemStack(Material.POTATO);
         ItemMeta heldItemMeta = heldItem.getItemMeta();
         heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("Dillons Special").append(ChatColor.BLACK).append("Potato").toString());
         heldItem.setItemMeta(heldItemMeta);
@@ -38,7 +38,7 @@ public class Command_potato extends TFM_Command
         for (Player player : server.getOnlinePlayers())
         {
             player.getInventory().setItem(player.getInventory().firstEmpty(), heldItem);
-            player.awardAchievement(Achievement.DIAMONDS);
+            player.awardAchievement(Achievement.THE_END);
         }
 
         TFM_Util.bcastMsg(output.toString());
