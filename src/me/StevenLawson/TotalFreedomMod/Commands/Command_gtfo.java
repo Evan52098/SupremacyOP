@@ -26,6 +26,12 @@ public class Command_gtfo extends TFM_Command
         {
             return false;
         }
+        if (args.length == 1)
+        {
+            playerMsg("Please use ban reasons -Robo", ChatColor.RED);
+            return false;
+        }
+
 
         final Player player = getPlayer(args[0]);
 
@@ -41,7 +47,7 @@ public class Command_gtfo extends TFM_Command
             reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
         }
 
-        TFM_Util.bcastMsg(player.getName() + " has been a VERY naughty, naughty boy.", ChatColor.RED);
+        TFM_Util.bcastMsg(player.getName() + " has been a VERY naughty, naughty boy/girl.", ChatColor.RED);
 
         // Undo WorldEdits:
         try
@@ -78,6 +84,7 @@ public class Command_gtfo extends TFM_Command
         // ban IP address:
         String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
         TFM_Util.bcastMsg(String.format("Banning: %s, IP: %s.", player.getName(), ip), ChatColor.RED);
+        TFM_Util.bcastMsg(ChatColor.RED +  (reason != null ? ("For: " + ChatColor.YELLOW + reason) : ""));
 
         TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
 
@@ -85,7 +92,7 @@ public class Command_gtfo extends TFM_Command
         TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName(), sender.getName(), null, reason));
 
         // kick Player:
-        player.kickPlayer(ChatColor.RED + "GTFO" + (reason != null ? ("\nReason: " + ChatColor.YELLOW + reason) : ""));
+        player.kickPlayer(ChatColor.RED + "GTFO" + "(" + sender.getName() + ")"+ (reason != null ? ("\nReason: " + ChatColor.YELLOW + reason) : ""));
 
         return true;
     }
