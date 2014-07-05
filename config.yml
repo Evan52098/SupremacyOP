@@ -247,8 +247,8 @@ petprotect:
 
 # Logs Registration
 logs:
-  url: 'fop.us.to'
-  secret: 'b54151fb64dd0cd511b6303488d3e31977cc46687a0d263f00d8b3d826228ad82065aeaad13bc95e'
+  url: ''
+  secret: ''
 
 # Mojang service checker
 service_checker_url: http://status.mojang.com/check
