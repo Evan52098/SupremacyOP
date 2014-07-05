@@ -30,7 +30,7 @@ public class Command_verify extends TFM_Command
 
             if (!TFM_AdminList.isAdminImpostor(sender_p))
             {
-                playerMsg(TotalFreedomMod.YOU_ARE_NOT_IMPOSTER)
+                playerMsg(TotalFreedomMod.YOU_ARE_NOT_IMPOSTER);
                 return true;
             }
             sender_p.sendMessage(ChatColor.RED + "You have verified");
