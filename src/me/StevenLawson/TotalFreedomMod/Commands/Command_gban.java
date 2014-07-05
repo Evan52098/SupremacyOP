@@ -37,7 +37,7 @@ public class Command_gban extends TFM_Command
         player.kickPlayer(ChatColor.RED + "Griefing, Coreprotect confirm!  Banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net");
         player.setBanned(true);
         //IPBAN
-        sender.sendMessage(ChatColor.RED + "Warning: " + player.getName() + " is not IP banned!");
+        sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + "Warning: " + player.getName() + " is not IP banned!");
         return true;
 	}
 
