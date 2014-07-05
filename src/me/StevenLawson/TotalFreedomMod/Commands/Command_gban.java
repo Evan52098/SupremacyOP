@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
-@CommandParameters(description = "Super Admin Command- Ban a user for griefing!", usage = "/<command> <player>")
+@CommandParameters(description = "Ban a user for griefing!", usage = "/<command> <player>")
 public class Command_gban extends TFM_Command
 {
 
@@ -32,13 +32,12 @@ public class Command_gban extends TFM_Command
         }
         TFM_Util.bcastMsg(ChatColor.RED + sender.getName() + " - Banning " + player.getName() + " For Griefing!");
 
-        server.dispatchCommand(sender, "/undo 15 " + player.getName());
-        
-        server.dispatchCommand(sender, "rollback " + player.getName());
-        player.kickPlayer(ChatColor.RED + "No Griefing! Banned by " + sender.getName() + " Wrongly Banned? Appeal on freedomop.boards.net");
+
+        server.dispatchCommand(sender, "co rb u:" + player.getName()) + " t:24h r:global";
+        player.kickPlayer(ChatColor.RED + "Griefing, Coreprotect confirm!  Banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net");
         player.setBanned(true);
         //IPBAN
-        sender.sendMessage(ChatColor.RED + "Warning: " + player.getName() + " Isnt Ip banned!");
+        sender.sendMessage(ChatColor.RED + "Warning: " + player.getName() + " is not IP banned!");
         return true;
 	}
 
