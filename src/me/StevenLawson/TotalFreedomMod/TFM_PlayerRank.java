@@ -1,7 +1,6 @@
 package me.StevenLawson.TotalFreedomMod;
 
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
-import static me.StevenLawson.TotalFreedomMod.TFM_Util.EXECUTIVES;
 import static me.StevenLawson.TotalFreedomMod.TFM_Util.DEVELOPERS;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -10,6 +9,7 @@ import org.bukkit.entity.Player;
 public enum TFM_PlayerRank
 {
     EXECUTIVE("a " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
+    SYS("a " + ChatColor.DARK_GREEN + "System Admin", ChatColor.DARK_GREEN + "[System Admin]")
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
     IMPOSTOR("an " + ChatColor.YELLOW + ChatColor.UNDERLINE + "Impostor", ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + "[IMP]"),
     NON_OP("a " + ChatColor.GREEN + "Non-OP", ChatColor.GREEN.toString()),
@@ -66,7 +66,7 @@ public enum TFM_PlayerRank
         {
             return IMPOSTOR;
         }
-        if (EXECUTIVES.contains(sender.getName()))
+        if (sender.getName().equals("lynxlps"))
         {
             return EXECUTIVE;
         }
