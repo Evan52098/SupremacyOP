@@ -74,13 +74,13 @@ public class Command_destroy extends TFM_Command{
 	            }
 	        }
 	        //kill them.
-	        player.setHealth(0);
+	        player.setHealth(0.0);
                //welcome xD
                	player.sendMessage(ChatColor.RED + "Welcome to hell mother fucker");
                //insult them
 	        player.sendMessage(ChatColor.RED + "You faggot ass bitch go die in a hole");
 	       //send the admin the message
-	       sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "The deed has been done.")
+	       sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "The deed has been done.");
                sender.sendMessage(ChatColor.RED + "Banning is no longer done on here but it undos there edits and rolls them back :P");
 		return true;
 	}
