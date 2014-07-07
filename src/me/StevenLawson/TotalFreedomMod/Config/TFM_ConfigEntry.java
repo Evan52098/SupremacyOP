@@ -74,8 +74,7 @@ public enum TFM_ConfigEntry
     UNBANNABLE_USERNAMES(List.class, "unbannable_usernames"),
     ADMIN_ONLY_MODE(Boolean.class, "admin_only_mode"),
     AUTO_ENTITY_WIPE(Boolean.class, "auto_wipe"),
-    CONSOLE_IS_SENIOR(Boolean.class, "console_is_senior"),
-    DEV_MODE(Boolean.class, "dev_mode");
+    CONSOLE_IS_SENIOR(Boolean.class, "console_is_senior");
     //
     private final Class<?> type;
     private final String configName;
