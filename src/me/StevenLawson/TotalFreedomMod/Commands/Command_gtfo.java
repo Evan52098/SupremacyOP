@@ -29,7 +29,7 @@ public class Command_gtfo extends TFM_Command
         if (args.length == 1)
         {
             playerMsg("Please use ban reasons -Robo", ChatColor.RED);
-            return false;
+            return true;
         }
 
 
@@ -83,7 +83,7 @@ public class Command_gtfo extends TFM_Command
 
         // ban IP address:
         String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-        TFM_Util.bcastMsg(String.format("Banning: %s, IP: %s.", player.getName(), ip), ChatColor.RED);
+        TFM_Util.bcastMsg(String.format("%s - Banning: %s, IP: %s.", sener.getName(), player.getName(), ip), ChatColor.RED);
         TFM_Util.bcastMsg(ChatColor.RED +  (reason != null ? ("For: " + ChatColor.YELLOW + reason) : ""));
 
         TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
