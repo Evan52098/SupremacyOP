@@ -12,13 +12,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.BOTH)
+@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
 @CommandParameters(description = "PotatoPotatoPotato", usage = "/<command>")
 public class Command_potato extends TFM_Command
 {
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+        if (!sender.getName().equalsIgnoreCase("supitsdillon))
+        {
+            playerMsg("Only those with ultimate potato powers may use this command", ChatColor.GRAY);
+        }
 
         StringBuilder output = new StringBuilder();
         Random randomGenerator = new Random();
