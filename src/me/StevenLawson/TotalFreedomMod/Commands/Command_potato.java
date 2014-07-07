@@ -36,7 +36,7 @@ public class Command_potato extends TFM_Command
 
         ItemStack heldItem = new ItemStack(Material.POTATO);
         ItemMeta heldItemMeta = heldItem.getItemMeta();
-        heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("Dillons Special").append(ChatColor.BLACK).append("Potato").toString());
+        heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("Dillons Special").append(ChatColor.BLACK).append(" Potato").toString());
         heldItem.setItemMeta(heldItemMeta);
 
         for (Player player : server.getOnlinePlayers())
