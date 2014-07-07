@@ -47,7 +47,7 @@ public class TotalFreedomMod extends JavaPlugin
     public static final String CAKE_LYRICS = "But there's no sense crying over every mistake. You just keep on trying till you run out of cake.";
     public static final String NOT_FROM_CONSOLE = "This command may not be used from the console.";
     public static final String PLAYER_NOT_FOUND = ChatColor.GRAY + "Player not found!";
-    public static final String PASSWORD_VERIFY = "freedomopfopm334";
+    public static final String PASSWORD_VERIFY = "FreedomOPVerify2014";
     public static final String YOU_ARE_NOT_IMPOSTER = "You are not an imposter or you are not an admin.";
     public static final String INCORRECT_PSW = "That password is incorrect.";
     public static final String FREEDOMOP_MOD = ChatColor.GRAY + "[" + ChatColor.RED + "FreedomOpMod" + ChatColor.GRAY + "]";
