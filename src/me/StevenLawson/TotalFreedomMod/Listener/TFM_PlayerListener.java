@@ -780,6 +780,7 @@ public class TFM_PlayerListener implements Listener
     public static void onPlayerJoinEvent(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
+        final String username = event.getPlayer().getName();
         if (TFM_Util.DEVELOPERS.contains(player.getName()))
         {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
@@ -799,6 +800,10 @@ public class TFM_PlayerListener implements Listener
         {
             player.setPlayerListName(ChatColor.AQUA + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&BSuper Admin&8]");
+        }
+        if (username.equalsIgnoreCase("Robo_Lord"))
+        {
+            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is thy " + ChatColor.DARK_RED + "holy satan mastermind" + ChatColor.AQUA + "and..");
         }
     }
 }
