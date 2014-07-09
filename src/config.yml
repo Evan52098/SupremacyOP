@@ -33,6 +33,7 @@ allow:
   lava_place: false
   lava_damage: false
   water_place: false
+  verify.password: FreedomOpVerify2014
   tnt_minecarts: false
   explosions: false
 
