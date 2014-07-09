@@ -14,17 +14,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.ONLY_CONSOLE)
+@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
 @CommandParameters(description = "For the bad Superadmins", usage = "/<command> <playername>")
 public class Command_build extends TFM_Command
 {
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+    
            if (!sender.getName().equalsIgnoreCase("buildcarter8"))
         {
             playerMsg(TotalFreedomMod.MSG_NO_PERMS);
-            TFM_Util.bcastMsg(TotalFreedomMod.FREEDOMOP_MOD + player.getName() + " Has tried to use builds command!");
             return true;
         }
         if (args.length != 1)
@@ -40,9 +40,9 @@ public class Command_build extends TFM_Command
             return true;
         }
         
-        TFM_Util.adminAction(sender.getName(), "Murdering " + player.getName(), true);
-        TFM_Util.bcastMsg(player.getName() + " YOU WILL FACE THE WRATH OF BUILD");
-        TFM_Util.bcastMsg(player.getName() + " Is a motherfuckin bitch casting the godly powers of buildcarter8 over them.");
+        TFM_Util.adminAction(ChatColor.RED + sender.getName(), "Murdering " + player.getName(), true);
+        TFM_Util.bcastMsg(ChatColor.RED + player.getName() + " YOU WILL FACE THE WRATH OF BUILD");
+        TFM_Util.bcastMsg(ChatColor.RED + player.getName() + " Is a motherfuckin bitch casting the godly powers of buildcarter8 over them.");
 
         final String ip = player.getAddress().getAddress().getHostAddress().trim();
 
