@@ -34,7 +34,7 @@ public class Command_potato extends TFM_Command
             output.append(ChatColor.COLOR_CHAR).append(color_code).append(word).append(" ");
         }
 
-        ItemStack heldItem = new ItemStack(Material.POTATO);
+        ItemStack heldItem = new ItemStack(Material.POTATO_ITEM);
         ItemMeta heldItemMeta = heldItem.getItemMeta();
         heldItemMeta.setDisplayName((new StringBuilder()).append(ChatColor.WHITE).append("Dillons Special").append(ChatColor.BLACK).append(" Potato").toString());
         heldItem.setItemMeta(heldItemMeta);
