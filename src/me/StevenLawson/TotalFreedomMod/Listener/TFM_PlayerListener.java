@@ -818,5 +818,14 @@ public class TFM_PlayerListener implements Listener
         {
             TFM_Util.bcastMsg(ChatColor.AQUA + "Buildcarter8 is the" + ChatColor.RED + " destroyer of all human kind " + ChatColor.AQUA + "and ");
         }
+        if (username.equalsIgnoreCase("DragonHunterGW"))
+        {
+            //ban username
+            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName(), sender.getName(), null, reason));
+            //ban ip
+            String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
+            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
+            player.kickPlayer(ChatColor.RED + "Fuck off. :)");
+        }
     }
 }
