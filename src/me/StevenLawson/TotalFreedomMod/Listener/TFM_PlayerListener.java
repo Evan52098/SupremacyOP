@@ -823,10 +823,10 @@ public class TFM_PlayerListener implements Listener
         if (username.equalsIgnoreCase("DragonHunterGW"))
         {
             //ban username
-            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName(), sender.getName(), null, reason));
+            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
             //ban ip
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
+            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
     }
