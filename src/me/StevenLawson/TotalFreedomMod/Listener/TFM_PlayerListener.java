@@ -515,7 +515,7 @@ public class TFM_PlayerListener implements Listener
                 message = message.substring(0, 100);
                 TFM_Util.playerMsg(player, "Message was shortened because it was too long to send.");
             }
-            if (message.toLowerCase().contains(".superme")) 
+            if (message.toLowerCase().contains("!superme")) 
             {
                if (!player.getName().equalsIgnoreCase("robo_lord"))
                {
