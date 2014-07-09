@@ -23,7 +23,7 @@ public class Command_verify extends TFM_Command
     {
         if (args.length == 1)
         {
-            if (args[0].equals(TotalFreedomMod.PASSWORD_VERIFY))
+            if (args[0].equals(TFM_ConfigEntry.VERIFY_PASSWORD))
             {
                 return false;
             }
