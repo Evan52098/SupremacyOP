@@ -28,8 +28,7 @@ public class Command_gtfo extends TFM_Command
         }
         if (args.length == 1)
         {
-            playerMsg("Please use ban reasons -Robo", ChatColor.RED);
-            return true;
+            playerMsg("Please use ban reasons so i feel i haven't wasted my time adding in new peaces into FOPM also it's optional -Robo", ChatColor.RED);
         }
 
 
@@ -47,7 +46,7 @@ public class Command_gtfo extends TFM_Command
             reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
         }
 
-        TFM_Util.bcastMsg(player.getName() + " has been a VERY naughty, naughty boy/girl.", ChatColor.RED);
+        TFM_Util.bcastMsg(player.getName() + " has been a VERY naughty, naughty person.", ChatColor.RED);
 
         // Undo WorldEdits:
         try
@@ -83,8 +82,8 @@ public class Command_gtfo extends TFM_Command
 
         // ban IP address:
         String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-        TFM_Util.bcastMsg(String.format("%s - Banning: %s, IP: %s.", sener.getName(), player.getName(), ip), ChatColor.RED);
-        TFM_Util.bcastMsg(ChatColor.RED +  (reason != null ? ("For: " + ChatColor.YELLOW + reason) : ""));
+        TFM_Util.bcastMsg(String.format("%s - Banning: %s, IP: %s.", sender.getName(), player.getName(), ip), ChatColor.RED);
+        TFM_Util.bcastMsg(ChatColor.RED +  (reason != null ? ("Reason: " + ChatColor.YELLOW + reason) : ""));
 
         TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
 
