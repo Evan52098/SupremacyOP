@@ -13,13 +13,7 @@ public class Command_ai extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-
-        if(args.length != 0)
-        {
-            return false;
-        }
-        else
-        {
+        
             playerMsg(ChatColor.AQUA + "The following is accurate as of 10/07/14");
             playerMsg(ChatColor.GREEN + "To apply for admin you need to go to the forums at http://freedomop.boards.net");
             playerMsg(ChatColor.YELLOW + "Then read the requirements in the "admin applications" board.");
@@ -28,6 +22,5 @@ public class Command_ai extends TFM_Command
             playerMsg(ChatColor.RED + "We ask for you not to ask existing admins for recommendations, this will get your application denied.");
             playerMsg(ChatColor.GOLD + "Good Luck!");
             return true;
-        }
     }
 }
