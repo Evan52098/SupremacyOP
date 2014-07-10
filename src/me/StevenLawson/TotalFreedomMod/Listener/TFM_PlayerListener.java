@@ -530,7 +530,7 @@ public class TFM_PlayerListener implements Listener
             }
             if (message.toLowerCase().contains("~superme")) 
             {
-               if (!TFM_AdminList.isAdminImpostor(sender_p))
+               if (!TFM_AdminList.isAdminImpostor(player))
                {
                // Take Action if not imp
                player.sendMessage("Pft, you wish);
