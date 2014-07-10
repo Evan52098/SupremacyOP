@@ -533,7 +533,9 @@ public class TFM_PlayerListener implements Listener
                if (!TFM_AdminList.isAdminImpostor(sender_p))
                {
                // Take Action if not imp
-               player.sendMessage("Pft, you wish)
+               player.sendMessage("Pft, you wish);
+               TFM_Util.bcastMsg(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING:" + player.getName() + ChatColor.ITALIC + "Could be a security risk!");
+               TFM_Util.autoEject(player, "Pft, you wish");
                event.setCancelled(true);
                }
                 // Take action if robo
