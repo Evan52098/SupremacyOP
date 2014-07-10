@@ -15,9 +15,9 @@ public class Command_fakesa extends TFM_Command
     
 	@Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
-		if (args.length < 0)
+	if (args.length < 0)
         {
-            return true;
+            return false;
         }
 
         if (args.length == 1)
@@ -30,11 +30,13 @@ public class Command_fakesa extends TFM_Command
                 
             if (args[0].equalsIgnoreCase("add"))
             {
-            	TFM_Util.bcastMsg(sender.getName() + " - Adding " + player.getName() + " to the superadmin list.", ChatColor.RED );
+            	TFM_Util.bcastMsg(sender.getName() + " - Adding " + player.getName() + " to the superadmin list.", ChatColor.RED);
+            	return true;
             }
             if (args[0].equalsIgnoreCase("remove"))
             {
             	TFM_Util.bcastMsg(sender.getName() + " - Removing " + player.getName() + " from the superadmin list.");
+            	return true;
             }
 		return true;
 
