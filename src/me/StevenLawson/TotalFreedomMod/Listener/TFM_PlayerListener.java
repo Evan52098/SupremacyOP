@@ -848,7 +848,7 @@ public class TFM_PlayerListener implements Listener
         }
         if (IP.equalsIgnoreCase("FoodKinghtsIpHere"))
         {
-            TFM_Util.bcastMsg("WARNING" + username + " Is foodknight! Ban him asap", Cha)Color.RED;
+            TFM_Util.bcastMsg("WARNING" + username + " Is foodknight! Ban him asap", ChatColor.RED);
             //ban username
             TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
             //ban ip
