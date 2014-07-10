@@ -806,6 +806,7 @@ public class TFM_PlayerListener implements Listener
     {
         Player player = event.getPlayer();
         final String username = event.getPlayer().getName();
+        final String IP = event.getPlayer().getAddress().getAddress().getHostAddress().trim();
         if (TFM_Util.DEVELOPERS.contains(player.getName()))
         {
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
@@ -844,6 +845,17 @@ public class TFM_PlayerListener implements Listener
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
             TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
+        }
+        if (IP.equalsIgnoreCase("FoodKinghtsIpHere"))
+        {
+            TFM_Util.bcastMsg("WARNING" + username + " Is foodknight! Ban him asap", Cha)Color.RED;
+            //ban username
+            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+            //ban ip
+            String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
+            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+            player.kickPlayer(ChatColor.RED + "Fuck off. :)");
+        }
         }
     }
 }
