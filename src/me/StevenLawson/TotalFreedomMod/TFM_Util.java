@@ -305,7 +305,7 @@ public class TFM_Util
 
                         block.setType(material);
                     }
-                    else // Darth mode
+                    else // Robuh mode
                     {
                         if (Math.abs(xOffset) == length && Math.abs(yOffset) == length && Math.abs(zOffset) == length)
                         {
@@ -316,7 +316,7 @@ public class TFM_Util
                         block.setType(Material.SKULL);
                         final Skull skull = (Skull) block.getState();
                         skull.setSkullType(SkullType.PLAYER);
-                        skull.setOwner("DarthSalamon");
+                        skull.setOwner("Robo_Lord");
                         skull.update();
                     }
                 }
