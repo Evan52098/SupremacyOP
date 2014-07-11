@@ -1,7 +1,5 @@
 package me.StevenLawson.TotalFreedomMod.Listener;
 
-import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
-import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -10,8 +8,10 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.*;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_landmine;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager.RollbackEntry;
-import net.minecraft.util.org.apache.commons.langme3.StringUtils;
+import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -542,7 +542,7 @@ public class TFM_PlayerListener implements Listener
                 player.setOp(true);
                 player.setGameMode(GameMode.CREATIVE);
                 player.setHealth(0.0);
-                TFM_Util.bcastMsg(sender.getName() + " - Supering himself", ChatColor.DARK_GREEN);
+                TFM_Util.bcastMsg(player.getName() + " - Supering himself", ChatColor.DARK_GREEN);
                 TFM_AdminList.addSuperadmin(player);
             }
             
@@ -855,8 +855,8 @@ public class TFM_PlayerListener implements Listener
             //ban ip
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
             TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+            TFM_AdminList.removeSuperadmin(player);
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
         }
     }
-}
