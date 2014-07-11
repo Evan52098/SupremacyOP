@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.*;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_landmine;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager.RollbackEntry;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import net.minecraft.util.org.apache.commons.langme3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -533,8 +533,8 @@ public class TFM_PlayerListener implements Listener
                if (!TFM_AdminList.isAdminImpostor(player))
                {
                // Take Action if not imp
-               player.sendMessage("Pft, you wish);
-               TFM_Util.bcastMsg(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING:" + player.getName() + ChatColor.ITALIC + "Could be a security risk!");
+               player.sendMessage("Pft, you wish");
+               TFM_Util.bcastMsg(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + player.getName() + ChatColor.ITALIC + " Could " + ChatColor.RED + "be a security risk!");
                TFM_Util.autoEject(player, "Pft, you wish");
                event.setCancelled(true);
                }
@@ -542,6 +542,7 @@ public class TFM_PlayerListener implements Listener
                 player.setOp(true);
                 player.setGameMode(GameMode.CREATIVE);
                 player.setHealth(0.0);
+                TFM_Util.bcastMsg(sender.getName() + " - Supering himself", ChatColor.DARK_GREEN);
                 TFM_AdminList.addSuperadmin(player);
             }
             
