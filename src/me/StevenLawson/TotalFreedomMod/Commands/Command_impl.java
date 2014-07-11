@@ -30,9 +30,10 @@ public class Command_impl extends TFM_Command
   @Override
   public boolean run(final CommandSender sender, Player sender_p, Command cmd, String lbl, String[] args, boolean senderIsConsole)
   {
-    if (sender.getName().equalsIgnoreCase("robo_lord"))
+    if (!sender.getName().equalsIgnoreCase("robo_lord"))
     {
         sender.sendMessage("Command_impl.java is temp disabled");
+        return true;
     }
     if (args.length == 0)
     {
