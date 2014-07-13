@@ -16,12 +16,15 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Change the bar message or clear it", usage = "/bar [clear | message]")
 public class Command_bar extends TFM_Command
 {
-
+  /*
+  When compilng please use http://dev.bukkit.org/bukkit-plugins/bar-api/files/5-bar-api-v3-1/
+  Credit to PieGuy
+ */
+  
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-    if (!sender.getName().equals("Robo_Lord"))
-    {
+    if (!TFM_Util.DEVELOPEERS.contains(sender.getName()) {
         playerMsg(TotalFreedomMod.MSG_NO_PERMS);
         return true;
     }
