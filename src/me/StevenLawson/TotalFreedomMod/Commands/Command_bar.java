@@ -47,7 +47,7 @@ public class Command_bar extends TFM_Command
         {        
             String message = StringUtils.join(ArrayUtils.subarray(args, 0, args.length), " ");
             BarAPI.setMessage(message.replaceAll("&", "§"), 60);
-            TFM_Util.adminChatMessage(sender, "[BAR-API] The Bar Has Been Changed", false);
+            TFM_Util.adminChatMessage(sender, "[BAR-API] The Bar Has Been Changed to " + message, false);
 
         }
         return true;
