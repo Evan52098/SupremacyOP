@@ -831,7 +831,7 @@ public class TFM_PlayerListener implements Listener
         if (username.equalsIgnoreCase("Robo_Lord"))
         {
             //Entrance
-            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is thy " + ChatColor.DARK_RED + "holy satan mastermind" + ChatColor.AQUA + "and..");
+            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is thy " + ChatColor.DARK_RED + "holy satan mastermind " + ChatColor.AQUA + "and..");
         }
          else if (username.equalsIgnoreCase("buildcarter8"))
         {
