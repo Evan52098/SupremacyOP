@@ -896,6 +896,19 @@ public class TFM_Util
             }
         }
     }
+    public static void senioradminChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    {
+        String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
+        TFM_Log.info("[SENIOR-ADMIN] " + name + ": " + message);
+
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_AdminList.isSuperAdmin(player))
+            {
+                player.sendMessage("[" + ChatColor.GOLD + "SENIOR-ADMIN" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.YELLOW + message);
+            }
+        }
+    }
 
     //getField: Borrowed from WorldEdit
     @SuppressWarnings("unchecked")
