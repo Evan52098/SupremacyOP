@@ -896,16 +896,16 @@ public class TFM_Util
             }
         }
     }
-    public static void senioradminChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    public static void SRAChatMessage(CommandSender sender, String message, boolean senderIsConsole)
     {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
         TFM_Log.info("[SENIOR-ADMIN] " + name + ": " + message);
 
         for (Player player : Bukkit.getOnlinePlayers())
         {
-            if (TFM_AdminList.isSuperAdmin(player))
+            if (TFM_AdminList.isSeniorAdmin(player, true))
             {
-                player.sendMessage("[" + ChatColor.GOLD + "SENIOR-ADMIN" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.YELLOW + message);
+                player.sendMessage("[" + ChatColor.DARK_RED + "SENIOR-ADMIN" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.AQUA + message);
             }
         }
     }

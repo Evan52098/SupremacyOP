@@ -2,6 +2,10 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
+import net.minecraft.util.org.apache.commons.lang3.ArrayUtils;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,7 +24,7 @@ public class Command_report extends TFM_Command
             return false;
         }
 
-        final Player p = getPlayer(args[0]);
+        final Player player = getPlayer(args[0]);
 
         if (player == null)
         {
@@ -31,6 +35,11 @@ public class Command_report extends TFM_Command
        for (Player admins: this.server.getOnlinePlayers()){
        if (TFM_AdminList.isSuperAdmin(admins))
 	{
+           String reason = null;
+           if (args.length >= 2)
+           {
+               reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
+           }
 		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + player.getName() + " Has been reported for " + reason + "!");
 		return true;
 	}
