@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
 @CommandParameters(
-        description = "AdminChat - Talk privately with other admins. Using <command> itself will toggle AdminChat on and off for all messages.",
+        description = "Same as normal adminchat but for seniors.",
         usage = "/<command> [message...]",
-        aliases = "adminchat")
+        aliases = "senioradminchat")
 public class Command_p extends TFM_Command
 {
     @Override
@@ -21,7 +21,7 @@ public class Command_p extends TFM_Command
         {
             if (senderIsConsole)
             {
-                playerMsg("Only in-game players can toggle AdminChat.");
+                playerMsg("Only in-game players can toggle Senior AdminChat.");
                 return true;
             }
 
