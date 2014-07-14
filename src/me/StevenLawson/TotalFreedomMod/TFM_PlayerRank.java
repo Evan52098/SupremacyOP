@@ -75,6 +75,11 @@ public enum TFM_PlayerRank
         {
             return EXECUTIVE;
         }
+        // He's executive assistant to Paldiu
+        if (sender.getName().equalsIgnoreCase("jamelb"))
+        {
+            return EXECUTIVE;
+        }
         if (sender.getName().equals("SupItsDillon"))
         {
             return SECURITY;
