@@ -26,8 +26,8 @@ public class Command_p extends TFM_Command
             }
 
             TFM_PlayerData userinfo = TFM_PlayerData.getPlayerData(sender_p);
-            userinfo.setSRAChat(!userinfo.inSRAChat());
-            playerMsg("Toggled Senior Admin Chat " + (userinfo.inSRAChat() ? "on" : "off") + ".");
+            userinfo.setadminChat(!userinfo.inSRAChat());
+            playerMsg("Toggled Senior Admin Chat " + (userinfo.inadminChat() ? "on" : "off") + ".");
         }
         else
         {
