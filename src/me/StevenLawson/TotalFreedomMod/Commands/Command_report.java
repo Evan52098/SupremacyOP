@@ -1,3 +1,4 @@
+/*
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
@@ -44,3 +45,4 @@ public class Command_report extends TFM_Command
         return true;
     }
 }
+*/
