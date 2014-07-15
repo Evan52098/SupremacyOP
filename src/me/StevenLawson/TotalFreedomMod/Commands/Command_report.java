@@ -30,9 +30,10 @@ public class Command_report extends TFM_Command
             return true;
         }
 
-       for (Player admins: this.server.getOnlinePlayers()){
-       if (TFM_AdminList.isSuperAdmin(admins))
-	{
+       for (Player admins : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_AdminList.isSuperAdmin(admins))
+            {
 		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + player.getName() + " Has been reported for " + reason + "!");
 		return true;
 	}
