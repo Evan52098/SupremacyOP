@@ -8,7 +8,8 @@ import org.bukkit.entity.Player;
 
 public enum TFM_PlayerRank
 {
-    EXECUTIVE("a " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
+    EXECUTIVE("an " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
+    WEB("the " + ChatColor.RED + "Chief Web Developer!", ChatColor.RED + "[Chief Web Developer]"),
     SECURITY("The chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
     SYS("a " + ChatColor.DARK_GREEN + "System Admin", ChatColor.DARK_GREEN + "[System Admin]"),
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
@@ -83,6 +84,10 @@ public enum TFM_PlayerRank
         if (sender.getName().equals("SupItsDillon"))
         {
             return SECURITY;
+        }
+        if (sender.getName().equals("aggelosQQ"))
+        {
+            return WEB;
         }
         if (DEVELOPERS.contains(sender.getName()))
         {
