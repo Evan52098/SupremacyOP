@@ -1,4 +1,3 @@
-/*
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
@@ -31,10 +30,11 @@ public class Command_report extends TFM_Command
             return true;
         }
 
-       for (Player admins : Bukkit.getOnlinePlayers())
+       for (Player admins : server.getOnlinePlayers())
         {
             if (TFM_AdminList.isSuperAdmin(admins))
             {
+		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + "&a" + player.getName() + "and This report has been sent to the admins.");
 		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + player.getName() + " Has been reported for " + reason + "!");
 		return true;
 	}
@@ -45,4 +45,3 @@ public class Command_report extends TFM_Command
         return true;
     }
 }
-*/
