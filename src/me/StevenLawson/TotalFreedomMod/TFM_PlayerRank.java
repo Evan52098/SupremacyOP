@@ -11,7 +11,7 @@ public enum TFM_PlayerRank
     EXECUTIVE("an " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
     WEB("the " + ChatColor.RED + "Chief Web Developer!", ChatColor.RED + "[Chief Web Developer]"),
     SECURITY("The chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
-    SYS("a " + ChatColor.DARK_GREEN + "System Admin", ChatColor.DARK_GREEN + "[System Admin]"),
+    SYS("a " + ChatColor.DARK_RED + "System Administrator", ChatColor.DARK_RED + "[System Admin]"),
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
     IMPOSTOR("an " + ChatColor.YELLOW + ChatColor.UNDERLINE + "Impostor", ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + "[IMP]"),
     NON_OP("a " + ChatColor.GREEN + "Non-OP", ChatColor.GREEN.toString()),
@@ -74,7 +74,11 @@ public enum TFM_PlayerRank
         }
         if (sender.getName().equals("cowgomooo12"))
         {
-            return EXECUTIVE;
+            return SYS;
+        }
+        if (sender.getName().equals("EnderLolzeh"))
+        {
+            return SYS;
         }
         // He's executive assistant to Paldiu
         if (sender.getName().equalsIgnoreCase("jamelb"))
