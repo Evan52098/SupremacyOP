@@ -28,7 +28,7 @@ public class Command_gtfo extends TFM_Command
         }
         if (args.length == 1)
         {
-            playerMsg("Please use ban reasons so i feel i haven't wasted my time adding in new peaces into FOPM also it's optional -Robo", ChatColor.RED);
+            playerMsg("Please use ban reasons so I feel I haven't wasted my time adding in new pieces into FOPM also it's optional -Robo", ChatColor.RED);
         }
 
 
