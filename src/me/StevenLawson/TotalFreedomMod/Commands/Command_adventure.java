@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.OP, source = SourceType.BOTH)
-@CommandParameters(description = "Quickly change your own gamemode to adventure, or define someone's username to change theirs.", usage = "/<command> [partialname]")
+@CommandParameters(description = "Quickly change your own gamemode to Adventure, or define someone's username to change theirs.", usage = "/<command> [partialname]")
 public class Command_adventure extends TFM_Command
 {
     @Override
