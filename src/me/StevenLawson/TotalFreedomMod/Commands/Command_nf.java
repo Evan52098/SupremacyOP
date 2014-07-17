@@ -1,114 +1,212 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import me.StevenLawson.TotalFreedomMod.TFM_CommandBlocker;
+import me.StevenLawson.TotalFreedomMod.TFM_Log;
+import net.minecraft.util.org.apache.commons.lang3.ArrayUtils;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandPermissions(level = AdminLevel.OP, source = SourceType.BOTH)
-@CommandParameters(description = "NickFilter: Prefix any command with this command to replace nicknames in that command with real names. Nicknames should be prefixed with a !.", usage = "/<command> <other_command> !<playernick>")
-public class Command_nf extends TFM_Command
+@CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH)
+@CommandParameters(description = "No Description Yet", usage = "/<command>")
+public class Command_cbtool extends TFM_Command
 {
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        boolean nickMatched = false;
-
-        final List<String> outputCommand = new ArrayList<String>();
-
-        if (args.length >= 1)
+        if (args.length < 1)
         {
-            final List<String> argsList = Arrays.asList(args);
-            for (String arg : argsList)
-            {
-                Player player = null;
-
-                Matcher matcher = Pattern.compile("^!(.+)$").matcher(arg);
-                if (matcher.find())
-                {
-                    String displayName = matcher.group(1);
-
-                    player = getPlayerByDisplayName(displayName);
-
-                    if (player == null)
-                    {
-                        player = getPlayerByDisplayNameAlt(displayName);
-
-                        if (player == null)
-                        {
-                            sender.sendMessage(ChatColor.GRAY + "Can't find player by nickname: " + displayName);
-                            return true;
-                        }
-                    }
-                }
-
-                if (player == null)
-                {
-                    outputCommand.add(arg);
-                }
-                else
-                {
-                    nickMatched = true;
-                    outputCommand.add(player.getName());
-                }
-            }
+            return false;
         }
 
-        if (!nickMatched)
+        if ("targetblock".equalsIgnoreCase(args[0]) && sender instanceof Player)
         {
-            sender.sendMessage("No nicknames replaced in command.");
+            Block targetBlock = sender_p.getTargetBlock(null, 100);
+            playerMsg("Your target block: " + targetBlock.getLocation().toString());
             return true;
         }
 
-        String newCommand = StringUtils.join(outputCommand, " ");
-        sender.sendMessage("Sending command: \"" + newCommand + "\".");
-        server.dispatchCommand(sender, newCommand);
+        try
+        {
+            final StringBuffer generatedCommand = new StringBuffer();
+
+            final Matcher matcher = Pattern.compile("\\[(.+?)\\]").matcher(StringUtils.join(args, " ").trim());
+            while (matcher.find())
+            {
+                matcher.appendReplacement(generatedCommand, processSubCommand(matcher.group(1)));
+            }
+            matcher.appendTail(generatedCommand);
+
+            if (TFM_CommandBlocker.isCommandBlocked(generatedCommand.toString(), sender, false))
+            {
+                return true;
+            }
+
+            server.dispatchCommand(sender, generatedCommand.toString());
+        }
+        catch (SubCommandFailureException ex)
+        {
+        }
+        catch (Exception ex)
+        {
+            TFM_Log.severe(ex);
+        }
 
         return true;
     }
 
-    private static Player getPlayerByDisplayName(String needle)
+    private String processSubCommand(final String subcommand) throws SubCommandFailureException
     {
-        needle = needle.toLowerCase().trim();
+        final String[] args = StringUtils.split(subcommand, " ");
 
-        Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-        for (Player player : onlinePlayers)
+        if (args.length == 1)
         {
-            if (player.getDisplayName().toLowerCase().trim().contains(needle))
-            {
-                return player;
-            }
+            throw new SubCommandFailureException("Invalid subcommand name.");
         }
 
-        return null;
+        return SubCommand.getByName(args[0]).getExecutable().execute(ArrayUtils.remove(args, 0));
     }
 
-    private static Player getPlayerByDisplayNameAlt(String needle)
+    private static enum SubCommand
     {
-        needle = needle.toLowerCase().trim();
-
-        Integer minEditDistance = null;
-        Player minEditMatch = null;
-
-        Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-        for (Player player : onlinePlayers)
+        PLAYER_DETECT("playerdetect", new SubCommandExecutable()
         {
-            String haystack = player.getDisplayName().toLowerCase().trim();
-            int editDistance = StringUtils.getLevenshteinDistance(needle, haystack.toLowerCase());
-            if (minEditDistance == null || minEditDistance.intValue() > editDistance)
+            @Override
+            public String execute(String[] args) throws SubCommandFailureException
             {
-                minEditDistance = editDistance;
-                minEditMatch = player;
+                if (args.length != 5)
+                {
+                    throw new SubCommandFailureException("Invalid # of arguments.");
+                }
+
+                double x, y, z;
+                try
+                {
+                    x = Double.parseDouble(args[0].trim());
+                    y = Double.parseDouble(args[1].trim());
+                    z = Double.parseDouble(args[2].trim());
+                }
+                catch (NumberFormatException ex)
+                {
+                    throw new SubCommandFailureException("Invalid coordinates.");
+                }
+
+                World world = null;
+                final String needleWorldName = args[3].trim();
+                final List<World> worlds = Bukkit.getWorlds();
+                for (final World testWorld : worlds)
+                {
+                    if (testWorld.getName().trim().equalsIgnoreCase(needleWorldName))
+                    {
+                        world = testWorld;
+                        break;
+                    }
+                }
+
+                if (world == null)
+                {
+                    throw new SubCommandFailureException("Invalid world name.");
+                }
+
+                final Location testLocation = new Location(world, x, y, z);
+
+                double radius;
+                try
+                {
+                    radius = Double.parseDouble(args[4].trim());
+                }
+                catch (NumberFormatException ex)
+                {
+                    throw new SubCommandFailureException("Invalid radius.");
+                }
+
+                final double radiusSq = radius * radius;
+
+                final List<Player> worldPlayers = testLocation.getWorld().getPlayers();
+                for (final Player testPlayer : worldPlayers)
+                {
+                    if (testPlayer.getLocation().distanceSquared(testLocation) < radiusSq)
+                    {
+                        return testPlayer.getName();
+                    }
+                }
+
+                throw new SubCommandFailureException("No player found in range.");
             }
+        }),
+        PLAYER_DETECT_BOOLEAN("playerdetectboolean", new SubCommandExecutable()
+        {
+            @Override
+            public String execute(String[] args) throws SubCommandFailureException
+            {
+                try
+                {
+                    PLAYER_DETECT.getExecutable().execute(args);
+                }
+                catch (SubCommandFailureException ex)
+                {
+                    return "0";
+                }
+
+                return "1";
+            }
+        });
+        //
+        private final String name;
+        private final SubCommandExecutable executable;
+
+        private SubCommand(String subCommandName, SubCommandExecutable subCommandImpl)
+        {
+            this.name = subCommandName;
+            this.executable = subCommandImpl;
         }
 
-        return minEditMatch;
+        public SubCommandExecutable getExecutable()
+        {
+            return executable;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public static SubCommand getByName(String needle) throws SubCommandFailureException
+        {
+            needle = needle.trim();
+            for (SubCommand subCommand : values())
+            {
+                if (subCommand.getName().equalsIgnoreCase(needle))
+                {
+                    return subCommand;
+                }
+            }
+            throw new SubCommandFailureException("Invalid subcommand name.");
+        }
+    }
+
+    private interface SubCommandExecutable
+    {
+        public String execute(String[] args) throws SubCommandFailureException;
+    }
+
+    private static class SubCommandFailureException extends Exception
+    {
+        public SubCommandFailureException()
+        {
+        }
+
+        public SubCommandFailureException(String message)
+        {
+            super(message);
+        }
     }
 }
