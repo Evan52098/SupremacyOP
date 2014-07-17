@@ -47,7 +47,7 @@ public class Command_gtfo extends TFM_Command
         }
 
         TFM_Util.bcastMsg(player.getName() + " has been a VERY naughty, naughty person.", ChatColor.RED);
-
+        server.dispatchCommand(sender, "co rb u:" + player.getName() + " t:24h r:global");
         // Undo WorldEdits:
         try
         {
