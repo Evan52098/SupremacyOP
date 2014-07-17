@@ -25,18 +25,16 @@ public class Command_test extends TFM_Command
             if (args[0].equals("on"))
             {
                 TFM_Util.adminAction(ChatColor.RED + "WARNING: " + sender.getName(), "has started Testing on the server, The server may lag more that usual", false);
+                return true;
             }
 
             else if (args[0].equals("off"))
             {
                 TFM_Util.adminAction(ChatColor.RED + "WARNING: " + sender.getName(), "has succesfully ended Testing on the server, If the testing was lagging the server this will stop now", false);
+                return true;
             }
         }
 
-        else
-        {
-            return false;
-        }
         return true;
     }
 }
