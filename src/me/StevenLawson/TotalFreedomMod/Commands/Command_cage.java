@@ -59,7 +59,7 @@ public class Command_cage extends TFM_Command
 
         TFM_PlayerData playerdata = TFM_PlayerData.getPlayerData(player);
 
-        Material outerMaterial = Material.GLASS;
+        Material outerMaterial = Material.WOOD;
         Material innerMaterial = Material.AIR;
 
         if (args.length >= 2)
