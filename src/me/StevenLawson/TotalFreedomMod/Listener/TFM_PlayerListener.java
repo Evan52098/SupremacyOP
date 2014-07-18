@@ -613,7 +613,7 @@ public class TFM_PlayerListener implements Listener
 
         if (playerdata.allCommandsBlocked())
         {
-            TFM_Util.playerMsg(player, "Your commands have been blocked by an admin.", ChatColor.RED);
+            TFM_Util.playerMsg(player, "All commands you perform have been filtered!   You're unable to perform any, and all commands!", ChatColor.RED);
             event.setCancelled(true);
             return;
         }
