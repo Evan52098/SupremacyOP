@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
 @CommandParameters(
-        description = "Same as normal adminchat but for seniors.",
+        description = "DevChat - Talk privately with other developers.  Using <command> itself will toggle DevChat on and off for all messages",
         usage = "/<command> [message...]",
         aliases = "devchat")
 public class Command_dev extends TFM_Command
@@ -32,7 +32,7 @@ public class Command_dev extends TFM_Command
 
             TFM_PlayerData userinfo = TFM_PlayerData.getPlayerData(sender_p);
             userinfo.setAdminChat(!userinfo.inAdminChat());
-            playerMsg("Toggled Senior Admin Chat " + (userinfo.inAdminChat() ? "on" : "off") + ".");
+            playerMsg("Toggled DevChat " + (userinfo.inAdminChat() ? "on" : "off") + ".");
         }
         else
         {
