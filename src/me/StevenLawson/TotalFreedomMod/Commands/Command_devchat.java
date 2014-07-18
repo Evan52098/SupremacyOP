@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
         description = "DevChat - Talk privately with other developers.  Using <command> itself will toggle DevChat on and off for all messages",
         usage = "/<command> [message...]",
         aliases = "devchat")
-public class Command_dev extends TFM_Command
+public class Command_devchat extends TFM_Command
 {
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
