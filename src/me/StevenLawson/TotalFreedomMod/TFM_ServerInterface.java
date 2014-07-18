@@ -9,6 +9,8 @@ import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import net.minecraft.server.v1_7_R3.MinecraftServer;
 import net.minecraft.server.v1_7_R3.PropertyManager;
 import org.bukkit.ChatColor;
+import me.StevenLawson.TotalFreedomMod.TFM_Ban;
+import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
