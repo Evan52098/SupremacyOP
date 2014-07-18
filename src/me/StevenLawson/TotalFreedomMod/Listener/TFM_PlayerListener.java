@@ -851,6 +851,12 @@ public class TFM_PlayerListener implements Listener
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "RobinGall2910 is a " + ChatColor.DARK_GREEN + "Zombie Killer " + ChatColor.AQUA + "and..");
         }
+        if (username.equalsIgnoreCase("PieGuy7896"))
+        {
+            //Entrance
+            TFM_Util.bcastMsg(ChatColor.AQUA + "PieGuy7896 is a " + ChatColor.GOLD + "Master of eating pie " + ChatColor.AQUA + "and.. ");
+        }
+        
         if (username.equalsIgnoreCase("DragonHunterGW"))
         {
             //ban username
@@ -868,6 +874,8 @@ public class TFM_PlayerListener implements Listener
             //ban ip
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
             TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+PieGuy7896
+Commit changes
             TFM_AdminList.removeSuperadmin(player);
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
