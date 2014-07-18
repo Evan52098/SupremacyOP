@@ -36,7 +36,7 @@ public class Command_dev extends TFM_Command
         }
         else
         {
-            TFM_Util.senioradminChatMessage(sender, StringUtils.join(args, " "), senderIsConsole);
+            TFM_Util.devadminchatChatMessage(sender, StringUtils.join(args, " "), senderIsConsole);
         }
 
         return true;
