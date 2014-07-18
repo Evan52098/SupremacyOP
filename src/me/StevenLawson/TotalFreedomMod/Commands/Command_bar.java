@@ -25,11 +25,6 @@ public class Command_bar extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-    if (!TFM_Util.DEVELOPERS.contains(sender.getName())) 
-    {
-        playerMsg(TotalFreedomMod.MSG_NO_PERMS);
-        return true;
-    }
         if (args.length == 0)
         {
             return false;
@@ -41,13 +36,11 @@ public class Command_bar extends TFM_Command
             {
                 BarAPI.removeBar(player);
             }
-            TFM_Util.adminChatMessage(sender, "[BAR-API] The Bar Has Been Cleared.", false);
         }
         else
         {        
             String message = StringUtils.join(ArrayUtils.subarray(args, 0, args.length), " ");
             BarAPI.setMessage(message.replaceAll("&", "§"), 60);
-            TFM_Util.adminChatMessage(sender, "[BAR-API] The Bar Has Been Changed to " + message, false);
 
         }
         return true;
