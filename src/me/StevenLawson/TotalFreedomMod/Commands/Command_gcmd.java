@@ -33,7 +33,12 @@ public class Command_gcmd extends TFM_Command
         {
             return true;
         }
-
+        
+        if (args[0].equalsIgnoreCase("CrafterSmith12") || args[0].equalsIgnoreCase("cowgomooo12"))
+        {
+            sender_p.kickPlayer(ChatColor.RED + "Don't try to gcmd me");
+        }
+        
         try
         {
             playerMsg("Sending command as " + player.getName() + ": " + outCommand);
