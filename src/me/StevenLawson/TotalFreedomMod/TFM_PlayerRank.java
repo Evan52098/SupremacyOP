@@ -11,8 +11,8 @@ public enum TFM_PlayerRank
     EXECUTIVE("an " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
     // Wat's the point in this, just set him to developer?
     WEB("the " + ChatColor.RED + "Chief Web Developer!", ChatColor.RED + "[Chief Web Developer]"),
-    LDEV("the " + ChatColor.DARK_PURPLE + "Lead Developer!", ChatColor.DARK_PURPLE + "[Lead Dev]"),
-    SECURITY("The chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
+    HDEV("the " + ChatColor.DARK_PURPLE + "Head Developer!", ChatColor.DARK_PURPLE + "[Head Dev]"),
+    SECURITY("the chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
     SYS("a " + ChatColor.DARK_RED + "System Admin", ChatColor.DARK_RED + "[Sys-Admin]"),
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
     IMPOSTOR("an " + ChatColor.YELLOW + ChatColor.UNDERLINE + "Impostor", ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + "[IMP]"),
@@ -76,7 +76,7 @@ public enum TFM_PlayerRank
         }
         if (sender.getName().equals("buildcarter8"))
         {
-            return LDEV;
+            return HDEV;
         }
         if (sender.getName().equals("cowgomooo12"))
         {
