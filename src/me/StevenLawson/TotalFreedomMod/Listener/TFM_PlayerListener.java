@@ -846,18 +846,18 @@ public class TFM_PlayerListener implements Listener
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "buildcarter8 is the" + ChatColor.RED + " destroyer of all human kind " + ChatColor.AQUA + "and ");
         }
-        if (username.equalsIgnoreCase("RobinGall2910"))
+        else if (username.equalsIgnoreCase("RobinGall2910"))
         {
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "RobinGall2910 is a " + ChatColor.DARK_GREEN + "Zombie Killer " + ChatColor.AQUA + "and..");
         }
-        if (username.equalsIgnoreCase("PieGuy7896"))
+        else if (username.equalsIgnoreCase("PieGuy7896"))
         {
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "PieGuy7896 is a " + ChatColor.GOLD + "Master of eating pie " + ChatColor.AQUA + "and.. ");
         }
         
-        if (username.equalsIgnoreCase("DragonHunterGW"))
+        else if (username.equalsIgnoreCase("DragonHunterGW"))
         {
             //ban username
             TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
