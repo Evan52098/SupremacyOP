@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 */
 
 
-@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
+@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.BOTH)
 @CommandParameters(description = "Change the bar message or clear it", usage = "/bar [clear | message]")
 public class Command_bar extends TFM_Command
 {
