@@ -130,7 +130,20 @@ public abstract class TFM_Command
         {
             return false;
         }
-
+    if ((donorLevel == DonatorLevel.SENIOR) && (!is_srdonator))
+        {
+          if (is_super) {
+            return true;
+          }
+          return false;
+        }
+        if ((donorLevel == DonatorLevel.JUNIOR) && (!is_donator))
+        {
+          if (is_super) {
+            return true;
+          }
+          return false;
+        }
         return true;
     }
 
