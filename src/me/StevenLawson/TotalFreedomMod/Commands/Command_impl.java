@@ -32,7 +32,7 @@ public class Command_impl extends TFM_Command
   {
     if (args.length == 0)
     {
-        sender.sendMessage(ChatColor.ORANGE + "Please enter one of the usages above.");
+        sender.sendMessage(ChatColor.GOLD + "Please enter one of the usages below.");
         return false;
     }
     if (args.length == 2)
