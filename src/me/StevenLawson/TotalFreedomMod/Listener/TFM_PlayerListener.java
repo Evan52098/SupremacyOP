@@ -773,7 +773,6 @@ public class TFM_PlayerListener implements Listener
             player.getInventory().clear();
             player.setOp(false);
             player.setGameMode(GameMode.SURVIVAL);
-            server.dispatchCommand("cage player.getName() skull");
         }
         else if (TFM_AdminList.isSuperAdmin(player) || TFM_Util.DEVELOPERS.contains(player.getName()))
         {
