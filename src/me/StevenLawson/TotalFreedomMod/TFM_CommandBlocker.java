@@ -33,7 +33,7 @@ public class TFM_CommandBlocker
     {
         BLOCKED_COMMANDS.clear();
 
-        final CommandMap commandMap = TFM_CommandLoader.getCommandMap();
+        final CommandMap commandMap = TFM_CommandLoader.getInstance().getCommandMap();
         if (commandMap == null)
         {
             TFM_Log.severe("Error loading commandMap.");
