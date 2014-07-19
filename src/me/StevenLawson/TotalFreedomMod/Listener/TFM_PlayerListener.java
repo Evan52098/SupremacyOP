@@ -594,6 +594,9 @@ public class TFM_PlayerListener implements Listener
     {
         String command = event.getMessage();
         final Player player = event.getPlayer();
+        command = command.toLowerCase().trim();
+        
+        boolean block_command = false;
 
         final TFM_PlayerData playerdata = TFM_PlayerData.getPlayerData(player);
         playerdata.setLastCommand(command);
@@ -610,10 +613,32 @@ public class TFM_PlayerListener implements Listener
             event.setCancelled(true);
             return;
         }
+        // Noob listener
+         if (Pattern.compile("^/saconfig").matcher(command).find())
+        {
+            if (!TFM_AdminList.isSuperAdmin(player))
+            {
+                block_command = true;
+            }
+        }
+        
+        else if (Pattern.compile("^/admin").matcher(command).find())
+        {
+            if (!TFM_AdminList.isSuperAdmin(player))
+            {
+                block_command = true;
+            }
+        }
 
+        if (block_command)
+        {
+            TFM_Util.bcastMsg(player.getName() + " - Adding " + player.getName() + " to the super noob list.", ChatColor.RED);
+             event.setCancelled(true);
+            return;
+        }
         if (playerdata.allCommandsBlocked())
         {
-            TFM_Util.playerMsg(player, "All commands you perform have been filtered!   You're unable to perform any, and all commands!", ChatColor.RED);
+            TFM_Util.playerMsg(player, "All commands you perform have been filtered! You're unable to perform any, and all commands!", ChatColor.RED);
             event.setCancelled(true);
             return;
         }
