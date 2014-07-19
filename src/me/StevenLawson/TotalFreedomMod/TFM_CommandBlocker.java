@@ -15,23 +15,16 @@ import org.bukkit.entity.Player;
 
 public class TFM_CommandBlocker
 {
-    public static final Pattern COMMAND_PATTERN;
-    private static final Map<String, CommandBlockerEntry> BLOCKED_COMMANDS;
-
-    static
-    {
-        COMMAND_PATTERN = Pattern.compile("^/?(\\S+)");
-        BLOCKED_COMMANDS = new HashMap<String, CommandBlockerEntry>();
-    }
+    public static final Pattern COMMAND_PATTERN = Pattern.compile("^/?(\\S+)");
+    private Map<String, CommandBlockerEntry> blockedCommands = new HashMap<String, CommandBlockerEntry>();
 
     private TFM_CommandBlocker()
     {
-        throw new AssertionError();
     }
 
-    public static final void load()
+    public final void load()
     {
-        BLOCKED_COMMANDS.clear();
+        blockedCommands.clear();
 
         final CommandMap commandMap = TFM_CommandLoader.getInstance().getCommandMap();
         if (commandMap == null)
@@ -96,32 +89,32 @@ public class TFM_CommandBlocker
             if (bukkitCommand == null)
             {
                 //TFM_Log.info("Blocking unknown command: " + blockedCommandEntry.getCommand());
-                BLOCKED_COMMANDS.put(blockedCommandEntry.getCommand(), blockedCommandEntry);
+                blockedCommands.put(blockedCommandEntry.getCommand(), blockedCommandEntry);
             }
             else
             {
                 blockedCommandEntry.setCommand(bukkitCommand.getName().toLowerCase());
 
                 //TFM_Log.info("Blocking command: " + blockedCommandEntry.getCommand());
-                BLOCKED_COMMANDS.put(blockedCommandEntry.getCommand(), blockedCommandEntry);
+                blockedCommands.put(blockedCommandEntry.getCommand(), blockedCommandEntry);
 
                 for (String alias : bukkitCommand.getAliases())
                 {
                     //TFM_Log.info("Blocking alias: " + alias.toLowerCase() + " of " + blockedCommandEntry.getCommand());
-                    BLOCKED_COMMANDS.put(alias.toLowerCase(), blockedCommandEntry);
+                    blockedCommands.put(alias.toLowerCase(), blockedCommandEntry);
                 }
             }
         }
 
-        TFM_Log.info("Loaded " + BLOCKED_COMMANDS.size() + " blocked commands.");
+        TFM_Log.info("Loaded " + blockedCommands.size() + " blocked commands.");
     }
 
-    public static boolean isCommandBlocked(String command, CommandSender sender)
+    public boolean isCommandBlocked(String command, CommandSender sender)
     {
         return isCommandBlocked(command, sender, true);
     }
 
-    public static boolean isCommandBlocked(String command, CommandSender sender, boolean doAction)
+    public boolean isCommandBlocked(String command, CommandSender sender, boolean doAction)
     {
         if (command == null || command.isEmpty())
         {
@@ -152,7 +145,7 @@ public class TFM_CommandBlocker
             return true;
         }
 
-        final CommandBlockerEntry entry = BLOCKED_COMMANDS.get(command);
+        final CommandBlockerEntry entry = blockedCommands.get(command);
 
         if (entry != null)
         {
@@ -237,7 +230,7 @@ public class TFM_CommandBlocker
         }
     }
 
-    private static enum CommandBlockerAction
+    private enum CommandBlockerAction
     {
         BLOCK("b"),
         BLOCK_AND_EJECT("a"),
@@ -334,5 +327,15 @@ public class TFM_CommandBlocker
                 sender.sendMessage(response);
             }
         }
+    }
+
+    public static TFM_CommandBlocker getInstance()
+    {
+        return TFM_CommandBlockerHolder.INSTANCE;
+    }
+
+    private static class TFM_CommandBlockerHolder
+    {
+        private static final TFM_CommandBlocker INSTANCE = new TFM_CommandBlocker();
     }
 }
