@@ -25,7 +25,8 @@ public class Command_gcmd
       return true;
     }
     if ((args[0].equalsIgnoreCase("cowgomooo12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("Robo_Lord")))  {
-      player.sendMessage(ChatColor.RED + "Nice try, but you are not going to gcmd me.");
+      sender.sendMessage(ChatColor.RED + "Nice try, but you are not going to gcmd me.");
+      return true;
     }
     try
     {
