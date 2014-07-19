@@ -87,6 +87,7 @@ public class TFM_ServerInterface
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Your username contains invalid characters.");
             return;
         }
+        /*
         if (ip.equalsIgnoreCase("94.8.219.223"))
         {
             MAUtils.bcastMsg(ChatColor.RED + p.getName() + " is under an MCConnect IP. Do NOT super him - he may only come on to chat.");
@@ -98,6 +99,7 @@ public class TFM_ServerInterface
                     TFM_BanManager.unbanIp(TFM_Util.getFuzzyIp(ip));
              }
         }
+        */
         // not safe to use TFM_Util.isSuperAdmin for player logging in because player.getAddress() will return a null until after player login.
         final boolean isAdmin;
         if (server.getOnlineMode())
