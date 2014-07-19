@@ -908,6 +908,8 @@ public class TFM_Util
             {
                 player.sendMessage("[" + ChatColor.GOLD + "SENIOR-ADMIN" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.YELLOW + message);
             }
+        }
+    }
     public static void devadminChatMessage(CommandSender sender, String message, boolean senderIsConsole)
     {
         String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
