@@ -1,3 +1,4 @@
+/*
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import org.bukkit.Bukkit;
@@ -75,3 +76,4 @@ public class Command_restart extends TFM_Command
  return true;
  }
 }
+*/
