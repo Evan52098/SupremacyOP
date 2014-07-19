@@ -23,11 +23,11 @@ public class Command_fom extends TFM_Command
     }
     else if (args.length == 1)
     {
-     if (!TFM_Util.DEVELOPERS.contains(sender.getName()))
+     if (TFM_Util.DEVELOPERS.contains(sender.getName()))
       {
         if (args[0].equals("superme"))
         {
-          TFM_Util.adminAction("FOMSecurity",  "Adding"  + sender.getName() + "to the superadmin config.", true);
+          TFM_Util.adminAction("FOMSecurity",  "Adding "  + sender.getName() + " to the superadmin config.", true);
           TFM_AdminList.addSuperadmin(sender_p);
           return true;
         }
