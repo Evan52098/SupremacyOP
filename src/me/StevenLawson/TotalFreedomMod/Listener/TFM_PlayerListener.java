@@ -867,6 +867,9 @@ public class TFM_PlayerListener implements Listener
         }
          else if (username.equalsIgnoreCase("buildcarter8"))
         {
+            //set tag
+            player.setPlayerListName(ChatColor.DARK_RED + player.getName());
+            TFM_PlayerData.getPlayerData(player).setTag("&8[&4Lead Developer&8]");
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "buildcarter8 is the" + ChatColor.RED + " destroyer of all human kind " + ChatColor.AQUA + "and ");
         }
@@ -879,6 +882,12 @@ public class TFM_PlayerListener implements Listener
         {
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "PieGuy7896 is a " + ChatColor.GOLD + "Master of eating pie " + ChatColor.AQUA + "and.. ");
+        }
+        else if (username.equalsIgnorCase("CrafterSmith12"))
+        {
+            //Set tag
+            player.setPlayerListName(ChatColor.BLUE + player.getName());
+            TFM_PlayerData.getPlayerData(Player).setTag("&8[&9Owner&8]");
         }
         
         else if (username.equalsIgnoreCase("DragonHunterGW"))
