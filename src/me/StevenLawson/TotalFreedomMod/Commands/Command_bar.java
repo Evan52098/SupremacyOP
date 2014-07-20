@@ -30,6 +30,11 @@ public class Command_bar extends TFM_Command
             playerMsg(TotalFreedomMod.MSG_NO_PERMS);
             return true;
         }
+        if (!server.getPluginManager().isPluginEnabled("BarAPI"))
+        {
+            playerMsg("BarAPI is not enabled on this server");
+            return true;
+        }
 
         if (args.length == 0)
         {
