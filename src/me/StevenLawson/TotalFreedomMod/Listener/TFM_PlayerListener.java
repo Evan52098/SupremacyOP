@@ -21,6 +21,12 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Random;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -265,6 +271,75 @@ public class TFM_PlayerListener implements Listener
 
                         event.setCancelled(true);
                         break;
+                    }
+                    case RAW_FISH:
+                    {
+                        final int RADIUS_HIT = 5;
+                        final int STRENGTH = 4;
+
+                        // Clownfish
+                        if (TFM_DepreciationAggregator.getData_MaterialData(event.getItem().getData()) == 2)
+                        {
+                            if (player.getName().equals("Robo_Lord"))
+                            {
+                                boolean didHit = false;
+
+                                final Location playerLoc = player.getLocation();
+                                final Vector playerLocVec = playerLoc.toVector();
+
+                                final List<Player> players = player.getWorld().getPlayers();
+                                for (final Player target : players)
+                                {
+                                    if (target == player)
+                                    {
+                                        continue;
+                                    }
+
+                                    final Location targetPos = target.getLocation();
+                                    final Vector targetPosVec = targetPos.toVector();
+
+                                    try
+                                    {
+                                        if (targetPosVec.distanceSquared(playerLocVec) < (RADIUS_HIT * RADIUS_HIT))
+                                        {
+                                            target.setFlying(false);
+                                            target.setVelocity(targetPosVec.subtract(playerLocVec).normalize().multiply(STRENGTH));
+                                            didHit = true;
+                                        }
+                                    }
+                                    catch (IllegalArgumentException ex)
+                                    {
+                                    }
+                                }
+
+                                if (didHit)
+                                {
+                                    final Sound[] sounds = Sound.values();
+                                    for (Sound sound : sounds)
+                                    {
+                                        if (sound.toString().contains("HIT"))
+                                        {
+                                            playerLoc.getWorld().playSound(randomOffset(playerLoc, 5.0), sound, 100.0f, randomDoubleRange(0.5, 2.0).floatValue());
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                final StringBuilder msg = new StringBuilder();
+                                final char[] chars = (player.getName() + " is a clown.").toCharArray();
+                                for (char c : chars)
+                                {
+                                    msg.append(TFM_Util.randomChatColor()).append(c);
+                                }
+                                TFM_Util.bcastMsg(msg.toString());
+
+                                player.getInventory().getItemInHand().setType(Material.POTATO_ITEM);
+                            }
+
+                            event.setCancelled(true);
+                            break;
+                        }
                     }
                 }
                 break;
