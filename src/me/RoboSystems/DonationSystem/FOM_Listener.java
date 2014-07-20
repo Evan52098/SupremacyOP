@@ -11,10 +11,6 @@ public class FOM_Listener implements Listener
         {
             FOM_DonatorList.backupSavedList();
             FOM_DonatorList.loadDonatorList();
-
-            superadmin = FOM_DonatorList.getDonatorNames();
-            superadmin_ips = FOM_DonatorList.getDonatorIPs();
-        }
         catch (Exception ex)
         {
             TFM_Log.severe("Error loading donator list: " + ex.getMessage());
