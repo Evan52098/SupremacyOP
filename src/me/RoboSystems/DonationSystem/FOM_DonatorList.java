@@ -47,9 +47,9 @@ public class FOM_DonatorList
     return donatorNames;
   }
   
-  public static List<String> getFullDonatorNames()
+  public static List<String> getSuperDonatorNames()
   {
-    return fullDonatorNames;
+    return superDonatorNames;
   }
   
   public static List<String> getSeniorDonatorNames()
@@ -155,7 +155,7 @@ public class FOM_DonatorList
         config.set("donators." + donator_name + ".ips", TFM_Util.removeDuplicates(donator.getIps()));
         config.set("donators." + donator_name + ".last_login", TFM_Util.dateToString(donator.getLastLogin()));
         config.set("donators." + donator_name + ".custom_login_message", donator.getCustomLoginMessage());
-        config.set("donators." + donator_name + ".is_full_donator", Boolean.valueOf(donator.isFullDonator()));
+        config.set("donators." + donator_name + ".is_super_donator", Boolean.valueOf(donator.isSuperDonator()));
         config.set("donators." + donator_name + ".is_senior_donator", Boolean.valueOf(donator.isSeniorDonator()));
         config.set("donators." + donator_name + ".console_aliases", TFM_Util.removeDuplicates(donator.getConsoleAliases()));
         config.set("donators." + donator_name + ".is_activated", Boolean.valueOf(donator.isActivated()));
@@ -321,7 +321,7 @@ public class FOM_DonatorList
       {
         Date last_login = new Date();
         String custom_login_message = "";
-        boolean is_full_donator = false;
+        boolean is_super_donator = false;
         boolean is_senior_donator = false;
         List<String> console_aliases = new ArrayList();
         
