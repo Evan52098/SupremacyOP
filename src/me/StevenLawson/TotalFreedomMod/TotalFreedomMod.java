@@ -95,7 +95,8 @@ public class TotalFreedomMod extends JavaPlugin
                     + "version " + TFM_Util.getNmsVersion() + "!");
             TFM_Log.warning("This might result in unexpected behaviour!");
         }
-
+        //load donors
+        loadDonatorConfig();
         // Admin list
         TFM_Util.createBackups(SUPERADMIN_FILE);
         TFM_AdminList.load();
