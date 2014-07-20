@@ -1,9 +1,5 @@
 package me.StevenLawson.TotalFreedomMod;
 
-import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandHandler;
-import me.StevenLawson.TotalFreedomMod.World.TFM_Flatlands;
-import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
-import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -12,9 +8,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import me.RoboSystems.DonationSystem.FOM_DonatorList;
+import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandHandler;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import me.StevenLawson.TotalFreedomMod.HTTPD.TFM_HTTPD_Manager;
 import me.StevenLawson.TotalFreedomMod.Listener.*;
+import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
+import me.StevenLawson.TotalFreedomMod.World.TFM_Flatlands;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -95,8 +96,6 @@ public class TotalFreedomMod extends JavaPlugin
                     + "version " + TFM_Util.getNmsVersion() + "!");
             TFM_Log.warning("This might result in unexpected behaviour!");
         }
-        //load donors
-        loadDonatorConfig();
         // Admin list
         TFM_Util.createBackups(SUPERADMIN_FILE);
         TFM_AdminList.load();
@@ -104,7 +103,10 @@ public class TotalFreedomMod extends JavaPlugin
         // Permban list
         TFM_Util.createBackups(PERMBAN_FILE);
         TFM_PermbanList.load();
-
+        
+        // Load Donators
+        FOM_DonatorList.loadDonatorList();
+        
         // Playerlist and bans
         TFM_PlayerList.getInstance().load();
         TFM_BanManager.getInstance().load();
