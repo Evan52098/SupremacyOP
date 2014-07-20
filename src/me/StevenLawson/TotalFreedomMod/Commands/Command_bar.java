@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 */
 
 
-@CommandPermissions(level = AdminLevel.SENIOR, source = SourceType.BOTH)
+@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
 @CommandParameters(description = "Change the bar message or clear it", usage = "/bar [clear | message]")
 public class Command_bar extends TFM_Command
 {
@@ -25,6 +25,12 @@ public class Command_bar extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+        if (!TFM_Util.DEVELOPERS.contains(sender.getName()))
+        {
+            playerMsg(TotalFreedomMod.MSG_NO_PERMS);
+            return true;
+        }
+
         if (args.length == 0)
         {
             return false;
