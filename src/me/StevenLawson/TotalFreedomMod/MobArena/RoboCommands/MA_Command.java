@@ -1,9 +1,12 @@
-package me.StevenLawson.TotalFreedomMod.Commands.MobArena.RoboCommands;
+package me.StevenLawson.TotalFreedomMod.MobArena.RoboCommands;
 
 import java.util.List;
+import me.StevenLawson.TotalFreedomMod.Commands.AdminLevel;
+import me.StevenLawson.TotalFreedomMod.Commands.CommandPermissions;
+import me.StevenLawson.TotalFreedomMod.Commands.SourceType;
+import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerData;
-import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.ChatColor;
