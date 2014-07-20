@@ -10,7 +10,7 @@ public enum TFM_PlayerRank
 {
     EXECUTIVE("an " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
     WEB("the " + ChatColor.YELLOW + "Chief Web Developer!", ChatColor.YELLOW + "[Chief Web Developer]"),
-    HDEV("the " + ChatColor.DARK_PURPLE + "Head Developer!", ChatColor.DARK_PURPLE + "[Head Dev]"),
+    CDEV("the " + ChatColor.DARK_PURPLE + "Chief Developer!", ChatColor.DARK_PURPLE + "[Chief Developer]"),
     SECURITY("the chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
     SYS("a " + ChatColor.DARK_RED + "System Admin", ChatColor.DARK_RED + "[Sys-Admin]"),
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
@@ -75,7 +75,7 @@ public enum TFM_PlayerRank
         }
         if (sender.getName().equals("buildcarter8"))
         {
-            return HDEV;
+            return CDEV;
         }
         if (sender.getName().equals("cowgomooo12"))
         {
