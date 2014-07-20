@@ -1,18 +1,19 @@
 package me.RoboSystems.DonationSystem;
 
 import org.bukkit.event.Listener;
+import me.StevenLawson.TotalFreedomMod.*;
 
-public class FOM_AvalancheListener implements Listener
+public class FOM_Listener implements Listener
 {
     public static void loadDonatorConfig()
     {
         try
         {
-            TFM_DonatorList.backupSavedList();
-            TFM_DonatorList.loadDonatorList();
+            FOM_DonatorList.backupSavedList();
+            FOM_DonatorList.loadDonatorList();
 
-            superadmins = TFM_DonatorList.getDonatorNames();
-            superadmin_ips = TFM_DonatorList.getDonatorIPs();
+            superadmin = FOM_DonatorList.getDonatorNames();
+            superadmin_ips = FOM_DonatorList.getDonatorIPs();
         }
         catch (Exception ex)
         {
