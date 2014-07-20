@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 public enum TFM_PlayerRank
 {
     EXECUTIVE("an " + ChatColor.GRAY + "Executive", ChatColor.GRAY + "[Executive]"),
-    // Wat's the point in this, just set him to developer?
     WEB("the " + ChatColor.YELLOW + "Chief Web Developer!", ChatColor.YELLOW + "[Chief Web Developer]"),
     HDEV("the " + ChatColor.DARK_PURPLE + "Head Developer!", ChatColor.DARK_PURPLE + "[Head Dev]"),
     SECURITY("the chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
