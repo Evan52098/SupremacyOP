@@ -1,5 +1,6 @@
-package me.StevenLawson.TotalFreedomMod.Commands.MobArena.RoboCommands;
+package me.StevenLawson.TotalFreedomMod.MobArena.RoboCommands;
 
+import me.StevenLawson.TotalFreedomMod.Commands.TFM_Command;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
@@ -41,7 +42,7 @@ public class MA_CommandHandler
         }
 
 
-        final TFM_Command dispatcher;
+        final MA_Command dispatcher;
         try
         {
             final ClassLoader classLoader = TotalFreedomMod.class.getClassLoader();
