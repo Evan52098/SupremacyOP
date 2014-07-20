@@ -16,6 +16,8 @@ public class Command_pvpworld extends TFM_Command
         if (TFM_ConfigEntry.FLATLANDS_GENERATE.getBoolean())
         {
             TFM_PvpWorld.getInstance().sendToWorld(sender_p);
+            sender.setOp(false);
+            player.setGameMode(GameMode.CREATIVE);
         }
         else
         {
