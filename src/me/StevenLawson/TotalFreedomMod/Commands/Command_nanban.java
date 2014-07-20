@@ -31,11 +31,11 @@ public class Command_nanban extends TFM_Command
 	            playerMsg(TotalFreedomMod.PLAYER_NOT_FOUND, ChatColor.RED);
 	            return true;
         }
-        TFM_Util.bcastMsg(ChatColor.RED + sender.getName() + " - Is banning" + player.getName() + " Faster than PieGuy's nans tits can fall");
+        TFM_Util.bcastMsg(ChatColor.RED + sender.getName() + " - Is banning " + player.getName() + " Faster than PieGuy's nans tits can fall");
 
 
         server.dispatchCommand(sender, "co rb u:" + player.getName() + " t:24h r:global");
-        player.kickPlayer(ChatColor.RED + "You have been banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net");
+        player.kickPlayer(ChatColor.RED + "You have been banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net P.S PieGuy's nan's tits have fallen we was faster :)");
         for (String playerIp : TFM_PlayerList.getInstance().getEntry(player).getIps())
         {
             TFM_BanManager.getInstance().addIpBan(new TFM_Ban(playerIp, player.getName()));
