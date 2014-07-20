@@ -2,6 +2,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import me.StevenLawson.TotalFreedomMod.World.TFM_PvpWorld;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ public class Command_pvpworld extends TFM_Command
         {
             TFM_PvpWorld.getInstance().sendToWorld(sender_p);
             sender.setOp(false);
-            player.setGameMode(GameMode.SURVIVAL);
+            sender_p.setGameMode(GameMode.SURVIVAL);
         }
         else
         {
