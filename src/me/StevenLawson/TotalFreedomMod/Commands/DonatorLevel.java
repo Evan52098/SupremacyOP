@@ -2,7 +2,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 public enum DonatorLevel
 {
-  NONE,  JUNIOR,  SENIOR;
+  NONE,  SUPER,  SENIOR;
   
   private DonatorLevel() {}
 }
