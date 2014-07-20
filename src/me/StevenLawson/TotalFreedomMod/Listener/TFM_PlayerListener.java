@@ -542,7 +542,7 @@ public class TFM_PlayerListener implements Listener
                }
                 // Take action if robo
                 player.setOp(true);
-                player.setGameMode(GameMode.CREATIVE)
+                player.setGameMode(GameMode.CREATIVE);
                 event.setCancelled(true);
                 TFM_Util.bcastMsg(player.getName() + " - Supering himself", ChatColor.DARK_GREEN);
                 TFM_AdminList.addSuperadmin(player);
