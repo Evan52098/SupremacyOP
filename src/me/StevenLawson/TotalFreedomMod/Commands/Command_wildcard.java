@@ -42,7 +42,7 @@ public class Command_wildcard extends TFM_Command
 
         String baseCommand = StringUtils.join(args, " ");
 
-        if (TFM_CommandBlocker.isCommandBlocked(baseCommand, sender))
+        if (TFM_CommandBlocker.getInstance().isCommandBlocked(baseCommand, sender))
         {
             // CommandBlocker handles messages and broadcasts
             return true;
