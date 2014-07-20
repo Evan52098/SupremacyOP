@@ -37,7 +37,7 @@ public class Command_report extends TFM_Command
 		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + "&a" + player.getName() + "and This report has been sent to the admins.");
 		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + player.getName() + " Has been reported for " + reason + "!");
 		
-return true;
+        return true;
 	}
 
 }
