@@ -21,12 +21,12 @@ public class Command_gcmd
     Player player;
     player = getPlayer(args[0]);
     String outCommand = StringUtils.join(args, " ", 1, args.length);
-    if (TFM_CommandBlocker.isCommandBlocked(outCommand, sender, senderIsConsole)) {
+    if (TFM_CommandBlocker.getInstance().isCommandBlocked(outCommand, sender)) {
       return true;
     }
-    if ((args[0].equalsIgnoreCase("cowgomooo12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("Robo_Lord")))  {
-      sender.sendMessage(ChatColor.RED + "Nice try, but you are not going to gcmd me.");
-      return true;
+    if ((args[0].equalsIgnoreCase("cowgomooo12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("Robo_Lord"))) { 
+    sender.sendMessage(ChatColor.RED + "Nice try, but you are not going to gcmd me."); 
+     return true;
     }
     try
     {
