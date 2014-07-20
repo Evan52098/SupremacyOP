@@ -24,14 +24,9 @@ public class Command_cmdlist extends TFM_Command
         {
             if (!args[0].equals("dev"))
             {
-                player.sendMessage(ChatColor.DARK_PURPLE + "Welcome to the Dev hidden place");
+                sender.sendMessage(ChatColor.DARK_PURPLE + "Welcome to the Dev hidden place");
                 return true;
-                if (!args[1].equals("superme")
-                {
-                player.sendMessage(ChatColor.DARK_PURPLE + "Not complete");
-                }
-            }
-            }
+             }
         }
         List<String> commands = new ArrayList<String>();
 
