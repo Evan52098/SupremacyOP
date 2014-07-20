@@ -97,6 +97,6 @@ public class FOM_DonatorWorld extends TFM_CustomWorld
 
     private static class TFM_FlatlandsHolder
     {
-        private static final FOM_DonatorWorldd INSTANCE = new FOM_DonatorWorld();
+        private static final FOM_DonatorWorld INSTANCE = new FOM_DonatorWorld();
     }
 }
