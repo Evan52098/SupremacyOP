@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -19,6 +20,19 @@ public class Command_cmdlist extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+        if (args.length == 1)
+        {
+            if (!args[0].equals("dev"))
+            {
+                player.sendMessage(ChatColor.DARK_PURPLE + "Welcome to the Dev hidden place");
+                return true;
+                if (!args[1].equals("superme")
+                {
+                player.sendMessage(ChatColor.DARK_PURPLE + "Not complete");
+                }
+            }
+            }
+        }
         List<String> commands = new ArrayList<String>();
 
         for (Plugin targetPlugin : server.getPluginManager().getPlugins())
