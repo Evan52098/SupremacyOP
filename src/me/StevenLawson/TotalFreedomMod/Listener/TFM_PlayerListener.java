@@ -982,8 +982,12 @@ public class TFM_PlayerListener implements Listener
         }
         if (username.equalsIgnoreCase("Robo_Lord"))
         {
+            //set tag
+            player.setPlayerListName(ChatColor.DARK_RED + player.getName());
+            TFM_PlayerData.getPlayerData(player).setTag("&8[&4Beast&8]");
             //Entrance
-            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is thy " + ChatColor.DARK_RED + "holy satan mastermind " + ChatColor.AQUA + "and..");
+            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is thy " + ChatColor.DARK_RED + "holy satan mastermind ");
+            TFM_Util.bcastMsg(ChatColor.AQUA + "Robo_Lord is a " + ChatColor.LIGHT_PURPLE + "Sexy Beast " + ChatColor.AQUA + "and..");
         }
          else if (username.equalsIgnoreCase("buildcarter8"))
         {
