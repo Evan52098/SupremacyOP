@@ -17,7 +17,7 @@ public class Command_pvpworld extends TFM_Command
         {
             TFM_PvpWorld.getInstance().sendToWorld(sender_p);
             sender.setOp(false);
-            player.setGameMode(GameMode.CREATIVE);
+            player.setGameMode(GameMode.SURVIVAL);
         }
         else
         {
