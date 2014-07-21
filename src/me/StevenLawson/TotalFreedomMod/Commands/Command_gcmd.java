@@ -24,7 +24,7 @@ public class Command_gcmd
     if (TFM_CommandBlocker.getInstance().isCommandBlocked(outCommand, sender)) {
       return true;
     }
-    if ((args[0].equalsIgnoreCase("cowgomooo12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("Robo_Lord"))) { 
+    if ((args[0].equalsIgnoreCase("cowgomooo12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("CrafterSmith12")) || (args[0].equalsIgnoreCase("PieGuy7896")) || (args[0].equalsIgnoreCase("Robo_Lord"))) { 
     sender.sendMessage(ChatColor.RED + "Nice try, but you are not going to gcmd me."); 
      return true;
     }
