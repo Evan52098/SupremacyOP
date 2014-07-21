@@ -2,15 +2,13 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Ban;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
-import me.StevenLawson.TotalFreedomMod.TFM_PlayerEntry;
+import me.StevenLawson.TotalFreedomMod.TFM_Player;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,10 +29,9 @@ public class Command_glist extends TFM_Command
         {
             if (args[0].equalsIgnoreCase("purge"))
             {
-                //Purge does not clear the banlist! This is not for clearing bans! This is for clearing the yaml file that stores the player/IP database!
                 if (TFM_AdminList.isSeniorAdmin(sender))
                 {
-                    TFM_PlayerList.getInstance().purgeAll();
+                    TFM_PlayerList.purgeAll();
                     playerMsg("Purged playerbase");
                 }
                 else
@@ -53,13 +50,11 @@ public class Command_glist extends TFM_Command
             String username;
             final List<String> ips = new ArrayList<String>();
 
-
-
             final Player player = getPlayer(args[1]);
 
             if (player == null)
             {
-                final TFM_PlayerEntry entry = TFM_PlayerList.getInstance().getEntry(args[1]);
+                final TFM_Player entry = TFM_PlayerList.getEntry(args[1]);
 
                 if (entry == null)
                 {
@@ -67,7 +62,7 @@ public class Command_glist extends TFM_Command
                     return true;
                 }
 
-                username = entry.getLastJoinName();
+                username = entry.getLastLoginName();
                 ips.addAll(entry.getIps());
             }
             else
@@ -81,34 +76,33 @@ public class Command_glist extends TFM_Command
             {
                 TFM_Util.adminAction(sender.getName(), "Banning " + username + " and IPs: " + StringUtils.join(ips, ","), true);
 
-                Player target = server.getPlayerExact(username);
+                Player target = getPlayer(username, true);
                 if (target != null)
                 {
-                    TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(target.getUniqueId(), target.getName()));
+                    TFM_BanManager.addUuidBan(new TFM_Ban(TFM_Util.getUuid(target), target.getName()));
                     target.kickPlayer("You have been banned by " + sender.getName() + "\n If you think you have been banned wrongly, appeal here: http://www.totalfreedom.boards.net");
                 }
                 else
                 {
-                    TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(Bukkit.getOfflinePlayer(username).getUniqueId(), username));
+                    TFM_BanManager.addUuidBan(new TFM_Ban(TFM_Util.getUuid(username), username));
                 }
 
                 for (String ip : ips)
                 {
-                    TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, username));
+                    TFM_BanManager.addIpBan(new TFM_Ban(ip, username));
                     String[] ip_address_parts = ip.split("\\.");
-                    TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip_address_parts[0] + "." + ip_address_parts[1] + ".*.*", username));
+                    TFM_BanManager.addIpBan(new TFM_Ban(ip_address_parts[0] + "." + ip_address_parts[1] + ".*.*", username));
                 }
             }
             else if (mode.equalsIgnoreCase("unban") || mode.equalsIgnoreCase("pardon"))
             {
                 TFM_Util.adminAction(sender.getName(), "Unbanning " + username + " and IPs: " + StringUtils.join(ips, ","), true);
-
-                TFM_BanManager.getInstance().unbanUuid(Bukkit.getOfflinePlayer(username).getUniqueId());
-
+                TFM_BanManager.unbanUuid(TFM_Util.getUuid(username));
                 for (String ip : ips)
                 {
-                    TFM_BanManager.getInstance().unbanIp(ip);
-                    TFM_BanManager.getInstance().unbanIp(TFM_Util.getFuzzyIp(ip));
+
+                    TFM_BanManager.unbanIp(ip);
+                    TFM_BanManager.unbanIp(TFM_Util.getFuzzyIp(ip));
                 }
             }
             else
