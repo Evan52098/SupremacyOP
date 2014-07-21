@@ -1,3 +1,4 @@
+/*
 package me.StevenLawson.TotalFreedomMod.Bridge;
 
 public class TFM_CoreProtectBridge
@@ -48,3 +49,4 @@ public class TFM_CoreProtectBridge
     }
     
 }
+*/
