@@ -5,6 +5,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerData;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.TFM_UuidResolver;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -25,7 +26,7 @@ public class Command_gadmin extends TFM_Command
             return false;
         }
 
-        String mode = args[0].toLowerCase();
+        final String mode = args[0].toLowerCase();
 
         if (mode.equals("list"))
         {
@@ -34,7 +35,7 @@ public class Command_gadmin extends TFM_Command
 
         for (Player player : server.getOnlinePlayers())
         {
-            String hash = player.getUniqueId().toString().substring(0, 4);
+            String hash = TFM_Util.getUuid(player).toString().substring(0, 4);
             if (mode.equals("list"))
             {
                 sender.sendMessage(ChatColor.GRAY + String.format("[ %s ] : [ %s ] - %s",
@@ -42,7 +43,14 @@ public class Command_gadmin extends TFM_Command
                         ChatColor.stripColor(player.getDisplayName()),
                         hash));
             }
-            else if (hash.equalsIgnoreCase(args[1]))
+
+            if (args.length < 2)
+            {
+                return false;
+            }
+
+
+            if (hash.equalsIgnoreCase(args[1]))
             {
                 if (mode.equals("kick"))
                 {
@@ -51,7 +59,8 @@ public class Command_gadmin extends TFM_Command
                 }
                 else if (mode.equals("nameban"))
                 {
-                    TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+                    TFM_BanManager.addUuidBan(player);
+
                     TFM_Util.adminAction(sender.getName(), String.format("Banning Name: %s.", player.getName()), true);
                     player.kickPlayer("Username banned by Administrator.");
                 }
@@ -64,7 +73,8 @@ public class Command_gadmin extends TFM_Command
                         ip = String.format("%s.%s.*.*", ip_parts[0], ip_parts[1]);
                     }
                     TFM_Util.adminAction(sender.getName(), String.format("Banning IP: %s.", player.getName(), ip), true);
-                    TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+                    TFM_BanManager.addIpBan(player);
+
                     player.kickPlayer("IP address banned by Administrator.");
                 }
                 else if (mode.equals("ban"))
@@ -76,8 +86,10 @@ public class Command_gadmin extends TFM_Command
                         ip = String.format("%s.%s.*.*", ip_parts[0], ip_parts[1]);
                     }
                     TFM_Util.adminAction(sender.getName(), String.format("Banning Name: %s, IP: %s.", player.getName(), ip), true);
-                    TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
-                    TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+
+                    TFM_BanManager.addUuidBan(player);
+                    TFM_BanManager.addIpBan(player);
+
                     player.kickPlayer("IP and username banned by Administrator.");
                 }
                 else if (mode.equals("op"))
