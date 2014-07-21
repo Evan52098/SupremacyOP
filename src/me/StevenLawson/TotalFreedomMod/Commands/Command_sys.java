@@ -1,7 +1,9 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
-import me.StevenLawson.TotalFreedomMod.TFM_Superadmin;
+import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
+import me.StevenLawson.TotalFreedomMod.TFM_Ban;
+import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
@@ -24,8 +26,6 @@ public class Command_sys extends TFM_Command
         {
             sender.sendMessage(TotalFreedomMod.MSG_NO_PERMS);
             TFM_Util.adminAction("WARNING: " + sender.getName(), "Has attempted to use a system admin only command. System administration team has been alerted.", true);
-            sender.setOp(false);
-
             return true;
         }
 
@@ -50,60 +50,53 @@ public class Command_sys extends TFM_Command
         {
             if (args[0].equalsIgnoreCase("saadd"))
             {
-                Player p = null;
-                String admin_name = null;
+                OfflinePlayer player = getPlayer(args[1]);
 
-                try
-                {
-                    p = getPlayer(args[1]);
-                }
-                catch (PlayerNotFoundException ex)
-                {
-                    TFM_Superadmin superadmin = TFM_SuperadminList.getAdminEntry(args[1].toLowerCase());
-                    if (superadmin != null)
-                    {
-                        admin_name = superadmin.getName();
-                    }
-                    else
-                    {
-                        playerMsg(ex.getMessage(), ChatColor.RED);
-                        return true;
-                    }
-                }
-
-                if (p != null)
-                {
-                    TFM_Util.adminAction(sender.getName(), "Adding " + p.getName() + " to the superadmin list.", true);
-                    TFM_SuperadminList.addSuperadmin(p);
-                }
-                else if (admin_name != null)
-                {
-                    TFM_Util.adminAction(sender.getName(), "Adding " + admin_name + " to the superadmin list.", true);
-                    TFM_SuperadminList.addSuperadmin(admin_name);
-                }
-            }
-            else if (args[0].equalsIgnoreCase("sadelete") || args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("remove"))
+            if (player == null)
             {
+                final TFM_Admin superadmin = TFM_AdminList.getEntry(args[1]);
 
-                String target_name = args[1];
-
-                try
+                if (superadmin == null)
                 {
-                    target_name = getPlayer(target_name).getName();
-                }
-                catch (PlayerNotFoundException ex)
-                {
-                }
-
-                if (!TFM_SuperadminList.getSuperadminNames().contains(target_name.toLowerCase()))
-                {
-                    playerMsg("Superadmin not found: " + target_name);
+                    playerMsg(TotalFreedomMod.PLAYER_NOT_FOUND);
                     return true;
                 }
 
-                TFM_Util.adminAction(sender.getName(), "Removing " + target_name + " from the superadmin list.", true);
+                player = Bukkit.getOfflinePlayer(superadmin.getLastLoginName());
+            }
 
-                TFM_SuperadminList.removeSuperadmin(target_name);
+            TFM_Util.adminAction(sender.getName(), "Adding " + player.getName() + " to the superadmin list", true);
+            TFM_AdminList.addSuperadmin(player);
+
+            return true;
+            }
+            else if (args[0].equalsIgnoreCase("sadelete") || args[0].equalsIgnoreCase("del") || args[0].equalsIgnoreCase("remove"))
+            {
+            String targetName = args[1];
+
+
+            final Player player = getPlayer(targetName);
+
+            if (player != null)
+            {
+                targetName = player.getName();
+            }
+
+            if (!TFM_AdminList.getLowerSuperNames().contains(targetName.toLowerCase()))
+            {
+                playerMsg("Superadmin not found: " + targetName);
+                return true;
+            }
+
+            TFM_Util.adminAction(sender.getName(), "Removing " + targetName + " from the superadmin list", true);
+            TFM_AdminList.removeSuperadmin(Bukkit.getOfflinePlayer(targetName));
+
+            // Twitterbot
+            if (TFM_ConfigEntry.TWITTERBOT_ENABLED.getBoolean())
+            {
+                TFM_TwitterHandler.getInstance().delTwitterVerbose(targetName, sender);
+            }
+            return true;
             }
 
             if (args[0].equalsIgnoreCase("superdoom"))
