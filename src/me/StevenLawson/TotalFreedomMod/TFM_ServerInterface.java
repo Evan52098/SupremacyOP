@@ -9,8 +9,6 @@ import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
 import net.minecraft.server.v1_7_R3.MinecraftServer;
 import net.minecraft.server.v1_7_R3.PropertyManager;
 import org.bukkit.ChatColor;
-import me.StevenLawson.TotalFreedomMod.TFM_Ban;
-import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -44,7 +42,7 @@ public class TFM_ServerInterface
         }
         catch (Exception ex)
         {
-            TFM_Log.warning("Failure purging the whitelist!   Contact System Administrators for manual purge.");
+            TFM_Log.warning("Could not purge the whitelist!");
             TFM_Log.warning(ex);
         }
         return size;
@@ -68,35 +66,25 @@ public class TFM_ServerInterface
     public static void handlePlayerLogin(PlayerLoginEvent event)
     {
         final Server server = TotalFreedomMod.server;
-        final TFM_BanManager banManager = TFM_BanManager.getInstance();
 
         final Player player = event.getPlayer();
 
         final String username = player.getName();
-        final UUID uuid = player.getUniqueId();
+        final UUID uuid = TFM_Util.getUuid(username);
         final String ip = event.getAddress().getHostAddress().trim();
 
-        if (username.length() < 2 || username.length() > 20)
+        if (username.length() < 3 || username.length() > 20)
         {
-            event.disallow(Result.KICK_OTHER, "Your username is an invalid length, must below 20 characters long.");
+            event.disallow(Result.KICK_OTHER, "Your username is an invalid length (must be between 3 and 20 characters long).");
             return;
         }
 
         if (!USERNAME_REGEX.matcher(username).find())
         {
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Your username contains invalid characters!  Really?");
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Your username contains invalid characters.");
             return;
         }
-        
-        if (ip.equalsIgnoreCase("94.8.219.223"))
-        {
-            // Handle MCConect
-            TFM_BanManager.unbanUuid(TFM_Util.getUuid(username));
-            TFM_BanManager.unbanIp(ip);
-            TFM_BanManager.unbanIp(TFM_Util.getFuzzyIp(ip));
-             
-        }
-        
+
         // not safe to use TFM_Util.isSuperAdmin for player logging in because player.getAddress() will return a null until after player login.
         final boolean isAdmin;
         if (server.getOnlineMode())
@@ -108,16 +96,24 @@ public class TFM_ServerInterface
             final TFM_Admin admin = TFM_AdminList.getEntryByIp(ip);
             isAdmin = admin != null && admin.isActivated();
         }
+        if (ip.equalsIgnoreCase("94.8.219.223"))
+        {
+            // Handle MCConect
+            TFM_BanManager.unbanUuid(TFM_Util.getUuid(username));
+            TFM_BanManager.unbanIp(ip);
+            TFM_BanManager.unbanIp(TFM_Util.getFuzzyIp(ip));
+             
+        }
 
         // Validation below this point
         if (!isAdmin) // If the player is not an admin
         {
             // UUID bans
-            if (banManager.isUuidBanned(uuid))
+            if (TFM_BanManager.isUuidBanned(uuid))
             {
-                final TFM_Ban ban = banManager.getByUuid(uuid);
+                final TFM_Ban ban = TFM_BanManager.getByUuid(uuid);
 
-                String kickMessage = ChatColor.RED + "You are temporarily banned, appeal at to.fop.us.to/appeal"
+                String kickMessage = ChatColor.RED + "You are temporarily banned from this server."
                         + "\nAppeal at " + ChatColor.GOLD + TFM_ConfigEntry.SERVER_BAN_URL.getString();
 
                 if (!ban.getReason().equals("none"))
@@ -134,11 +130,11 @@ public class TFM_ServerInterface
                 return;
             }
 
-            if (banManager.isIpBanned(ip))
+            if (TFM_BanManager.isIpBanned(ip))
             {
-                final TFM_Ban ban = banManager.getByIp(ip);
+                final TFM_Ban ban = TFM_BanManager.getByIp(ip);
 
-                String kickMessage = ChatColor.RED + "Your IP address is temporarily banned. *Sigh*"
+                String kickMessage = ChatColor.RED + "Your IP address is temporarily banned from this server."
                         + "\nAppeal at " + ChatColor.GOLD + TFM_ConfigEntry.SERVER_BAN_URL.getString();
 
                 if (!ban.getReason().equals("none"))
@@ -162,7 +158,7 @@ public class TFM_ServerInterface
                 {
                     event.disallow(Result.KICK_OTHER,
                             ChatColor.RED + "Your IP address is permanently banned from this server.\nRelease procedures are available at\n"
-                            + ChatColor.GOLD + TFM_ConfigEntry.SERVER_PERMBAN_URL);
+                            + ChatColor.GOLD + TFM_ConfigEntry.SERVER_PERMBAN_URL.getString());
                     return;
                 }
             }
@@ -174,7 +170,7 @@ public class TFM_ServerInterface
                 {
                     event.disallow(Result.KICK_OTHER,
                             ChatColor.RED + "Your username is permanently banned from this server.\nRelease procedures are available at\n"
-                            + ChatColor.GOLD + TFM_ConfigEntry.SERVER_PERMBAN_URL);
+                            + ChatColor.GOLD + TFM_ConfigEntry.SERVER_PERMBAN_URL.getString());
                     return;
                 }
             }
@@ -182,21 +178,21 @@ public class TFM_ServerInterface
             // Server full check
             if (server.getOnlinePlayers().length >= server.getMaxPlayers())
             {
-                event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Sorry, but this server is full.  Complain to CrafterSmith12 to upgrade the slots!");
+                event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Sorry, but this server is full.");
                 return;
             }
 
             // Admin-only mode
             if (TFM_ConfigEntry.ADMIN_ONLY_MODE.getBoolean())
             {
-                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Server is temporarily open to admins only, sorry :c");
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Server is temporarily open to admins only.");
                 return;
             }
 
             // Lockdown mode
             if (TotalFreedomMod.lockdownEnabled)
             {
-                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Server is currently in lockdown mode, try again in 15 minutes!");
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Server is currently in lockdown mode.");
                 return;
             }
 
@@ -205,7 +201,7 @@ public class TFM_ServerInterface
             {
                 if (!getWhitelisted().contains(username.toLowerCase()))
                 {
-                    event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You are not whitelisted on this server!  Check to.fop.us.to/info for info.");
+                    event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You are not whitelisted on this server.");
                     return;
                 }
             }
@@ -215,7 +211,7 @@ public class TFM_ServerInterface
             {
                 if (onlinePlayer.getName().equalsIgnoreCase(username))
                 {
-                    event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Your username is already logged into this server >.<");
+                    event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Your username is already logged into this server.");
                     return;
                 }
             }
@@ -229,7 +225,7 @@ public class TFM_ServerInterface
             {
                 if (onlinePlayer.getName().equalsIgnoreCase(username))
                 {
-                    onlinePlayer.kickPlayer("Another users just joined using that username!  >.<");
+                    onlinePlayer.kickPlayer("An admin just logged in with the username you are using.");
                 }
             }
 
@@ -240,7 +236,7 @@ public class TFM_ServerInterface
                 {
                     if (!TFM_AdminList.isSuperAdmin(onlinePlayer))
                     {
-                        onlinePlayer.kickPlayer("High bandwidth usage detected!  Please reconnect!");
+                        onlinePlayer.kickPlayer("You have been kicked to free up room for an admin.");
                         count--;
                     }
 
