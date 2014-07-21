@@ -85,10 +85,11 @@ public enum TFM_PlayerRank
         {
             return SYS;
         }
-        // He's executive assistant to Paldiu
-        if (sender.getName().equalsIgnoreCase("jamelb"))
-        {
-            return EXECUTIVE;
+//        // He's executive assistant to Paldiu
+//        // Paldiu doesn't update FOPM anymore, and quit is placed as Honary now.   
+//        if (sender.getName().equalsIgnoreCase("jamelb"))
+//        {
+//            return EXECUTIVE;
         }
         if (sender.getName().equals("SupItsDillon"))
         {
@@ -96,7 +97,7 @@ public enum TFM_PlayerRank
         }
         if (sender.getName().equals("aggelosQQ"))
         {
-            return WEB;
+            return EXECUTIVE;
         }
         if (DEVELOPERS.contains(sender.getName()))
         {
