@@ -3,6 +3,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 import me.StevenLawson.TotalFreedomMod.Bridge.TFM_WorldEditBridge;
 import me.StevenLawson.TotalFreedomMod.TFM_Ban;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
+import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
@@ -92,10 +93,15 @@ public class Command_gtfo extends TFM_Command
         TFM_Util.bcastMsg(String.format("%s - Banning: %s, IP: %s.", sender.getName(), player.getName(), ip), ChatColor.RED);
         TFM_Util.bcastMsg(ChatColor.RED +  (reason != null ? ("Reason: " + ChatColor.YELLOW + reason) : ""));
 
-        TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName(), sender.getName(), null, reason));
+        // ban IPs
+        for (String playerIp : TFM_PlayerList.getEntry(player).getIps())
+        {
+            TFM_BanManager.addIpBan(new TFM_Ban(playerIp, player.getName()));
+        }
 
-        // ban username:
-        TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName(), sender.getName(), null, reason));
+        // ban uuid
+        TFM_BanManager.addUuidBan(player);
+
 
         // kick Player:
         player.kickPlayer(ChatColor.RED + "GTFO" + "(" + sender.getName() + ")"+ (reason != null ? ("\nReason: " + ChatColor.YELLOW + reason) : ""));
