@@ -35,6 +35,7 @@ public class TotalFreedomMod extends JavaPlugin
     public static final long SERVICE_CHECKER_RATE = 120L;
     //
     public static final String SUPERADMIN_FILE = "superadmin.yml";
+    public static final String DONATOR_FILE = "donator.yml";
     public static final String PERMBAN_FILE = "permban.yml";
     public static final String PROTECTED_AREA_FILE = "protectedareas.dat";
     public static final String SAVED_FLAGS_FILE = "savedflags.dat";
@@ -105,7 +106,7 @@ public class TotalFreedomMod extends JavaPlugin
         TFM_PermbanList.load();
         
         // Load Donators
-        FOM_DonatorList.loadDonatorList();
+        FOM_DonatorList.load();
         
         // Playerlist and bans
         TFM_PlayerList.getInstance().load();
