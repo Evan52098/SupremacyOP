@@ -23,19 +23,27 @@ public class Command_tfm extends TFM_Command
         if (args.length == 1)
         {
             if (!args[0].equals("reload"))
+            {
+                return false;
+            }
+
             if (!TFM_AdminList.isSuperAdmin(sender))
             {
                 playerMsg(TotalFreedomMod.MSG_NO_PERMS);
                 return true;
             }
-            // Take action
+
             TFM_AdminList.load();
             TFM_PermbanList.load();
-            TFM_PlayerList.getInstance().load();
-            TFM_BanManager.getInstance().load();
-            TFM_CommandBlocker.getInstance().load();
+            TFM_PlayerList.load();
+            TFM_BanManager.load();
 
-            final String message = String.format("%s v%s.%s reloaded.", TotalFreedomMod.pluginName, TotalFreedomMod.pluginVersion, TotalFreedomMod.buildNumber);
+
+            final String message = String.format("%s v%s.%s reloaded.",
+                    TotalFreedomMod.pluginName,
+                    TotalFreedomMod.pluginVersion,
+                    TotalFreedomMod.buildNumber);
+
             playerMsg(message);
             TFM_Log.info(message);
             return true;
