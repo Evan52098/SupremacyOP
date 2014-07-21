@@ -85,12 +85,6 @@ public enum TFM_PlayerRank
         {
             return SYS;
         }
-//        // He's executive assistant to Paldiu
-//        // Paldiu doesn't update FOPM anymore, and quit is placed as Honary now.   
-//        if (sender.getName().equalsIgnoreCase("jamelb"))
-//        {
-//            return EXECUTIVE;
-        }
         if (sender.getName().equals("SupItsDillon"))
         {
             return SECURITY;
