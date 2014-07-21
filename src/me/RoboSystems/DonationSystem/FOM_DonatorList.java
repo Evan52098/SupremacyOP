@@ -1,387 +1,597 @@
+/*
 package me.RoboSystems.DonationSystem;
 
 import java.io.File;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import me.StevenLawson.TotalFreedomMod.Commands.Command_logs;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_Config;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_MainConfig;
 import me.StevenLawson.TotalFreedomMod.TFM_Log;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
+import net.minecraft.util.com.google.common.collect.Sets;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.FileUtil;
 
 public class FOM_DonatorList
 {
-  private static Map<String, FOM_Donator> donatorList = new HashMap();
-  private static List<String> donatorNames = new ArrayList();
-  private static List<String> donatorIPs = new ArrayList();
-  private static List<String> fullDonatorNames = new ArrayList();
-  private static List<String> seniorDonatorNames = new ArrayList();
-  private static int clean_threshold_hours = 168;
-  
-  private FOM_DonatorList()
-  {
-    throw new AssertionError();
-  }
-  
-  public static List<String> getDonatorIPs()
-  {
-    return donatorIPs;
-  }
-  
-  public static List<String> getDonatorNames()
-  {
-    return donatorNames;
-  }
-  
-  public static List<String> getSuperDonatorNames()
-  {
-    return superDonatorNames;
-  }
-  
-  public static List<String> getSeniorDonatorNames()
-  {
-    return seniorDonatorNames;
-  }
-  
-  public static void loadDonatorList()
-  {
-    try
-    {
-      donatorList.clear();
-      
+    private static final Map<UUID, FOM_Donator> donatorList;
+    private static final Set<UUID> superUUIDs;
+    private static final Set<UUID> telnetUUIDs;
+    private static final Set<UUID> seniorUUIDs;
+    private static final Set<String> seniorConsoleAliases;
+    private static final Set<String> superIps;
+    private static int cleanThreshold = 24 * 7; // 1 Week in hours
 
-      TFM_Util.createDefaultConfiguration("donator.yml");
-      FileConfiguration config = YamlConfiguration.loadConfiguration(new File(TotalFreedomMod.plugin.getDataFolder(), "donator.yml"));
-      
-      clean_threshold_hours = config.getInt("clean_threshold_hours", clean_threshold_hours);
-      ConfigurationSection section;
-      if (config.isConfigurationSection("donators"))
-      {
-        section = config.getConfigurationSection("donators");
-        for (String donator_name : section.getKeys(false))
+    static
+    {
+        donatorList = new HashMap<UUID, FOM_Donator>();
+        superUUIDs = new HashSet<UUID>();
+        telnetUUIDs = new HashSet<UUID>();
+        seniorUUIDs = new HashSet<UUID>();
+        seniorConsoleAliases = new HashSet<String>();
+        superIps = new HashSet<String>();
+    }
+
+    private FOM_DonatorList()
+    {
+        throw new AssertionError();
+    }
+
+    public static Set<UUID> getSuperUUIDs()
+    {
+        return Collections.unmodifiableSet(superUUIDs);
+    }
+
+    public static Set<UUID> getTelnetUUIDs()
+    {
+        return Collections.unmodifiableSet(telnetUUIDs);
+    }
+
+    public static Set<UUID> getSeniorUUIDs()
+    {
+        return Collections.unmodifiableSet(seniorUUIDs);
+    }
+
+    public static Set<String> getSeniorConsoleAliases()
+    {
+        return Collections.unmodifiableSet(seniorConsoleAliases);
+    }
+
+    public static Set<String> getDonatorIps()
+    {
+        return Collections.unmodifiableSet(superIps);
+    }
+
+    public static Set<String> getSuperNames()
+    {
+        final Set<String> names = new HashSet<String>();
+
+        for (FOM_Donator donator : donatorList.values())
         {
-          FOM_Donator donator = new FOM_Donator(donator_name, section.getConfigurationSection(donator_name));
-          donatorList.put(donator_name.toLowerCase(), donator);
+            if (!donator.isActivated())
+            {
+                continue;
+            }
+
+            names.add(donator.getLastLoginName());
         }
-      }
-      else
-      {
-        TFM_Log.warning("Missing donators section in donator.yml.");
-      }
-      updateIndexLists();
+
+        return Collections.unmodifiableSet(names);
     }
-    catch (Exception ex)
+
+    public static Set<String> getLowerSuperNames()
     {
-      TFM_Log.severe(ex);
-    }
-  }
-  
-  public static void backupSavedList()
-  {
-    File a = new File(TotalFreedomMod.plugin.getDataFolder(), "donator.yml");
-    File b = new File(TotalFreedomMod.plugin.getDataFolder(), "donator.yml.bak");
-    FileUtil.copy(a, b);
-  }
-  
-  public static void updateIndexLists()
-  {
-    donatorNames.clear();
-    donatorIPs.clear();
-    seniorDonatorNames.clear();
-    
-    Iterator<Map.Entry<String, FOM_Donator>> it = donatorList.entrySet().iterator();
-    while (it.hasNext())
-    {
-      Map.Entry<String, FOM_Donator> pair = (Map.Entry)it.next();
-      
-      String donator_name = ((String)pair.getKey()).toLowerCase();
-      FOM_Donator donator = (FOM_Donator)pair.getValue();
-      if (donator.isActivated())
-      {
-        donatorNames.add(donator_name);
-        for (String ip : donator.getIps()) {
-          donatorIPs.add(ip);
-        }
-        if (donator.isSeniorDonator())
+        final Set<String> names = new HashSet<String>();
+
+        for (FOM_Donator donator : donatorList.values())
         {
-          seniorDonatorNames.add(donator_name);
-          for (String console_alias : donator.getConsoleAliases()) {
-            seniorDonatorNames.add(console_alias.toLowerCase());
-          }
+            if (!donator.isActivated())
+            {
+                continue;
+            }
+
+            names.add(donator.getLastLoginName().toLowerCase());
         }
-        if (donator.isFullDonator()) {
-          fullDonatorNames.add(donator_name);
-        }
-      }
+
+        return Collections.unmodifiableSet(names);
     }
-    donatorNames = TFM_Util.removeDuplicates(donatorNames);
-    donatorIPs = TFM_Util.removeDuplicates(donatorIPs);
-    fullDonatorNames = TFM_Util.removeDuplicates(fullDonatorNames);
-    seniorDonatorNames = TFM_Util.removeDuplicates(seniorDonatorNames);
-  }
-  
-  public static void saveDonatorList()
-  {
-    try
+
+    public static Set<FOM_Donator> getAllDonators()
     {
-      updateIndexLists();
-      
-      YamlConfiguration config = new YamlConfiguration();
-      
-      config.set("clean_threshold_hours", Integer.valueOf(clean_threshold_hours));
-      
-      Iterator<Map.Entry<String, FOM_Donator>> it = donatorList.entrySet().iterator();
-      while (it.hasNext())
-      {
-        Map.Entry<String, FOM_Donator> pair = (Map.Entry)it.next();
-        
-        String donator_name = ((String)pair.getKey()).toLowerCase();
-        FOM_Donator donator = (FOM_Donator)pair.getValue();
-        
-        config.set("donators." + donator_name + ".ips", TFM_Util.removeDuplicates(donator.getIps()));
-        config.set("donators." + donator_name + ".last_login", TFM_Util.dateToString(donator.getLastLogin()));
-        config.set("donators." + donator_name + ".custom_login_message", donator.getCustomLoginMessage());
-        config.set("donators." + donator_name + ".is_super_donator", Boolean.valueOf(donator.isSuperDonator()));
-        config.set("donators." + donator_name + ".is_senior_donator", Boolean.valueOf(donator.isSeniorDonator()));
-        config.set("donators." + donator_name + ".console_aliases", TFM_Util.removeDuplicates(donator.getConsoleAliases()));
-        config.set("donators." + donator_name + ".is_activated", Boolean.valueOf(donator.isActivated()));
-      }
-      config.save(new File(TotalFreedomMod.plugin.getDataFolder(), "donator.yml"));
+        return Sets.newHashSet(donatorList.values());
     }
-    catch (Exception ex)
+
+    public static void load()
     {
-      TFM_Log.severe(ex);
-    }
-  }
-  
-  public static FOM_Donator getDonatorEntry(String donator_name)
-  {
-    donator_name = donator_name.toLowerCase();
-    if (donatorList.containsKey(donator_name)) {
-      return (FOM_Donator)donatorList.get(donator_name);
-    }
-    return null;
-  }
-  
-  public static FOM_Donator getDonatorEntry(Player p)
-  {
-    return getDonatorEntry(p.getName().toLowerCase());
-  }
-  
-  public static FOM_Donator getDonatorEntryByIP(String ip)
-  {
-    Iterator<Map.Entry<String, FOM_Donator>> it = donatorList.entrySet().iterator();
-    while (it.hasNext())
-    {
-      Map.Entry<String, FOM_Donator> pair = (Map.Entry)it.next();
-      FOM_Donator donator = (FOM_Donator)pair.getValue();
-      if (donator.getIps().contains(ip)) {
-        return donator;
-      }
-    }
-    return null;
-  }
-  
-  public static void updateLastLogin(Player p)
-  {
-    FOM_Donator donator_entry = getDonatorEntry(p);
-    if (donator_entry != null)
-    {
-      donator_entry.setLastLogin(new Date());
-      saveDonatorList();
-    }
-  }
-  
-  public static boolean isSeniorDonator(CommandSender user)
-  {
-    return isSeniorDonator(user, false);
-  }
-  
-  public static boolean isSeniorDonator(CommandSender user, boolean verify_is_donator)
-  {
-    if (verify_is_donator) {
-      if (!isUserDonator(user)) {
-        return false;
-      }
-    }
-    String user_name = user.getName().toLowerCase();
-    if (!(user instanceof Player)) {
-      return seniorDonatorNames.contains(user_name);
-    }
-    FOM_Donator donator_entry = getDonatorEntry((Player)user);
-    if (donator_entry != null) {
-      return donator_entry.isSeniorDonator();
-    }
-    return false;
-  }
-  
-  public static boolean isUserDonator(CommandSender user)
-  {
-    if (!(user instanceof Player)) {
-      return true;
-    }
-    if (Bukkit.getOnlineMode()) {
-      if (donatorNames.contains(user.getName().toLowerCase())) {
-        return true;
-      }
-    }
-    try
-    {
-      String user_ip = ((Player)user).getAddress().getAddress().getHostAddress();
-      if ((user_ip != null) && (!user_ip.isEmpty())) {
-        if (donatorIPs.contains(user_ip)) {
-          return true;
-        }
-      }
-    }
-    catch (Exception ex)
-    {
-      return false;
-    }
-    return false;
-  }
-  
-  public static boolean checkPartialdonatorIP(String user_ip, String user_name)
-  {
-    try
-    {
-      user_ip = user_ip.trim();
-      if (donatorIPs.contains(user_ip)) {
-        return true;
-      }
-      String match_ip = null;
-      for (String test_ip : getDonatorIPs()) {
-        if (TFM_Util.fuzzyIpMatch(user_ip, test_ip, 3))
+        donatorList.clear();
+
+        final TFM_Config config = new TFM_Config(TotalFreedomMod.plugin, TotalFreedomMod.DONATOR_FILE, true);
+        config.load();
+
+        cleanThreshold = config.getInt("clean_threshold_hours", cleanThreshold);
+
+        // Parse old donators
+        if (config.isConfigurationSection("donators"))
         {
-          match_ip = test_ip;
-          break;
+            parseOldConfig(config);
         }
-      }
-      if (match_ip != null)
-      {
-        FOM_Donator donator_entry = getDonatorEntryByIP(match_ip);
-        if (donator_entry != null) {
-          if (donator_entry.getName().equalsIgnoreCase(user_name))
-          {
-            List<String> ips = donator_entry.getIps();
-            ips.add(user_ip);
-            donator_entry.setIps(ips);
-            saveDonatorList();
-          }
+
+        if (!config.isConfigurationSection("donators"))
+        {
+            TFM_Log.warning("Missing donator section in dontarors.yml.");
+            return;
         }
-        return true;
-      }
+
+        final ConfigurationSection section = config.getConfigurationSection("donators");
+
+        for (String uuidString : section.getKeys(false))
+        {
+            if (!TFM_Util.isUniqueId(uuidString))
+            {
+                TFM_Log.warning("Invalid Unique ID: " + uuidString + " in donators.yml, ignoring");
+                continue;
+            }
+
+            final UUID uuid = UUID.fromString(uuidString);
+
+            final FOM_Donator donator = new FOM_Donator(uuid, section.getConfigurationSection(uuidString));
+            donatorList.put(uuid, donator);
+        }
+
+        updateIndexLists();
+
+        TFM_Log.info("Loaded " + donatorList.size() + " donators (" + superUUIDs.size() + " active) and " + superIps.size() + " IPs.");
     }
-    catch (Exception ex)
+
+    public static void updateIndexLists()
     {
-      TFM_Log.severe(ex);
+        superUUIDs.clear();
+        telnetUUIDs.clear();
+        seniorUUIDs.clear();
+        seniorConsoleAliases.clear();
+        superIps.clear();
+
+        for (FOM_Donator donator : donatorList.values())
+        {
+            if (!donator.isActivated())
+            {
+                continue;
+            }
+
+            final UUID uuid = donator.getUniqueId();
+
+            superUUIDs.add(uuid);
+
+            for (String ip : donator.getIps())
+            {
+                superIps.add(ip);
+            }
+
+            if (donator.isFullDonator())
+            {
+                telnetUUIDs.add(uuid);
+
+                for (String alias : donator.getConsoleAliases())
+                {
+                    seniorConsoleAliases.add(alias.toLowerCase());
+                }
+            }
+
+
+            if (donator.isSeniorDonator())
+            {
+                seniorUUIDs.add(uuid);
+            }
+        }
+
+        FOM_DonatorWorld.getInstance().wipeAccessCache();
     }
-    return false;
-  }
-  
-  public static boolean isDonatorImpostor(CommandSender user)
-  {
-    if (!(user instanceof Player)) {
-      return false;
-    }
-    Player p = (Player)user;
-    if (donatorNames.contains(p.getName().toLowerCase())) {
-      return !isUserDonator(p);
-    }
-    return false;
-  }
-  
-  public static void addDonator(String donator_name, List<String> ips)
-  {
-    try
+
+    private static void parseOldConfig(TFM_Config config)
     {
-      donator_name = donator_name.toLowerCase();
-      if (donatorList.containsKey(donator_name))
-      {
-        FOM_Donator donator = (FOM_Donator)donatorList.get(donator_name);
-        donator.setActivated(true);
-        donator.getIps().addAll(ips);
+        TFM_Log.info("Old donator configuration found, parsing...");
+
+        final ConfigurationSection section = config.getConfigurationSection("donators");
+
+        int counter = 0;
+        int errors = 0;
+
+        for (String donator : config.getConfigurationSection("donators").getKeys(false))
+        {
+            final OfflinePlayer player = Bukkit.getOfflinePlayer(donator);
+
+            if (player == null || player.getUniqueId() == null)
+            {
+                errors++;
+                TFM_Log.warning("Could not convert donator " + donator + ", UUID could not be found!");
+                continue;
+            }
+
+            final String uuid = player.getUniqueId().toString();
+
+            config.set("donators." + uuid + ".last_login_name", player.getName());
+            config.set("donators." + uuid + ".is_activated", section.getBoolean(donator + ".is_activated"));
+            config.set("donators." + uuid + ".is_full_donator", section.getBoolean(donator + ".is_fullt_donator"));
+            config.set("donators." + uuid + ".is_senior_donator", section.getBoolean(donator + ".is_senior_donator"));
+            config.set("donators." + uuid + ".last_login", section.getString(donator + ".last_login"));
+            config.set("donators." + uuid + ".custom_login_message", section.getString(donator + ".custom_login_message"));
+            config.set("donators." + uuid + ".console_aliases", section.getStringList(donator + ".console_aliases"));
+            config.set("donators." + uuid + ".ips", section.getStringList(donator + ".ips"));
+
+            counter++;
+        }
+
+        config.set("donators", null);
+        config.save();
+
+        TFM_Log.info("Done! " + counter + " donators parsed, " + errors + " errors");
+    }
+
+    public static void save()
+    {
+        final TFM_Config config = new TFM_Config(TotalFreedomMod.plugin, TotalFreedomMod.DONATOR_FILE, true);
+        config.load();
+
+        config.set("clean_threshold_hours", cleanThreshold);
+
+        Iterator<Entry<UUID, FOM_Donator>> it = donatorList.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Entry<UUID, FOM_Donator> pair = it.next();
+
+            UUID uuid = pair.getKey();
+            FOM_Donator donator = pair.getValue();
+
+            config.set("donators." + uuid + ".last_login_name", donator.getLastLoginName());
+            config.set("donators." + uuid + ".is_activated", donator.isActivated());
+            config.set("donators." + uuid + ".is_full_donator", donator.isFullDonator());
+            config.set("donators." + uuid + ".is_senior_donator", donator.isSeniorDonator());
+            config.set("donators." + uuid + ".last_login", TFM_Util.dateToString(donator.getLastLogin()));
+            config.set("donators." + uuid + ".custom_login_message", donator.getCustomLoginMessage());
+            config.set("donators." + uuid + ".console_aliases", TFM_Util.removeDuplicates(donator.getConsoleAliases()));
+            config.set("donators." + uuid + ".ips", TFM_Util.removeDuplicates(donator.getIps()));
+        }
+
+        config.save();
+    }
+
+    public static FOM_Donator getEntry(Player player)
+    {
+        final UUID uuid = player.getUniqueId();
+
+        if (Bukkit.getOnlineMode())
+        {
+            if (donatorList.containsKey(uuid))
+            {
+                return donatorList.get(uuid);
+            }
+        }
+
+        return getEntryByIp(TFM_Util.getIp(player));
+    }
+
+    public static FOM_Donator getEntry(UUID uuid)
+    {
+        return donatorList.get(uuid);
+    }
+
+    @Deprecated
+    public static FOM_Donator getEntry(String name)
+    {
+        for (UUID uuid : donatorList.keySet())
+        {
+            if (donatorList.get(uuid).getLastLoginName().equalsIgnoreCase(name))
+            {
+                return donatorList.get(uuid);
+            }
+        }
+        return null;
+    }
+
+    public static FOM_Donator getEntryByIp(String ip)
+    {
+        return getEntryByIp(ip, false);
+    }
+
+    public static FOM_Donator getEntryByIp(String needleIp, boolean fuzzy)
+    {
+        Iterator<Entry<UUID, FOM_Donator>> it = donatorList.entrySet().iterator();
+        while (it.hasNext())
+        {
+            final Entry<UUID, FOM_Donator> pair = it.next();
+            final FOM_Donator donator = pair.getValue();
+
+            if (fuzzy)
+            {
+                for (String haystackIp : donator.getIps())
+                {
+                    if (TFM_Util.fuzzyIpMatch(needleIp, haystackIp, 3))
+                    {
+                        return donator;
+                    }
+                }
+            }
+            else
+            {
+                if (donator.getIps().contains(needleIp))
+                {
+                    return donator;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void updateLastLogin(Player player)
+    {
+        final FOM_Donator donator = getEntry(player);
+        if (donator == null)
+        {
+            return;
+        }
         donator.setLastLogin(new Date());
-      }
-      else
-      {
-        Date last_login = new Date();
-        String custom_login_message = "";
-        boolean is_super_donator = false;
-        boolean is_senior_donator = false;
-        List<String> console_aliases = new ArrayList();
-        
-        FOM_Donator donator = new FOM_Donator(donator_name, ips, last_login, custom_login_message, is_full_donator, is_senior_donator, console_aliases, true);
-        donatorList.put(donator_name.toLowerCase(), donator);
-      }
-      saveDonatorList();
+        donator.setLastLoginName(player.getName());
+        save();
     }
-    catch (Exception ex)
+
+    public static boolean isSeniorDonator(CommandSender sender)
     {
-      TFM_Log.severe(ex);
+        return isSeniorDonator(sender, false);
     }
-  }
-  
-  public static void addDonator(Player p)
-  {
-    String donator_name = p.getName().toLowerCase();
-    List<String> ips = Arrays.asList(new String[] { p.getAddress().getAddress().getHostAddress() });
-    
-    addDonator(donator_name, ips);
-  }
-  
-  public static void addDonator(String donator_name)
-  {
-    addDonator(donator_name, new ArrayList());
-  }
-  
-  public static void removeDonator(String donator_name)
-  {
-    try
+
+    public static boolean isSeniorDonator(CommandSender sender, boolean verifyDonator)
     {
-      donator_name = donator_name.toLowerCase();
-      if (donatorList.containsKey(donator_name))
-      {
-        FOM_Donator donator = (FOM_Donator)donatorList.get(donator_name);
+        if (verifyDonator)
+        {
+            if (!isDonator(sender))
+            {
+                return false;
+            }
+        }
+
+
+        if (!(sender instanceof Player))
+        {
+            return seniorConsoleAliases.contains(sender.getName())
+                    || (TFM_MainConfig.getInstance().getBoolean(TFM_ConfigEntry.CONSOLE_IS_SENIOR) && sender.getName().equals("CONSOLE"));
+        }
+
+        final FOM_Donator entry = getEntry((Player) sender);
+        if (entry != null)
+        {
+            return entry.isSeniorDonator();
+        }
+
+        return false;
+    }
+
+    public static boolean isSuperDonator(CommandSender sender)
+    {
+        if (!(sender instanceof Player))
+        {
+            return true;
+        }
+
+        if (Bukkit.getOnlineMode() && superUUIDs.contains(((Player) sender).getUniqueId()))
+        {
+            return true;
+        }
+
+
+        if (superIps.contains(TFM_Util.getIp((Player) sender)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isFullDonator(CommandSender sender, boolean verifyDonator)
+    {
+        if (verifyDonator)
+        {
+            if (!isDonator(sender))
+            {
+                return false;
+            }
+        }
+
+        final FOM_Donator entry = getEntry((Player) sender);
+        if (entry != null)
+        {
+            return entry.isFullDonator();
+        }
+
+        return false;
+    }
+
+    public static boolean isIdentityMatched(Player player)
+    {
+        if (!isDonator(player))
+        {
+            return false;
+        }
+
+        if (Bukkit.getOnlineMode())
+        {
+            return true;
+        }
+
+        final FOM_Donator entry = getEntry(player);
+        if (entry == null)
+        {
+            return false;
+        }
+
+        return entry.getUniqueId().equals(player.getUniqueId());
+    }
+
+    @Deprecated
+    public static boolean checkPartialDonatorIp(String ip, String name)
+    {
+        ip = ip.trim();
+
+        if (donatorIps.contains(ip))
+        {
+            return true;
+        }
+
+        try
+        {
+            String matchIp = null;
+            for (String testIp : superIps)
+            {
+                if (TFM_Util.fuzzyIpMatch(ip, testIp, 3))
+                {
+                    matchIp = testIp;
+                    break;
+                }
+            }
+
+            if (matchIp != null)
+            {
+                final FOM_Donator entry = getEntryByIp(matchIp);
+
+                if (entry == null)
+                {
+                    return true;
+                }
+
+                if (entry.getLastLoginName().equalsIgnoreCase(name))
+                {
+                    if (!entry.getIps().contains(ip))
+                    {
+                        entry.addIp(ip);
+                    }
+                    save();
+                }
+                return true;
+
+            }
+        }
+        catch (Exception ex)
+        {
+            TFM_Log.severe(ex);
+        }
+
+        return false;
+    }
+
+    public static boolean isDonatorImpostor(Player player)
+    {
+        if (superUUIDs.contains(player.getUniqueId()))
+        {
+            return !isDonator(player);
+        }
+
+        return false;
+    }
+
+    public static void addDonator(OfflinePlayer player)
+    {
+        final UUID uuid = player.getUniqueId();
+        final String ip = TFM_Util.getIp(player);
+
+        if (donatorList.containsKey(uuid))
+        {
+            final FOM_Donator donator = donatorList.get(uuid);
+            donator.setActivated(true);
+
+            if (player instanceof Player)
+            {
+                donator.setLastLogin(new Date());
+                donator.addIp(ip);
+            }
+            save();
+            updateIndexLists();
+            return;
+        }
+
+        if (ip == null)
+        {
+            TFM_Log.severe("Cannot add donator: " + TFM_Util.formatPlayer(player));
+            TFM_Log.severe("Could not retrieve IP!");
+            return;
+        }
+
+        final FOM_Donator donator = new FOM_Donator(
+                uuid,
+                player.getName(),
+                new Date(),
+                "",
+                false,
+                false,
+                true);
+        donator.addIp(ip);
+
+        donatorList.put(uuid, donator);
+
+        save();
+        updateIndexLists();
+    }
+
+    public static void removeDonater(OfflinePlayer player)
+    {
+        final UUID uuid = player.getUniqueId();
+
+        if (!donatorList.containsKey(uuid))
+        {
+            TFM_Log.warning("Could not remove donator: " + TFM_Util.formatPlayer(player));
+            TFM_Log.warning("Player is not an donator!");
+            return;
+        }
+
+        final FOM_Donator donator = donatorList.get(uuid);
         donator.setActivated(false);
-        saveDonatorList();
-      }
+        
+        save();
+        updateIndexLists();
     }
-    catch (Exception ex)
+
+    public static void cleanDonatorList(boolean verbose)
     {
-      TFM_Log.severe(ex);
+        Iterator<Entry<UUID, FOM_Donator>> it = donatorList.entrySet().iterator();
+        while (it.hasNext())
+        {
+            final Entry<UUID, FOM_Donator> pair = it.next();
+            final FOM_Donator donator = pair.getValue();
+
+            if (!donator.isActivated() || donator.isSeniorDonator())
+            {
+                continue;
+            }
+
+            final Date lastLogin = donator.getLastLogin();
+            final long lastLoginHours = TimeUnit.HOURS.convert(new Date().getTime() - lastLogin.getTime(), TimeUnit.MILLISECONDS);
+
+            if (lastLoginHours > cleanThreshold)
+            {
+                if (verbose)
+                {
+                    TFM_Util.adminAction("TotalFreedomMod", "Deactivating donator " + donator.getLastLoginName() + ", inactive for " + lastLoginHours + " hours.", true);
+                }
+
+                donator.setActivated(false);
+                }
+        }
+
+        save();
+        updateIndexLists();
     }
-  }
-  
-  public static void removeDonator(Player p)
-  {
-    removeDonator(p.getName());
-  }
-  
-  public static boolean verifyIdentity(String donator_name, String ip)
-    throws Exception
-  {
-    if (Bukkit.getOnlineMode()) {
-      return true;
-    }
-    FOM_Donator donator_entry = getDonatorEntry(donator_name);
-    if (donator_entry != null) {
-      return donator_entry.getIps().contains(ip);
-    }
-    throw new Exception();
-  }
 }
+*/
