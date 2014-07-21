@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import me.RoboSystems.DonationSystem.FOM_DonatorList;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandHandler;
 import me.StevenLawson.TotalFreedomMod.Commands.TFM_CommandLoader;
 import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
@@ -105,12 +104,9 @@ public class TotalFreedomMod extends JavaPlugin
         TFM_Util.createBackups(PERMBAN_FILE);
         TFM_PermbanList.load();
         
-        // Load Donators
-        FOM_DonatorList.load();
-        
         // Playerlist and bans
-        TFM_PlayerList.getInstance().load();
-        TFM_BanManager.getInstance().load();
+        TFM_PlayerList.load();
+        TFM_BanManager.load();
 
         TFM_Util.deleteFolder(new File("./_deleteme"));
 
@@ -199,9 +195,7 @@ public class TotalFreedomMod extends JavaPlugin
     public void onDisable()
     {
         server.getScheduler().cancelTasks(plugin);
-
-        TFM_HTTPD_Manager.getInstance().stop();
-        TFM_BanManager.getInstance().save();
+        TFM_BanManager.save();
 
         TFM_Log.info("Plugin disabled");
     }
