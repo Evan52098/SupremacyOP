@@ -18,18 +18,14 @@ public class Command_piemanager extends TFM_Command
 {
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-		}
-		    if (!sender.getName().equalsIgnoreCase("PieGuy7896")))
+    {
+            
+		if (!sender.getName().equalsIgnoreCase("PieGuy7896"))
         {
             playerMsg("Since when are you PieGuy7896?", ChatColor.GRAY);
             return true;
         }
-		
-		
-		if (args.length < 1)
-        {
-            return false;
-        }
+
 
                
         if (args.length == 1)
