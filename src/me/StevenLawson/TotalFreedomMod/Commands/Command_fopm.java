@@ -34,8 +34,8 @@ public class Command_fopm extends TFM_Command
 
             TFM_AdminList.load();
             TFM_PermbanList.load();
-            TFM_PlayerList.getInstance().load();
-            TFM_BanManager.getInstance().load();
+            TFM_PlayerList.load();
+            TFM_BanManager.load();
             TFM_CommandBlocker.getInstance().load();
 
 
