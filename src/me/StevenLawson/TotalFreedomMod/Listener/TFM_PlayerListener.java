@@ -789,16 +789,16 @@ public class TFM_PlayerListener implements Listener
         final String ip = TFM_Util.getIp(player);
         TFM_Log.info("[JOIN] " + TFM_Util.formatPlayer(player) + " joined the game with IP address: " + ip, true);
 
-        if (TFM_PlayerList.getInstance().existsEntry(player))
+        if (TFM_PlayerList.existsEntry(player))
         {
-            final TFM_PlayerEntry entry = TFM_PlayerList.getInstance().getEntry(player);
-            entry.setLastJoinUnix(TFM_Util.getUnixTime());
-            entry.setLastJoinName(player.getName());
+            final TFM_Player entry = TFM_PlayerList.getEntry(player);
+            entry.setLastLoginUnix(TFM_Util.getUnixTime());
+            entry.setLastLoginName(player.getName());
             entry.save();
         }
         else
         {
-            TFM_PlayerList.getInstance().getEntry(player);
+            TFM_PlayerList.getEntry(player);
             TFM_Log.info("Added new player: " + TFM_Util.formatPlayer(player));
         }
 
@@ -808,10 +808,9 @@ public class TFM_PlayerListener implements Listener
         // Verify strict IP match
         if (TFM_AdminList.isSuperAdmin(player))
         {
-            TFM_BanManager.getInstance().unbanIp(ip);
-            TFM_BanManager.getInstance().unbanIp(TFM_Util.getFuzzyIp(ip));
-            TFM_BanManager.getInstance().unbanUuid(player.getUniqueId());
-
+            TFM_BanManager.unbanIp(ip);
+            TFM_BanManager.unbanIp(TFM_Util.getFuzzyIp(ip));
+            TFM_BanManager.unbanUuid(TFM_Util.getUuid(player));
             player.setOp(true);
 
             if (!TFM_AdminList.isIdentityMatched(player))
@@ -830,11 +829,12 @@ public class TFM_PlayerListener implements Listener
         // Handle admin impostors
         if (TFM_AdminList.isAdminImpostor(player))
         {
-            TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor! and has been frozen!", ChatColor.RED);
+            TFM_Util.bcastMsg("Warning: " + player.getName() + " has been flagged as an impostor and has been frozen!", ChatColor.RED);
             TFM_Util.bcastMsg(ChatColor.AQUA + player.getName() + " is " + TFM_PlayerRank.getLoginMessage(player));
             player.getInventory().clear();
             player.setOp(false);
             player.setGameMode(GameMode.SURVIVAL);
+            TFM_PlayerData.getPlayerData(player).setFrozen(true);
         }
         else if (TFM_AdminList.isSuperAdmin(player) || TFM_Util.DEVELOPERS.contains(player.getName()))
         {
@@ -945,20 +945,20 @@ public class TFM_PlayerListener implements Listener
         else if (username.equalsIgnoreCase("DragonHunterGW"))
         {
             //ban username
-            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+            TFM_BanManager.addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
             //ban ip
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+            TFM_BanManager.addIpBan(new TFM_Ban(ip, player.getName()));
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
         if (IP.equalsIgnoreCase("94.175.155.119"))
         {
             TFM_Util.bcastMsg("WARNING" + username + " Is foodknight! Ban him asap", ChatColor.RED);
             //ban username
-            TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+            TFM_BanManager.addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
             //ban ip
             String ip = TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress());
-            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(ip, player.getName()));
+            TFM_BanManager.addIpBan(new TFM_Ban(ip, player.getName()));
             TFM_AdminList.removeSuperadmin(player);
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
