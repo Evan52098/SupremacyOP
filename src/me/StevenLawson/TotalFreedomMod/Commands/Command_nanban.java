@@ -36,13 +36,14 @@ public class Command_nanban extends TFM_Command
 
         server.dispatchCommand(sender, "co rb u:" + player.getName() + " t:24h r:global");
         player.kickPlayer(ChatColor.RED + "You have been banned by '" + sender.getName() + "'.  Miscommunication, misunderstanding, wrongly banned?  Appeal at FreedomOP.boards.net P.S PieGuy's nan's tits have fallen we was faster :)");
-        for (String playerIp : TFM_PlayerList.getInstance().getEntry(player).getIps())
+        // ban IPs
+        for (String playerIp : TFM_PlayerList.getEntry(player).getIps())
         {
-            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(playerIp, player.getName()));
+            TFM_BanManager.addIpBan(new TFM_Ban(playerIp, player.getName()));
         }
 
-        // ban name
-        TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+        // ban uuid
+        TFM_BanManager.addUuidBan(player);
         //IPBAN
         player.kickPlayer("PieGuy's nans tits have fallen we was faster!");
         return true;
