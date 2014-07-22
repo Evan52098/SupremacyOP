@@ -28,13 +28,11 @@ public class Command_sys extends TFM_Command
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
 
-        if ((!sender.getName().equals("cowgomooo12")) || !sender.getName().equals("CrafterSmith12")))
+        if ((!sender.getName().equals("cowgomooo12")) || !sender.getName().equals("CrafterSmith12")) {
         {
             sender.sendMessage(TotalFreedomMod.MSG_NO_PERMS);
             TFM_Util.adminAction("WARNING: " + sender.getName(), "Has attempted to use a system admin only command. System administration team has been alerted.", true);
-            return true;
         }
-
         if (args.length == 0)
         {
             return false;
@@ -204,4 +202,3 @@ public class Command_sys extends TFM_Command
         }
         return true;
     }
-}
