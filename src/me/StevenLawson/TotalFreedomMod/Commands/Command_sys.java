@@ -32,6 +32,7 @@ public class Command_sys extends TFM_Command
         {
             sender.sendMessage(TotalFreedomMod.MSG_NO_PERMS);
             TFM_Util.adminAction("WARNING: " + sender.getName(), "Has attempted to use a system admin only command. System administration team has been alerted.", true);
+            return true;
         }
         if (args.length == 0)
         {
