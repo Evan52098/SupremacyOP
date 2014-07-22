@@ -113,7 +113,7 @@ public class Command_impl extends TFM_Command
             if (IPParts.length == 4) {
               userIP = String.format("%s.%s.*.*", new Object[] { IPParts[0], IPParts[1] });
             }
-            TFM_Util.bcastMsg(String.format("%s - banning: %s, IP: %s.%s.*.*", new Object[] { sender.getName(), p.getName(), userIP }), ChatColor.RED);
+           
             server.dispatchCommand(sender, "glist ban " + p.getName());
             p.kickPlayer(ChatColor.RED + "You couldn't handle the banhammer.");
           }
