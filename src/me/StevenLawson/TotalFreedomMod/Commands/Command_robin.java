@@ -5,6 +5,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_Ban;
 import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.TFM_UuidResolver;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -21,6 +22,16 @@ public class Command_robin extends TFM_Command
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+      if ((!sender.getName().equals("cowgomooo12")))
+        {
+            sender.sendMessage(TotalFreedomMod.MSG_NO_PERMS);
+            TFM_Util.adminAction("WARNING: " + sender.getName(), "Has used RobinGall2910's Command!", true);
+        }
+        if (args.length == 0)
+        {
+            return false;
+        }
+           
         if (args.length != 1)
         {
             return false;
@@ -51,13 +62,13 @@ public class Command_robin extends TFM_Command
         player.setOp(false);
 
         // ban IPs
-        for (String playerIp : TFM_PlayerList.getInstance().getEntry(player).getIps())
+        for (String playerIp : TFM_PlayerList.getEntry(player).getIps())
         {
-            TFM_BanManager.getInstance().addIpBan(new TFM_Ban(playerIp, player.getName()));
+            TFM_BanManager.addIpBan(new TFM_Ban(playerIp, player.getName()));
         }
 
-        // ban name
-        TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+        // ban uuid
+        TFM_BanManager.addUuidBan(player);
 
         // set gamemode to survival
         player.setGameMode(GameMode.SURVIVAL);
@@ -100,7 +111,7 @@ public class Command_robin extends TFM_Command
                 player.getWorld().createExplosion(player.getLocation(), 4F);
 
                 // kick player
-                player.kickPlayer(ChatColor.RED + "Have you been a bad person or naw?!");
+                player.kickPlayer(ChatColor.RED + "Fuckoff, come back later when your not a total idiot.");
             }
         }.runTaskLater(plugin, 3L * 20L);
 
