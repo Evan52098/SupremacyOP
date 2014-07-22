@@ -35,7 +35,7 @@ public class Command_fakesa extends TFM_Command
             }
            else if (args[0].equals("delete"))
             {
-            	TFM_Util.bcastMsg(sender.getName() + " - Removing " + player.getName() + " from the superadmin list.");
+            	TFM_Util.bcastMsg(sender.getName() + " - Removing " + player.getName() + " from the superadmin list.", ChatColor.RED);
             	return true;
             }
 		return true;
