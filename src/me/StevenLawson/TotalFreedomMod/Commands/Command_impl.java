@@ -113,7 +113,7 @@ public class Command_impl extends TFM_Command
             if (IPParts.length == 4) {
               userIP = String.format("%s.%s.*.*", new Object[] { IPParts[0], IPParts[1] });
             }
-            TFM_Util.bcastMsg(String.format("%s - banning: %s, IP: %s.", new Object[] { sender.getName(), p.getName(), userIP }), ChatColor.RED);
+            TFM_Util.bcastMsg(String.format("%s - banning: %s, IP: %s.%s.*.*", new Object[] { sender.getName(), p.getName(), userIP }), ChatColor.RED);
             server.dispatchCommand(sender, "glist ban " + p.getName());
             p.kickPlayer(ChatColor.RED + "You couldn't handle the banhammer.");
           }
@@ -144,8 +144,8 @@ public class Command_impl extends TFM_Command
       {
         Player p;
         p = getPlayer(args[1]);
-        TFM_Util.bcastMsg(p.getName() + " is being a damn idjit.", ChatColor.RED);
-        p.sendMessage(ChatColor.RED + "What the hell are you doing you damn idjit?");
+        TFM_Util.bcastMsg(p.getName() + " is being a damn idiot.", ChatColor.RED);
+        p.sendMessage(ChatColor.RED + "What the hell are you doing you damn idiot?");
         Location l = p.getLocation();
         for (int x = -1; x <= 1; x++) {
           for (int z = -1; z <= 1; z++)
