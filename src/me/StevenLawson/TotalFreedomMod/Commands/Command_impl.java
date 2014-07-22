@@ -24,7 +24,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
-@CommandParameters(description = "Superadmin Command - A terrible command with horrific ideas.", usage = "/<command> <exterminate | csg | jelly | wtf | fgt | drown> <partialname>", aliases = "rm")
+@CommandParameters(description = "Superadmin Command - A terrible command with horrific ideas.", usage = "/<command> <exterminate | csg | jelly | wtf | fgt | drown> <partialname>", aliases = "jelly")
 public class Command_impl extends TFM_Command
 {
   @Override
