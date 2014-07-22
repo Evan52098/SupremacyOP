@@ -14,7 +14,7 @@ public enum TFM_PlayerRank
     SECURITY("the chief of " + ChatColor.GRAY + "Security", ChatColor.RED+ "[Chief of Security]"),
     SYS("a " + ChatColor.DARK_RED + "System Admin", ChatColor.DARK_RED + "[Sys-Admin]"),
     DEVELOPER("a " + ChatColor.DARK_PURPLE + "Developer", ChatColor.DARK_PURPLE + "[Dev]"),
-    AGGELOS("a " + ChatColor.YELLOW + "The Chief Web Dev and Executive", ChatColor.YELLOW + "[Developer And Executive]"),
+    AGGELOS("a " + ChatColor.YELLOW + "The Chief Web Dev and Executive", ChatColor.YELLOW + "[Exec Dev]"),
     IMPOSTOR("an " + ChatColor.YELLOW + ChatColor.UNDERLINE + "Impostor", ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + "[IMP]"),
     NON_OP("a " + ChatColor.GREEN + "Non-OP", ChatColor.GREEN.toString()),
     OP("an " + ChatColor.RED + "OP", ChatColor.RED + "[OP]"),
