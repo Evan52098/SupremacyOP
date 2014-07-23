@@ -15,6 +15,7 @@ public class Command_sexy extends TFM_Command
     {
         server.dispatchCommand(sender, "gcmd" + sender.getName() + "me &bbuildcarter8 is sexy!");
         playerMsg("You just said buildcarter8 is sexy! :O", ChatColor.GRAY);
+        playerMsg("Also buildcarter8 is sexy :) he's our lead dev!", ChatColor.GOLD);
         return true;  
     }
 }
