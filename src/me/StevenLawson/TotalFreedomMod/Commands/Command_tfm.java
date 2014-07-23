@@ -37,6 +37,7 @@ public class Command_tfm extends TFM_Command
             TFM_PermbanList.load();
             TFM_PlayerList.load();
             TFM_BanManager.load();
+            TFM_CommandBlocker.load();
 
 
             final String message = String.format("%s v%s.%s reloaded.",
