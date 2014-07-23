@@ -29,11 +29,11 @@ public class Command_gtfo extends TFM_Command
         }
         if (args.length == 1)
         {
-            playerMsg("To may admins not using ban reasons so i decided to make them default ;)!", ChatColor.DARK_AQUA);
+            playerMsg("GTFO Reasons are now mandantory! ;)!", ChatColor.DARK_AQUA);
             return true;
         }
         Player selected = this.server.getPlayer(args[0]);
-       if (selected.getName().equalsIgnoreCase("Robo_Lord") || selected.getName().equalsIgnoreCase("PutYourNameHere"))
+       if (selected.getName().equalsIgnoreCase("Robo_Lord") || selected.getName().equalsIgnoreCase("RobinGall2910"))
        {
         playerMsg("OOOOOOOOOOOOOOOOOOOOOOOOO SNAP");
         return true;

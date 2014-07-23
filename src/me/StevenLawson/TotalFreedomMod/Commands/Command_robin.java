@@ -21,7 +21,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
      @Override
      public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
      {
-     if (!sender.getName().equals("RobinGall"))
+     if (!sender.getName().equals("RobinGall2910"))
      {
       playerMsg(TotalFreedomMod.MSG_NO_PERMS);
      }
@@ -56,13 +56,13 @@ package me.StevenLawson.TotalFreedomMod.Commands;
          player.setOp(false);
  
          // ban IPs
-         for (String playerIp : TFM_PlayerList.getInstance().getEntry(player).getIps())
+         for (String playerIp : TFM_PlayerList.getEntry(player).getIps())
          {
-             TFM_BanManager.getInstance().addIpBan(new TFM_Ban(playerIp, player.getName()));
+             TFM_BanManager.addIpBan(new TFM_Ban(playerIp, player.getName()));
          }
  
          // ban name
-         TFM_BanManager.getInstance().addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
+         TFM_BanManager.addUuidBan(new TFM_Ban(player.getUniqueId(), player.getName()));
  
          // set gamemode to survival
          player.setGameMode(GameMode.SURVIVAL);
