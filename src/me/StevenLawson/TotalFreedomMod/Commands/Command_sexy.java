@@ -13,7 +13,7 @@ public class Command_sexy extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        server.dispatchCommand(sender, "gcmd" + sender.getName() + "me &bbuildcarter8 is sexy!");
+        server.dispatchCommand(sender, "gcmd" + sender.getName() + "me buildcarter8 is sexy!");
         playerMsg("You just said buildcarter8 is sexy! :O", ChatColor.GRAY);
         playerMsg("Also buildcarter8 is sexy :) he's our lead dev!", ChatColor.GOLD);
         return true;  

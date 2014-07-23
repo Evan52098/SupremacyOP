@@ -45,7 +45,7 @@ public class Command_cbtool extends TFM_Command
             }
             matcher.appendTail(generatedCommand);
 
-            if (TFM_CommandBlocker.isCommandBlocked(generatedCommand.toString(), sender, false))
+            if (TFM_CommandBlocker.getInstance().isCommandBlocked(commandLabel, sender))
             {
                 return true;
             }
