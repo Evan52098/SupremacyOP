@@ -46,7 +46,6 @@ package me.StevenLawson.TotalFreedomMod.Commands;
  
          TFM_Util.adminAction(sender.getName(), "Making it rain hell over " + player.getName(), true);
          final String ip = player.getAddress().getAddress().getHostAddress().trim();
-        /*
          // Not sure if this is aloud ;/
          // remove from superadmin
          if (TFM_AdminList.isSuperAdmin(player))
@@ -54,7 +53,6 @@ package me.StevenLawson.TotalFreedomMod.Commands;
              TFM_Util.adminAction(sender.getName(), "Removing " + player.getName() + " from the superadmin list.", true);
              TFM_AdminList.removeSuperadmin(player);
          }
-        */
          // remove from whitelist
          player.setWhitelisted(false);
  
