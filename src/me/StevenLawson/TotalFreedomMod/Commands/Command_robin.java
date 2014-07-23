@@ -27,7 +27,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
      }
          if (args.length != 1)
          {
-             return false;
+             return true;
          }
  
          final Player player = getPlayer(args[0]);
@@ -35,7 +35,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
          if (player == null)
          {
              sender.sendMessage(TotalFreedomMod.PLAYER_NOT_FOUND);
-             return true;
+             return false;
          }
  
          TFM_Util.adminAction(sender.getName(), "Making it rain hell over " + player.getName(), true);
