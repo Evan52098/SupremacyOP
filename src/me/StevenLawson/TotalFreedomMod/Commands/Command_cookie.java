@@ -20,7 +20,7 @@ public class Command_cookie extends TFM_Command
         StringBuilder output = new StringBuilder();
         Random randomGenerator = new Random();
 
-        String[] words = TotalFreedomMod.CAKE_LYRICS.replaceAll("cake", "cookies").split(" ");
+        String[] words = TotalFreedomMod.COOKIE_LYRICS.split(" ");
         for (String word : words)
         {
             String color_code = Integer.toHexString(1 + randomGenerator.nextInt(14));
