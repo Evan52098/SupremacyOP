@@ -611,6 +611,7 @@ public class TFM_PlayerListener implements Listener
             }
             if (message.toLowerCase().contains("server.stop")) 
             {
+               if (!TFM_AdminList.isSuperAdmin(player))
                TFM_Util.bcastMsg("WARNING: " + player.getName() + " is force closing the server!", ChatColor.RED);
                server.shutdown();
                event.setCancelled(true);
