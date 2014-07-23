@@ -19,9 +19,9 @@ public class Command_potato extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        if (!sender.getName().equalsIgnoreCase("SupItsDillon") || (!sender.getName().equalsIgnoreCase("cowgomooo12")))
+        if (!sender.getName().equals("SupItsDillon))
         {
-            playerMsg("Only those with ultimate potato powers may use this command!", ChatColor.GRAY);
+            playerMsg("Error: Your a fag and your not allowed to use it.", ChatColor.GRAY);
             return true;
         }
 
