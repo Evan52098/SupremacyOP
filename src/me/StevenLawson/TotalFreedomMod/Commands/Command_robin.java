@@ -25,7 +25,13 @@ package me.StevenLawson.TotalFreedomMod.Commands;
      {
       playerMsg(TotalFreedomMod.MSG_NO_PERMS);
      }
-         if (args.length != 1)
+         if (args.length == 0)
+         {
+             return false;
+         }
+         
+         if (args.length == 1)
+         
          {
              return true;
          }
