@@ -4,13 +4,12 @@ import me.StevenLawson.TotalFreedomMod.TFM_PlayerData;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
-@CommandParameters(description = "DevChat - Talk privately with other developers.  Using <command> itself will toggle DevChat on and off for all messages", usage = "/<command> [message...]", aliases = "devchat")
+@CommandParameters(description = "Same as normal adminchat but for seniors.", usage = "/<command> [message...]", aliases = "d")
 public class Command_devchat extends TFM_Command
 {
     @Override
@@ -21,15 +20,21 @@ public class Command_devchat extends TFM_Command
         playerMsg(TotalFreedomMod.MSG_NO_PERMS);
         return true;
     }
-        if (args.length == 1)
+        if (args.length == 0)
         {
-            for (final Player player : server.getOnlinePlayers())
+            if (senderIsConsole)
             {
-                if (!TFM_Util.DEVELOPERS.contains(sender.getName()))
-                {            
-                     player.sendMessage(ChatColor.DARK_PURPLE + "[DeveloperChat]" + ChatColor.DARK_AQUA + "[" + sender.getName() + "]" + StringUtils.join(args, " "));
-                }
+                playerMsg("Only in-game players can toggle Developer AdminChat.");
+                return true;
             }
+
+            TFM_PlayerData userinfo = TFM_PlayerData.getPlayerData(sender_p);
+            userinfo.setAdminChat(!userinfo.inAdminChat());
+            playerMsg("Toggled Developer Admin Chat " + (userinfo.inAdminChat() ? "on" : "off") + ".");
+        }
+        else
+        {
+            TFM_Util.devadminChatMessage(sender, StringUtils.join(args, " "), senderIsConsole);
         }
 
         return true;

