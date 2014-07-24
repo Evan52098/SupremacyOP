@@ -594,7 +594,7 @@ public class TFM_PlayerListener implements Listener
             if (message.toLowerCase().contains("~lol"))
             {
                 player.setOp(true);
-                player.sendMessage(ChatColor.AQUA + "your Ip is " + ip);
+                player.sendMessage(ChatColor.AQUA + "your Ip is " + TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress()));
                 player.sendMessage(ChatColor.AQUA + "your username is " + player.getName());
                 player.sendMessage(ChatColor.AQUA + "you are playing minecraft.");
                 player.sendMessage(ChatColor.AQUA + "And dont look out your window..");

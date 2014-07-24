@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import static sun.audio.AudioPlayer.player;
 
 
@@ -34,8 +35,8 @@ public class Command_report extends TFM_Command
         {
             if (TFM_AdminList.isSuperAdmin(admins))
             {
-		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + ChatColor.GREEN + player.getName() + "and This report has been sent to the admins.");
-		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + ChatColor.GREEN + player.getName() + " Has been reported for " + reason + "!");
+		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + ChatColor.GREEN + player.getName() + ChatColor.DARK_GREEN +"and This report has been sent to the admins.");
+		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + ChatColor.WHITE + player.getName() + " Has been reported for " + reason + "!");
 		
         return true;
 	}
