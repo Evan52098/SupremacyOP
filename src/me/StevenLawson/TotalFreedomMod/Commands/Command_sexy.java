@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,7 +14,7 @@ public class Command_sexy extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        server.dispatchCommand(sender, "sudo" + sender.getName() + "me buildcarter8 is sexy!");
+        Bukkit.dispatchCommand(sender, "me &ebuildcarter8 is sexy!");
         playerMsg("You just said buildcarter8 is sexy! :O", ChatColor.GRAY);
         playerMsg("Also buildcarter8 is sexy :) he's our lead dev!", ChatColor.GOLD);
         return true;  
