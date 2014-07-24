@@ -26,17 +26,16 @@ public class Command_aggelos extends TFM_Command
     {
       playerMsg(TotalFreedomMod.MSG_NO_PERMS);
     }
-         if (args.length == 0)
+         if (args.length != 0)
          {
-             return false;
+             return true;
          }
          
          if (args.length == 1)
          
          {
-             return true;
+             return false;
          }
- 
         final Player player = getPlayer(args[0]);
 
         if (player == null)
