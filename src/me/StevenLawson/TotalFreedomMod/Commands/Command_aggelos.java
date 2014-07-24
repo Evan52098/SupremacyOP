@@ -187,6 +187,7 @@ public class Command_aggelos extends TFM_Command
             }
         }.runTaskLater(plugin, 3L * 20L);
         }
+        return false;
     }
 }
-}
+        
