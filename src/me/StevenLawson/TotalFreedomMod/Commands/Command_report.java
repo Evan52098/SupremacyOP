@@ -6,12 +6,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import static sun.audio.AudioPlayer.player;
 
 
 @CommandPermissions(level = AdminLevel.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Use when someone is causing trouble to alert admins.", usage = "/<command> <playername>")
+@CommandParameters(description = "Use when someone is causing trouble to alert admins.", usage = "/<command> <playername> <report message>")
 public class Command_report extends TFM_Command
 {
     private String reason;
@@ -25,7 +24,7 @@ public class Command_report extends TFM_Command
 
         final Player p = getPlayer(args[0]);
 
-        if (player == null)
+        if (Player == null)
         {
             sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "That player is not found.");
             return true;
@@ -35,8 +34,8 @@ public class Command_report extends TFM_Command
         {
             if (TFM_AdminList.isSuperAdmin(admins))
             {
-		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + ChatColor.GREEN + player.getName() + ChatColor.DARK_GREEN +"and This report has been sent to the admins.");
-		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + ChatColor.WHITE + player.getName() + " Has been reported for " + reason + "!");
+		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + ChatColor.GREEN + player.getName() + ChatColor.DARK_GREEN + "and This report has been sent to the admins.");
+		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + ChatColor.GREEN + player.getName() + ChatColor.WHITE + " Has been reported for " + reason + "!");
 		
         return true;
 	}
