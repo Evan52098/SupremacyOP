@@ -317,7 +317,6 @@ public class TFM_PlayerListener implements Listener
                                     {
                                         if (sound.toString().contains("HIT"))
                                         {
-                                            playerLoc.getWorld().playSound(randomOffset(playerLoc, 5.0), sound, 100.0f, randomDoubleRange(0.5, 2.0).floatValue());
                                         }
                                     }
                                 }

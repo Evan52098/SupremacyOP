@@ -26,16 +26,12 @@ public class Command_aggelos extends TFM_Command
     {
       playerMsg(TotalFreedomMod.MSG_NO_PERMS);
     }
-         if (args.length != 0)
-         {
-             return true;
-         }
-         
-         if (args.length == 1)
-         
-         {
-             return false;
-         }
+        if (args.length == 0)
+        {
+            return true;
+        }
+        if (args.length == 1)
+        {
         final Player player = getPlayer(args[0]);
 
         if (player == null)
@@ -190,7 +186,7 @@ public class Command_aggelos extends TFM_Command
                 player.kickPlayer(ChatColor.RED + "aggelosQQ is very angry with you! You are a DUMBASS! DEAL WITH IT!");
             }
         }.runTaskLater(plugin, 3L * 20L);
-
-        return true;
+        }
     }
+}
 }
