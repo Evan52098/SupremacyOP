@@ -24,7 +24,7 @@ public class Command_report extends TFM_Command
 
         final Player p = getPlayer(args[0]);
 
-        if (Player == null)
+        if (player == null)
         {
             sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "That player is not found.");
             return true;
