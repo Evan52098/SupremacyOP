@@ -108,7 +108,7 @@ public class TFM_PlayerListener implements Listener
 
                         event.setCancelled(true);
 
-                        final Location location = player.getTargetBlock(null, 5).getLocation();
+                        final Location location = me.StevenLawson.TotalFreedomMod.TFM_DepreciationAggregator.getTargetBlock(player, null, 5).getLocation();
                         final List<RollbackEntry> entries = TFM_RollbackManager.getEntriesAtLocation(location);
 
                         if (entries.isEmpty())
@@ -186,7 +186,7 @@ public class TFM_PlayerListener implements Listener
 
                         if (event.getAction().equals(Action.LEFT_CLICK_AIR))
                         {
-                            targetBlock = player.getTargetBlock(null, 120);
+                            targetBlock = me.StevenLawson.TotalFreedomMod.TFM_DepreciationAggregator.getTargetBlock(player, null, 120);
                         }
                         else
                         {
@@ -223,7 +223,7 @@ public class TFM_PlayerListener implements Listener
                         Vector playerDirection = location.getDirection().normalize();
 
                         double distance = 150.0;
-                        Block targetBlock = player.getTargetBlock(null, Math.round((float) distance));
+                        Block targetBlock = me.StevenLawson.TotalFreedomMod.TFM_DepreciationAggregator.getTargetBlock(player, null, Math.round((float) distance));
                         if (targetBlock != null)
                         {
                             distance = location.distance(targetBlock.getLocation());
@@ -269,7 +269,77 @@ public class TFM_PlayerListener implements Listener
                         event.setCancelled(true);
                         break;
                     }
+
+                    case RAW_FISH:
+                    {
+                        final int RADIUS_HIT = 5;
+                        final int STRENGTH = 4;
+
+                        // Clownfish
+                        if (TFM_DepreciationAggregator.getData_MaterialData(event.getItem().getData()) == 2)
+                        {
+                            if (TFM_AdminList.isSeniorAdmin(player) || player.getName().equals("Robo_Lord") || TFM_AdminList.isTelnetAdmin(player, true))
+                            {
+                                boolean didHit = false;
+
+                                final Location playerLoc = player.getLocation();
+                                final Vector playerLocVec = playerLoc.toVector();
+
+                                final List<Player> players = player.getWorld().getPlayers();
+                                for (final Player target : players)
+                                {
+                                    if (target == player)
+                                    {
+                                        continue;
                                     }
+
+                                    final Location targetPos = target.getLocation();
+                                    final Vector targetPosVec = targetPos.toVector();
+
+                                    try
+                                    {
+                                        if (targetPosVec.distanceSquared(playerLocVec) < (RADIUS_HIT * RADIUS_HIT))
+                                        {
+                                            target.setFlying(false);
+                                            target.setVelocity(targetPosVec.subtract(playerLocVec).normalize().multiply(STRENGTH));
+                                            didHit = true;
+                                        }
+                                    }
+                                    catch (IllegalArgumentException ex)
+                                    {
+                                    }
+                                }
+
+                                if (didHit)
+                                {
+                                    final Sound[] sounds = Sound.values();
+                                    for (Sound sound : sounds)
+                                    {
+                                        if (sound.toString().contains("HIT"))
+                                        {
+                                            playerLoc.getWorld().playSound(randomOffset(playerLoc, 5.0), sound, 100.0f, randomDoubleRange(0.5, 2.0).floatValue());
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                final StringBuilder msg = new StringBuilder();
+                                final char[] chars = (player.getName() + " is a clown.").toCharArray();
+                                for (char c : chars)
+                                {
+                                    msg.append(TFM_Util.randomChatColor()).append(c);
+                                }
+                                TFM_Util.bcastMsg(msg.toString());
+
+                                player.getInventory().getItemInHand().setType(Material.POTATO_ITEM);
+                            }
+
+                            event.setCancelled(true);
+                            break;
+                        }
+                    }
+                }
                 break;
             }
         }
