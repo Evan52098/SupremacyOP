@@ -2,47 +2,49 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import static sun.audio.AudioPlayer.player;
 
 
 @CommandPermissions(level = AdminLevel.OP, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Use when someone is causing trouble to alert admins.", usage = "/<command> <playername> <report message>")
 public class Command_report extends TFM_Command
 {
-    private String reason;
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        if (args.length != 1)
-        {
-            return false;
-        }
-
-        final Player p = getPlayer(args[0]);
-
-        if (player == null)
-        {
-            sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "That player is not found.");
-            return true;
-        }
-
-       for (Player admins : server.getOnlinePlayers())
-        {
-            if (TFM_AdminList.isSuperAdmin(admins))
+      if (args.length == 1)
             {
-		sender.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + "You have reported" + ChatColor.GREEN + player.getName() + ChatColor.DARK_GREEN + "and This report has been sent to the admins.");
-		admins.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.RED + " WARNING: " + ChatColor.GREEN + player.getName() + ChatColor.WHITE + " Has been reported for " + reason + "!");
-		
-        return true;
-	}
+                for (Player player : Bukkit.getOnlinePlayers())
+                {
+                    if (TFM_AdminList.isSuperAdmin(player))
+                   {
+                      player.sendMessage("[" + ChatColor.AQUA + "Report" + ChatColor.WHITE + "] " + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed!");
+                   }
+                 }
+                return true;
+            }
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+            {
+                if (i > 1)
+                {
+                    message += " ";
+                }
+                message += args[i];
+            }
 
-}
-        
-
+                for (Player player : Bukkit.getOnlinePlayers())
+                {
+                    if (TFM_AdminList.isSuperAdmin(player))
+                   {
+                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + sender.getName() + " - " + message);
+                   }
+                 }
+            sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
         return true;
     }
 }
