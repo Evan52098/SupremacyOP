@@ -28,6 +28,11 @@ public class Command_camera extends TFM_Command
                 TFM_Util.adminAction(ChatColor.GREEN + "WARNING: " + sender.getName(), "has thrown the camera they are a bad person they didnt take a selfie!", false);
                 return true;
             }
+            else if (args[0].equals("camera"))
+            {
+                sender.sendMessage("Please use the usages above. which is Selfie or Throw.");
+                return true;
+            }
         }
 
         return true;

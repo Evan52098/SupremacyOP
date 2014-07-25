@@ -3,7 +3,7 @@ name: FreedomOPMod
 # This classifies where the source files will be located
 main: me.StevenLawson.TotalFreedomMod.TotalFreedomMod
 # This is the version, highly suggested not to be modified.
-version: 6.0
+version: 6.1
 # This is the description of your plugin
 description: A Minecraft plugin created for FreedomOP
 # Required software for pluin to function correctly.

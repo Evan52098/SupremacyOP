@@ -1,4 +1,4 @@
-# FreedomOPMod v6.0 Configuration
+# FreedomOPMod v6.1 Configuration
 # By Madgeek And DarthSalamon
 
 # Generic server information
@@ -33,8 +33,6 @@ allow:
   lava_place: false
   lava_damage: false
   water_place: false
-  #This is for verifying only change when leaked..
-  verify.password: FreedomOpVerify2014
   tnt_minecarts: false
   explosions: false
 
