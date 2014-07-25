@@ -52,7 +52,6 @@ package me.StevenLawson.TotalFreedomMod.Commands;
          player.chat("I beg you!!!!");
          player.chat("Dont get rid of me!");
          sender_p.chat("Well too bad for you!");
-         TFM_Util.adminAction(sender.getName(), ", Well, sorry for you.", true);
          // im awesome aint i?
          sender.sendMessage(player.getName() + "Is now gone.");
           player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
