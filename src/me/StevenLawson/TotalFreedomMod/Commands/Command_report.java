@@ -10,9 +10,10 @@ import org.bukkit.entity.Player;
 
 
 @CommandPermissions(level = AdminLevel.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Use when someone is causing trouble to alert admins.", usage = "/<command> <playername> <report message>")
+@CommandParameters(description = "Use when someone is causing trouble to alert admins.", usage = "/<command> <playername> <reason>")
 public class Command_report extends TFM_Command
 {
+    private String reason;
     @Override
     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -23,27 +24,12 @@ public class Command_report extends TFM_Command
                     if (TFM_AdminList.isSuperAdmin(player))
                    {
                       player.sendMessage("[" + ChatColor.AQUA + "Report" + ChatColor.WHITE + "] " + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed!");
+                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "Here's " + sender.getName() + "thier reason!");
+                      player.sendMessage("[" + ChatColor.AQUA + "Report" + ChatColor.WHITE + "] " + reason);
                    }
                  }
                 return true;
             }
-            String message = "";
-            for (int i = 1; i < args.length; i++)
-            {
-                if (i > 1)
-                {
-                    message += " ";
-                }
-                message += args[i];
-            }
-
-                for (Player player : Bukkit.getOnlinePlayers())
-                {
-                    if (TFM_AdminList.isSuperAdmin(player))
-                   {
-                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.DARK_GREEN + sender.getName() + " - " + message);
-                   }
-                 }
             sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
         return true;
     }
