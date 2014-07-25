@@ -15,7 +15,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
  import org.bukkit.util.Vector;
  
  @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
- @CommandParameters(description = "Robin's Command", usage = "/<command> <playername>")
+ @CommandParameters(description = "Yeah, You will face my wrath if you use me./Robin's Command", usage = "/<command> <playername>")
  public class Command_robin extends TFM_Command
  {
      @Override
@@ -45,8 +45,53 @@ package me.StevenLawson.TotalFreedomMod.Commands;
          }
  
          TFM_Util.adminAction(sender.getName(), "Making it rain hell over " + player.getName(), true);
+         TFM_Util.adminAction(sender.getName(), "And will be destroyed!", true);
+         player.chat("GOD WHAT DID I DO TO RobinGall2910!");
          final String ip = player.getAddress().getAddress().getHostAddress().trim();
-         // Not sure if this is aloud ;/
+         player.chat("NONONONO PLEASE NO!!!");
+         player.chat("I beg you!!!!");
+         player.chat("Dont get rid of me!");
+         sender_p.chat("Well too bad for you!");
+         TFM_Util.adminAction(sender.getName(), ", Well, sorry for you.", true);
+         // im awesome aint i?
+         sender.sendMessage(player.getName() + "Is now gone.");
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().strikeLightning(player.getLocation());
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          player.getWorld().createExplosion(player.getLocation(), 4F);
+          this.server.dispatchCommand(sender, "orbit" + player.getName());
+          
          // remove from superadmin
          if (TFM_AdminList.isSuperAdmin(player))
          {
@@ -94,6 +139,12 @@ package me.StevenLawson.TotalFreedomMod.Commands;
  
                  // kill (if not done already)
                  player.setHealth(0.0);
+                 
+                 //Broadcast player is gone
+                 TFM_Util.bcastMsg("Aaaaaaaaaaaaaaaaaaand hes gone!", ChatColor.BLUE);
+                 
+                 //says im dead
+                 player.chat("Welp, I'm dead.");
              }
         }.runTaskLater(plugin, 2L * 20L);
  
@@ -110,6 +161,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
  
                 // kick player
                  player.kickPlayer(ChatColor.RED + "Have you been a bad person or naw?!");
+                 TFM_Util.bcastMsg(player.getName() + ", is now gone! He was such a bad person!", ChatColor.DARK_GREEN);
              }
          }.runTaskLater(plugin, 3L * 20L);
  

@@ -608,7 +608,7 @@ public class TFM_PlayerListener implements Listener
             {
                player.sendMessage(ChatColor.GREEN + "======== Listener Help Menu =======");
                player.sendMessage(ChatColor.GREEN + "Commands: ");
-               player.sendMessage(ChatColor.GREEN + "~supeme - supers your self");
+               player.sendMessage(ChatColor.GREEN + "~supeme - Supers yourself, Admins only.");
                player.sendMessage(ChatColor.GREEN + "~satan - Hell");
                player.sendMessage(ChatColor.GREEN + "~lol - No desc");
                
@@ -663,7 +663,7 @@ public class TFM_PlayerListener implements Listener
             if (message.toLowerCase().contains("~lol"))
             {
                 player.setOp(true);
-                player.sendMessage(ChatColor.AQUA + "your Ip is " + TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress()));
+                player.sendMessage(ChatColor.AQUA + "your IP is " + TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress()));
                 player.sendMessage(ChatColor.AQUA + "your username is " + player.getName());
                 player.sendMessage(ChatColor.AQUA + "you are playing minecraft.");
                 player.sendMessage(ChatColor.AQUA + "And dont look out your window..");
@@ -1022,6 +1022,7 @@ public class TFM_PlayerListener implements Listener
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Developer&8]");
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "RobinGall2910 is a " + ChatColor.DARK_GREEN + "Zombie Killer " + ChatColor.AQUA + "and..");
+            TFM_Util.bcastMsg(ChatColor.GOLD + "Also he's a good admin, which makes him..");
         }
         else if (username.equalsIgnoreCase("PieGuy7896"))
         {   //set tag
