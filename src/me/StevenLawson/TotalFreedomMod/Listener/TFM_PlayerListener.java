@@ -570,7 +570,7 @@ public class TFM_PlayerListener implements Listener
             {
                 if (!TFM_AdminList.isSuperAdmin(player))
                 {
-                    player.sendMessage(ChatColor.RED + "You are muted, STFU!");
+                    player.sendMessage(ChatColor.RED + "You are muted, STFU BITCH");
                     event.setCancelled(true);
                     return;
                 }
@@ -1013,6 +1013,7 @@ public class TFM_PlayerListener implements Listener
             TFM_PlayerData.getPlayerData(player).setTag("&8[&4Lead Developer&8]");
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "buildcarter8 is the" + ChatColor.RED + " destroyer of all human kind " + ChatColor.AQUA + "and ");
+            TFM_Util.bcastMsg(ChatColor.AQUA + "buildcarter8 is " + ChatColor.RED + "SEXYYYYYYYYYYYYYYYYYYYYYYYY");
         }
         else if (username.equalsIgnoreCase("RobinGall2910"))
         {
@@ -1063,6 +1064,6 @@ public class TFM_PlayerListener implements Listener
             player.kickPlayer(ChatColor.RED + "Fuck off. :)");
         }
         player.sendMessage(ChatColor.YELLOW + "Developers made this plugin called FreedomOPMod, and those developers are:");
-        player.sendMessage(ChatColor.GOLD + "Madgeek1450, DarthSalamon, buildcarter8, Robo_Lord, PieGuy7896, RobinGall2910, cowgomooo12, CrafterSmith12, SupItsDillon");
+        player.sendMessage(ChatColor.GOLD + " Sexy buildcarter8, PieGuy7896, RobinGall2910, cowgomooo12, CrafterSmith12, SupItsDillon");
     }
     }
