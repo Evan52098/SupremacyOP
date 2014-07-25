@@ -30,7 +30,7 @@ public class Command_report extends TFM_Command
                  }
                 return true;
             }
-            sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
+            sender.sendMessage(ChatColor.GREEN + "Your message to report is " + reason + "and has been sent to the administration team. If you have not put thier name (if griefed) put it in the next message.");
         return true;
     }
 }
