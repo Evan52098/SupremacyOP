@@ -606,7 +606,7 @@ public class Command_robinmanage extends TFM_Command
                 sender_p.chat("FACEDESK");
                 sender_p.chat("SO MUCH DAMN RAGE!");
                 sender_p.chat("OMFG IMMA GO BEFORE I HIT SOMEONE!");
-                sender_p.kickPlayer(ChatColor.RED + "Do you have really rage and you have to facedesk all the time? " + TotalFreedomMod.FREEDOMOP_MOD + " Deed done.");
+                sender_p.kickPlayer(ChatColor.RED + "Do you have really rage and you have to facedesk all the time? " + TotalFreedomMod.FREEDOMOP_MOD + " Anyways, Deed done.");
                 return true;
             }
             else
