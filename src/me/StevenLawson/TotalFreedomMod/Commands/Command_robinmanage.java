@@ -7,6 +7,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
 import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import me.confuser.barapi.BarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -599,10 +600,13 @@ public class Command_robinmanage extends TFM_Command
             {
                 TFM_Util.bcastMsg(sender.getName() + " really needs to have a facepalm ragequit moment here...", ChatColor.RED);
                 sender_p.chat("FACEDESK!");
-                sender_p.chat("FACEDESK");
+                sender_p.chat("I think I need to rage quit here BUT!");
+                sender_p.chat("FACEWALL!");
                 sender_p.chat("FACEDESK!");
                 sender_p.chat("FACEDESK");
                 sender_p.chat("SO MUCH DAMN RAGE!");
+                sender_p.chat("OMFG IMMA GO BEFORE I HIT SOMEONE!");
+                sender_p.kickPlayer(ChatColor.RED + "Do you have really rage and you have to facedesk all the time?" + TotalFreedomMod.FREEDOMOP_MOD + "Deed done.");
                 return true;
             }
             else
