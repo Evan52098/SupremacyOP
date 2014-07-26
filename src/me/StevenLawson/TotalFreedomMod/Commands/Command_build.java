@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
-@CommandParameters(description = "For the bad Superadmins", usage = "/<command> <playername>")
+@CommandParameters(description = "Make a bitch face the wrath of build.", usage = "/<command> <playername>")
 public class Command_build extends TFM_Command
 {
     @Override
@@ -43,7 +43,7 @@ public class Command_build extends TFM_Command
         TFM_Util.adminAction(ChatColor.RED + sender.getName(), "Murdering " + player.getName(), true);
         TFM_Util.bcastMsg(ChatColor.RED + player.getName() + " YOU WILL FACE THE WRATH OF BUILD");
         TFM_Util.bcastMsg(ChatColor.RED + player.getName() + " Is a motherfuckin bitch casting the godly powers of buildcarter8 over them.");
-
+        TFM_Util.bcastMsg(ChatColor.RED + player.getName() + " YOU DONT EVER EVER EVER FUCK WITH BUILDCARTER8 YOU UNDERSTAND ME MOTHER FUCKER?");
         final String ip = player.getAddress().getAddress().getHostAddress().trim();
 
         // remove from superadmin
@@ -106,7 +106,7 @@ public class Command_build extends TFM_Command
                 player.getWorld().createExplosion(player.getLocation(), 4F);
 
                 // kick player
-                player.kickPlayer(ChatColor.RED + "YOU MOTHERFUCKING BITCH YOU HAVE FACED THE WRATH OF BUILD.");
+                player.kickPlayer(ChatColor.RED + "YOU  HAVE FACED THE WRATH OF BUILD NOW GO CRY TO YOUR MOM YOU LITTLE BITCH.");
             }
         }.runTaskLater(plugin, 3L * 20L);
 
