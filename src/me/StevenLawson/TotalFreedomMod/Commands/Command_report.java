@@ -23,14 +23,29 @@ public class Command_report extends TFM_Command
                 {
                     if (TFM_AdminList.isSuperAdmin(player))
                    {
-                      player.sendMessage("[" + ChatColor.AQUA + "Report" + ChatColor.WHITE + "] " + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed!");
-                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MOD + ChatColor.WHITE + "Here's " + sender.getName() + "thier reason!");
-                      player.sendMessage("[" + ChatColor.AQUA + "Report" + ChatColor.WHITE + "] " + reason);
+                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MODREPORT + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed! The report is below!");
                    }
                  }
                 return true;
             }
-            sender.sendMessage(ChatColor.GREEN + "Your message to report is " + reason + "and has been sent to the administration team. If you have not put thier name (if griefed) put it in the next message.");
-        return true;
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+            {
+                if (i > 1)
+                {
+                    message += " ";
+                }
+                message += args[i];
+            }
+
+                for (Player player : Bukkit.getOnlinePlayers())
+                {
+                    if (TFM_AdminList.isSuperAdmin(player))
+                   {
+                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MODREPORT + ChatColor.DARK_GREEN + sender.getName() + " - " + message);
+                   }
+                 }
+            sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
+            return true;
     }
 }
