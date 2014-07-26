@@ -23,7 +23,7 @@ public class Command_report extends TFM_Command
                 {
                     if (TFM_AdminList.isSuperAdmin(player))
                    {
-                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MODREPORT + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed! The report is below!");
+                      player.sendMessage(TotalFreedomMod.FREEDOMOP_MODREPORT + ChatColor.DARK_GREEN + sender.getName() + " Has got a problem or is being griefed!");
                    }
                  }
                 return true;
