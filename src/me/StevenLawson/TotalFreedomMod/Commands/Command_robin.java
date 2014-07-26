@@ -1,49 +1,44 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
- 
- import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
- import me.StevenLawson.TotalFreedomMod.TFM_Ban;
- import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
- import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
- import me.StevenLawson.TotalFreedomMod.TFM_Util;
- import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
- import org.bukkit.ChatColor;
- import org.bukkit.GameMode;
- import org.bukkit.command.Command;
- import org.bukkit.command.CommandSender;
- import org.bukkit.entity.Player;
- import org.bukkit.scheduler.BukkitRunnable;
- import org.bukkit.util.Vector;
- 
- @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
- @CommandParameters(description = "Yeah, You will face my wrath if you use me./Robin's Command", usage = "/<command> <playername>")
- public class Command_robin extends TFM_Command
- {
-     @Override
-     public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-     {
-     if (!sender.getName().equals("RobinGall2910"))
-     {
+
+import me.StevenLawson.TotalFreedomMod.TFM_AdminList;
+import me.StevenLawson.TotalFreedomMod.TFM_Ban;
+import me.StevenLawson.TotalFreedomMod.TFM_BanManager;
+import me.StevenLawson.TotalFreedomMod.TFM_PlayerList;
+import me.StevenLawson.TotalFreedomMod.TFM_Util;
+import me.StevenLawson.TotalFreedomMod.TFM_UuidResolver;
+import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
+
+@CommandPermissions(level = AdminLevel.SUPER, source = SourceType.BOTH)
+@CommandParameters(description = "For the bad Superadmins", usage = "/<command> <playername>")
+public class Command_robin extends TFM_Command
+{
+    @Override
+    public boolean run(final CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
+    {
+    if (!sender.getName().equals("aggelosQQ"))
+    {
       playerMsg(TotalFreedomMod.MSG_NO_PERMS);
-     }
-         if (args.length == 0)
-         {
-             return false;
-         }
-         
-         if (args.length == 1)
-         
-         {
-             return true;
-         }
- 
-         final Player player = getPlayer(args[0]);
- 
-         if (player == null)
-         {
-             sender.sendMessage(TotalFreedomMod.PLAYER_NOT_FOUND);
-             return false;
-         }
- 
+    }
+        if (args.length == 0)
+        {
+            return true;
+        }
+        if (args.length == 1)
+        {
+        final Player player = getPlayer(args[0]);
+
+        if (player == null)
+        {
+            sender.sendMessage(TotalFreedomMod.PLAYER_NOT_FOUND);
+            return true;
+        }
          TFM_Util.adminAction(sender.getName(), "Making it rain hell over " + player.getName(), true);
          TFM_Util.adminAction(sender.getName(), "And will be destroyed!", true);
          player.chat("GOD WHAT DID I DO TO RobinGall2910!");
@@ -53,7 +48,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
          player.chat("Dont get rid of me!");
          sender_p.chat("Well too bad for you!");
          // im awesome aint i?
-         sender.sendMessage(player.getName() + "Is now gone.");
+         sender.sendMessage(player.getName() + " is now gone.");
           player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
           player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
           player.setVelocity(player.getVelocity().clone().add(new Vector(0, 20, 0)));
@@ -161,9 +156,9 @@ package me.StevenLawson.TotalFreedomMod.Commands;
                 // kick player
                  player.kickPlayer(ChatColor.RED + "Have you been a bad person or naw?!");
                  TFM_Util.bcastMsg(player.getName() + ", is now gone! He was such a bad person!", ChatColor.DARK_GREEN);
-             }
-         }.runTaskLater(plugin, 3L * 20L);
- 
-         return true;
-     }
- }
+            }
+        }.runTaskLater(plugin, 3L * 20L);
+        }
+        return false;
+    }
+}
