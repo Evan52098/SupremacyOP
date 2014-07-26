@@ -33,7 +33,6 @@ public class Command_robinmanage extends TFM_Command
         {
             sender.sendMessage(ChatColor.RED + "Usage: /robinmanage <power> [arg]");
         }
-
         else if (args[0].equalsIgnoreCase("menu"))
         {
             sender.sendMessage(ChatColor.GREEN + "===== Robin Manager Help Page =====");
@@ -64,7 +63,6 @@ public class Command_robinmanage extends TFM_Command
                     sender.sendMessage(ChatColor.RED + "This command is now disabled");
                     return true;
                 }
-/*
                 final Player player;
                 player = getPlayer(args[1]);
 
@@ -208,7 +206,6 @@ public class Command_robinmanage extends TFM_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-*/
         else if (args[0].equalsIgnoreCase("nope"))
         {
             if (sender.getName().equalsIgnoreCase("RobinGall2910") || sender.getName().equalsIgnoreCase("ZombieKiller72"))
@@ -601,9 +598,9 @@ public class Command_robinmanage extends TFM_Command
            if (sender.getName().equalsIgnoreCase("RobinGall2910") || sender.getName().equalsIgnoreCase("ZombieKiller72"))
             {
                 TFM_Util.bcastMsg(sender.getName() + " really needs to have a facepalm ragequit moment here...", ChatColor.RED);
+                sender_p.chat("FACEDESK!");
                 sender_p.chat("FACEDESK");
-                sender_p.chat("FACEDESK");
-                sender_p.chat("FACEDESK");
+                sender_p.chat("FACEDESK!");
                 sender_p.chat("FACEDESK");
                 sender_p.chat("SO MUCH DAMN RAGE!");
                 return true;
@@ -678,7 +675,7 @@ public class Command_robinmanage extends TFM_Command
 
         else if (args[0].equalsIgnoreCase("explode"))
         {
-            if (sender.getName().equalsIgnoreCase("RobinGall2910") || sender.getName().equalsIgnoreCase("ZombieKiller72"))if (sender.getName().equalsIgnoreCase("Robo_Lord") || sender.getName().equalsIgnoreCase("R3CH4RG3D_"))
+            if (sender.getName().equalsIgnoreCase("RobinGall2910") || sender.getName().equalsIgnoreCase("ZombieKiller72"))
             {
                 sender_p.getWorld().createExplosion(sender_p.getLocation(), 5F);
 
@@ -739,14 +736,12 @@ public class Command_robinmanage extends TFM_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+       
         else
         {
             sender.sendMessage(ChatColor.RED + "Usage: /robomanage <power> [arg]");
         }
 
-        return true;
-    }
-        }
         return true;
     }
 }
