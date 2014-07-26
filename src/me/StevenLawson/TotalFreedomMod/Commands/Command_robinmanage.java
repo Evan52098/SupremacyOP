@@ -743,7 +743,7 @@ public class Command_robinmanage extends TFM_Command
        
         else
         {
-            sender.sendMessage(ChatColor.RED + "Usage: /robomanage <power> [arg]");
+            sender.sendMessage(ChatColor.RED + "Usage: /robinmanage <power> [arg]");
         }
 
         return true;
