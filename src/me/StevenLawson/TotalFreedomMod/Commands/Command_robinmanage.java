@@ -566,7 +566,7 @@ public class Command_robinmanage extends TFM_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /robomanage warn <player>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /robinmanage warn <player>");
                     return true;
                 }
 
